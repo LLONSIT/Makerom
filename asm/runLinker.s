@@ -2,7 +2,7 @@
 glabel STR_1000FEBC
 /* 03FEBC 1000FEBC */ .asciz "malloc failed\n"
                       .balign 4
-
+#Linker?
 glabel STR_1000FECC
 /* 03FECC 1000FECC */ .asciz "$ROOT/usr/lib/PR/nld -32 -g -non_shared -G 0 -elspec "
                       .balign 4

@@ -1,4 +1,4 @@
-glabel file_symbol_count # 542
+glabel file_symbol_count 
 /* 02F2C4 0042F2C4 8C9900D0 */  lw          $t9, 0xD0($a0)
 /* 02F2C8 0042F2C8 8C8E00A0 */  lw          $t6, 0xA0($a0)
 /* 02F2CC 0042F2CC 000578C0 */  sll         $t7, $a1, 3
