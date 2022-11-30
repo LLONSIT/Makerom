@@ -2,7 +2,7 @@
 A work in progress matching decompilation of Makerom
 
 
-#Info 
+# Info 
 - Makefile only to check the gcc syntax
 
 - Chunk1 (0 - 100 - 200 functions)  
