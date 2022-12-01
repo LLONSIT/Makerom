@@ -9,7 +9,7 @@ A work in progress matching decompilation of Makerom
 - Chunk2 ( 200 - 300 functions)
 - Chunk3 (300 - 400 functions)
 - Chunk4 (400 - 500 functions)
-. libOBJ A strange library that was used in 1996 - 2000 mainly on irix and mips systems.
+- libOBJ A strange library that was used in 1996 - 2000 mainly on irix and mips systems.
 
 # Progress 
 
