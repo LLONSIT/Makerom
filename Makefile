@@ -8,8 +8,8 @@
 
 
 
-all: 
+all:
 	@gcc -DNON_MATCHING -O2 -c src/*
 
 clean:
-	@rm ch*
+	@rm *.o

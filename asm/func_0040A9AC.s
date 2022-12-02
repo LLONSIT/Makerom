@@ -29,7 +29,7 @@ glabel STR_1000F5E4
 
 
 .section .text
-glabel func_0040A9AC # 5
+glabel Checking_IDO_Version # 5
 # _gp_disp: 0xFC13394
 .set noreorder; .cpload $t9; # .set reorder
 /* 00A9B8 0040A9B8 27BDFD48 */  addiu       $sp, $sp, -0x2B8
