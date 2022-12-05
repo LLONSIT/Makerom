@@ -1,6 +1,13 @@
 # Makerom
 The goal of this is to decompile makerom using the irix binary.
 
+```diff
+- WARNING! -
+
+* The repository right now is a reimplementacion with the matched functions of makerom 
+
+```
+
 # Clarifications
 
 - Why the Irix binary?
