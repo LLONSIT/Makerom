@@ -100,3 +100,36 @@ typedef struct UnkStruct {
 } UnkStruct;
 
 Segment* SegmentList;
+
+typedef struct StringLinkedList {
+    struct StringLinkedList* next;
+    char* name;
+} StringLinkedList;
+
+
+typedef struct Extract_arg0 {
+    u32 unk0;
+    u32 unk4;
+} Extract_arg0;
+
+
+typedef struct sp2CStruct {
+    char unk0[0x8];
+    StringLinkedList* unk8;
+    char unkC[0x28-0xC];
+    unsigned int unk28;
+} sp2CStruct;
+
+typedef struct sp30Struct {
+    struct sp30Struct* next;
+    sp2CStruct* unk4;
+} sp30Struct;
+
+typedef struct arg0Struct {
+    char unk0[4];
+    char* unk4;
+    sp30Struct* unk8;
+    char unkC[0x8];
+    char unk14[1]; // maybe
+} arg0Struct;
+

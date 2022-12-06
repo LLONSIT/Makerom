@@ -324,6 +324,98 @@ int createRomImage(const char* filename, const char* file) {
     return 0;
 }
 
+s32 Extract(Extract_arg0* arg0) {
+
+    // LDPtr = ldopen(OFileName, NULL);
+    if ((LDPtr = ldopen(OFileName, NULL)) == NULL) {
+        fprintf(stderr, "Extract(): Cannot open %s.\n", OFileName);
+        return -1;
+    }
+
+    switch (LDPtr->header.f_magic) {                              /* irregular */
+        case MIPSEBMAGIC:
+        case MIPSEBMAGIC_2:
+        case MIPSEBMAGIC_3:
+            Swap = gethostsex() == LITTLEENDIAN;
+            break;
+
+        case MIPSELMAGIC:
+        case MIPSELMAGIC_2:
+        case MIPSELMAGIC_3:
+            Swap = gethostsex() == BIGENDIAN;
+            break;
+    }
+    if (ldnshread(LDPtr, SName, &SHeader) == 0) {
+
+    } else {
+        ldfseek(LDPtr, SHeader.s_scnptr, 0);
+        for (Address = SHeader.s_paddr; (Address - SHeader.s_paddr) < SHeader.s_size; Address += 8) {
+                ldfread((char*)&Data0, 1, 4, LDPtr); // Could use a union instead but this seems more likely
+                if (Swap) {
+                    Data0 = swap_word(Data0);
+                }
+                ldfread((char*)&Data1, 1, 4, LDPtr);
+                if (Swap) {
+                    Data1 = swap_word(Data1);
+                }
+                if (Swap) {
+                    arg0->unk0 = Data1;
+                    arg0->unk4 = Data0;
+                } else {
+                    arg0->unk0 = Data0;
+                    arg0->unk4 = Data1;
+                }
+                arg0++;
+
+        }
+    }
+    ldclose(LDPtr);
+    return SHeader.s_size;
+}
+
+
+s32 runLinker(arg0Struct* arg0, const char* arg1, const char* arg2) {
+    char* sp34;
+    sp30Struct* sp30;
+    sp2CStruct* sp2C;
+    StringLinkedList* sp28;
+    FILE* sp24;
+
+    if ((sp34 = malloc(sysconf(1))) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+    strcpy(sp34, "$ROOT/usr/lib/PR/nld -32 -g -non_shared -G 0 -elspec ");
+    
+    strcat(sp34, arg0->unk14);
+    strcat(sp34, " -rom ");
+    if (loadMap) {
+        strcat(sp34, " -m ");
+    }
+    strcat(sp34, " -o ");
+    strcat(sp34, arg0->unk4);
+    strcat(sp34, " ");
+    strcat(sp34, arg1);
+    strcat(sp34, " -objectlist ");
+    strcat(sp34, arg2);
+    sp24 = fopen(arg2, "w");
+
+    for (sp30 = arg0->unk8; sp30 != NULL; sp30 = sp30->next) {
+        sp2C = sp30->unk4;
+        if (!(sp2C->unk28 & 2)) {
+            continue;
+        }
+        for (sp28 = sp2C->unk8; sp28 != NULL; sp28 = sp28->next) {
+            fprintf(sp24, "%s\n", sp28->name);
+        }
+    }
+    fclose(sp24);
+    if (debug) {
+        printf("Linking to ELF wave file\n");
+        printf("  %s\n", sp34);
+    }
+    return execCommand(sp34);
+}
 
 //Creating a ld script, not compatible with GCC
 int createElspec(UnkStruct* arg0) {

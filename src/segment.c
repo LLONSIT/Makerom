@@ -12,6 +12,23 @@
 
 const char *sys_errlist[];
 
+s32 readCoff(s32 arg0, void *arg1) {
+    s32 sp2C;
+    s32 pad[0x2];
+
+    
+    OFileName = arg0;
+    
+    SName = ".text";
+    
+    sp2C = func_0041093C(arg1);
+    
+    if (sp2C < 0) {
+        return -1;
+    }
+    return sp2C;
+}
+
 
 s32 func_0040FDE0(struct Segment* segment) {
     Segment* seg; // linked list (files?)
