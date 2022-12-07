@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <libelf.h>
 #include <fcntl.h>
+#include <ld>
 #include "types.h"
 #include "structs.h"
 
@@ -20,9 +21,11 @@ void getOsVersion(void) {
 
     FILE *stream; //file
 
+	//Why put this as a char?
+    sp1024 = "/sbin/uname -r";
 
-    sp1024 ="/sbin/uname -r"; //nice!!
-    // stream = popen(sp1024, "r"); //checking if we have uname
+
+	 //checking if we have uname
     if ((stream = popen(sp1024, "r")) != 0) {
         fgets(str, 0x1000, stream);
         pclose(stream);
