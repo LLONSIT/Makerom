@@ -68,3 +68,35 @@ s32 func_0040FDE0(struct Segment* segment) {
 
     return 0;
 }
+
+#define TO_PHYSICAL(addr) ((u32)(addr) & 0x1FFFFFFF)
+
+int checkOverlaps(void) {
+    Wave* w;
+    SegmentChain* sp38;
+    SegmentChain* sp34;
+    Segment* sp30;
+    Segment* sp2C;
+    int sp28;
+
+    sp28 = 0;
+    
+    for (w = waveList; w != NULL; w = w->next) {
+        for (sp38 = w->segmentChain; sp38 != NULL; sp38 = sp38->next) {
+            for (sp34 = sp38->next; sp34 != NULL; sp34 = sp34->next) {
+                sp30 = sp38->segment;
+                sp2C = sp34->segment;
+                if ((sp30->address >= 0x80000000) && (sp30->address < 0xC0000000) 
+                        && (sp2C->address >= 0x80000000) && (sp2C->address < 0xC0000000) 
+                        && ((TO_PHYSICAL(sp30->address) + sp30->totalSize) > TO_PHYSICAL(sp2C->address)) 
+                        && ((TO_PHYSICAL(sp2C->address) + sp2C->totalSize) > TO_PHYSICAL(sp30->address))) {
+                    fprintf(stderr, "makerom: segment \"%s\" [0x%x, 0x%x) overlaps with\n", sp30->name, sp30->address, sp30->address + sp30->totalSize);
+                    fprintf(stderr, "         segment \"%s\" [0x%x, 0x%x)\n", sp2C->name, sp2C->address, sp2C->address + sp2C->totalSize);
+                    fprintf(stderr, "         in wave \"%s\"\n", w->name);
+                    sp28 = 1;
+                }
+            }
+        }
+    }
+    return sp28;
+}

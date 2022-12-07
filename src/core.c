@@ -6,13 +6,17 @@
 #include <unistd.h>
 #include <libelf.h>
 #include <fcntl.h>
-#include <ld>
+#include <dlfcn.h>
+#include "sex.h"
 #include "types.h"
 #include "structs.h"
 
 const char *sys_errlist[];
 extern s32 func_0040FDE0(struct Segment* segment);
 extern s32 func_0040F214(void);
+
+
+
 void getOsVersion(void) {
 
     const char* sp1024;
@@ -21,12 +25,21 @@ void getOsVersion(void) {
 
     FILE *stream; //file
 
+	
 	//Why put this as a char?
-    sp1024 = "/sbin/uname -r";
+    
 
-
+    #ifdef NON_MATCHING
 	 //checking if we have uname
-    if ((stream = popen(sp1024, "r")) != 0) {
+    if ((stream = popen("/sbin/uname -r", "r")) != 0) {
+    
+    #else
+
+        sp1024 = "/sbin/uname -r";
+            
+    if ((stream = popen(sp1024, "r")) != 0)
+    #endif        
+        
         fgets(str, 0x1000, stream);
         pclose(stream);
         if (strcmp(str, "5.3\n") == 0) {

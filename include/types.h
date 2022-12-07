@@ -49,3 +49,5 @@ FILE *yyin;
 static u8 *yylval;
 static u8 *yyval;
 static char* B_10016A20;
+s32 cosim;
+s32 emulator;
