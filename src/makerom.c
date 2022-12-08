@@ -9,7 +9,7 @@
 #include <dlfcn.h>
 #include "sex.h"
 #include "types.h"
-#include "structs.h"
+#include "makerom.h"
 
 const char *sys_errlist[];
 extern s32 func_0040FDE0(struct Segment* segment);
@@ -71,44 +71,77 @@ void usage(void) {
     fprintf(stderr, "               [-r romfile] specfile\n");
 }
 
+void getPif2BootFile(char* pif2bootFileName) {
+    int pif2bootFd; 
+    char scratchFileName[0x100];
+    struct stat buf;
+    char errMessage[0x100];
+                            //Why separate the strings?
+    if ((pif2bootFileName == NULL) && (gloadFindFile(scratchFileName, "/usr/lib/PR", "pif2Boot") != 0)) {
+        pif2bootFileName = scratchFileName;
+    }
+    if (pif2bootFileName != NULL) {
+        if ((pif2bootFd = open(pif2bootFileName, 0x800)) < 0) {
+            sprintf(errMessage, "%s: unable to open %s", B_10016A20, pif2bootFileName);
+            perror(errMessage);
+            exit(1);
+        }
+        if (fstat(pif2bootFd, &buf) < 0) {
+            sprintf(errMessage, "%s unable to stat %s", B_10016A20, pif2bootFileName);
+            perror(errMessage);
+            close(pif2bootFd);
+            exit(1);
+        }
+        
+        pif2bootBuf = malloc(buf.st_size);
+        if (pif2bootBuf == 0) {
+            fprintf(stderr, "%s: unable to malloc buffer to hold %d bytes\n", B_10016A20, buf.st_size);
+            close(pif2bootFd);
+            exit(1);
+        }
+        close(pif2bootFd);
+        pif2bootWordAlignedByteSize = readCoff(pif2bootFileName, pif2bootBuf);
+    } else {
+        pif2bootBuf = 0;
+    }
+}
 
 #ifdef __sgi
-int checkIdoVersion(const char* seg) {
-    s32 sp2B4;
-    s32 sp2B0;
-
-    //too much characters
-    const char sp1B0[0x100];
+s32 checkIdoVersion(const char* arg0) {
+    s32 u64CheckFound;
+    s32 v70Found;
     char cmd[0x100];
+    char buffer[0x100];
+    struct stat statBuffer;
+    FILE* procPtr;
 
-    struct stat sp28;
-    FILE* stream;
-
-    sprintf(cmd, "%s/usr/sbin/u64check", seg);
-    sp2B4 = (stat(cmd, &sp28) != 0) ? 0 : 1;
+    sprintf(buffer, "%s/usr/sbin/u64check", arg0);
+    u64CheckFound = (stat(buffer, &statBuffer) != 0) ? 0 : 1;
 
     //ah
-    sprintf(sp1B0, "/usr/sbin/showprods -D 1 dev"); //IDO installation packages saves a regiter
+    sprintf(cmd, "/usr/sbin/showprods -D 1 dev"); //IDO installation package saves a regiter 
 
-    if ((stream = popen(&sp1B0, "r")) != 0) {
-        fgets(cmd, 0xFF, stream);
-        fgets(cmd, 0xFF, stream);
-        fgets(cmd, 0xFF, stream);
-        fgets(cmd, 0xFF, stream);
-        pclose(stream);
-        if (strstr(cmd, "7.0") != NULL) {
-            sp2B0 = 1;
+    if ((procPtr = popen(&cmd, "r")) != 0) {
+        fgets(buffer, 0xFF, procPtr);
+        fgets(buffer, 0xFF, procPtr);
+        fgets(buffer, 0xFF, procPtr);
+        fgets(buffer, 0xFF, procPtr);
+        
+        pclose(procPtr);
+        
+        if (strstr(buffer, "7.0") != NULL) {
+            v70Found = 1;
         } else {
-            sp2B0 = 0;
+            v70Found = 0;
         }
     }
-    if (sp2B0 != 0) {
+    if (v70Found != 0) {
         fprintf(stderr, "makerom: IDO v7.0 does not work with the Nintendo64\n");
         fprintf(stderr, "         development environment.  Please upgrade to\n");
         fprintf(stderr, "         IDO v7.1.\n");
         exit(1);
     }
-    if (sp2B4 != 0) {
+    if (u64CheckFound != 0) {
         return 2;
     } else {
         return 0;
@@ -137,126 +170,124 @@ int execCommand(const char* cmd) {
 }
 
 
-void func_0040B05C(char *arg0) {
-    s32 sp2BC;
-    char sp1BC[0x100];
-    struct stat sp134;
-    char sp34[0x100];
-    char sp30[4];
-    s32 sp2C;
-    s32 sp28;
-    s32 sp24;
-    s32 sp20;
+void getRomheaderFile(unsigned char *headerFileName) {
+    int headerFd;
+    unsigned char scratchFileName[0x100];
+    struct stat buf;
+    unsigned char errMessage[0x100];
+    unsigned char nibbleString[4];
+    int nibbleVal;
+    int i;
+    int readPtr;
+    int retval;
     // s32 temp_t8;
     // u8 *temp_t6_2;
     
-    if ((arg0 == NULL) && (gloadFindFile(sp1BC, "/usr/lib/PR", "romheader") != 0)) {
-        arg0 = sp1BC;
+    if ((headerFileName == NULL) && (gloadFindFile(scratchFileName, "/usr/lib/PR", "romheader") != 0)) {
+        headerFileName = scratchFileName;
     }
-    if (arg0 != NULL) {
-        if ((sp2BC = open(arg0, 0x800)) < 0) {
-            sprintf(sp34, "%s unable to open %s", B_10016A20, arg0);
-            perror(sp34);
+    if (headerFileName != NULL) {
+        if ((headerFd = open(headerFileName, 0x800)) < 0) {
+            sprintf(errMessage, "%s unable to open %s", B_10016A20, headerFileName);
+            perror(errMessage);
             exit(1);
         }
-        if (fstat(sp2BC, &sp134) < 0) {
-            sprintf(sp34, "%s unable to stat %s", B_10016A20, arg0);
-            perror(sp34);
-            close(sp2BC);
+        if (fstat(headerFd, &buf) < 0) {
+            sprintf(errMessage, "%s unable to stat %s", B_10016A20, headerFileName);
+            perror(errMessage);
+            close(headerFd);
             exit(1);
         }
         
-        headerWordAlignedByteSize = sp134.st_size;
+        headerWordAlignedByteSize = buf.st_size;
         
         headerBuf = malloc(headerWordAlignedByteSize);
         
         if (headerBuf == 0) {
             fprintf(stderr, "%s: unable to malloc buffer to hold %d bytes\n", B_10016A20, headerWordAlignedByteSize);
-            close(sp2BC);
+            close(headerFd);
             exit(1);
         }
 
-        sp30[1] = '\0';
-        for (sp28 = 0, sp24 = 0; sp24 < headerWordAlignedByteSize; sp28++, sp24++) {
-                sp20 = read(sp2BC, &sp30, 1);
-                if (sp20 != 1) {
-                    fprintf(stderr, "%s: short read from %s.\n", B_10016A20, arg0);
+        nibbleString[1] = '\0';
+        for (i = 0, readPtr = 0; readPtr < headerWordAlignedByteSize; i++, readPtr++) {
+                retval = read(headerFd, &nibbleString, 1);
+                if (retval != 1) {
+                    fprintf(stderr, "%s: short read from %s.\n", B_10016A20, headerFileName);
                     free(headerBuf);
-                    close(sp2BC);
+                    close(headerFd);
                     exit(1);
                 }
-                if (sp30[0] == 0xA) {
-                    if (++sp24 < headerWordAlignedByteSize) {
-                        sp20 = read(sp2BC, &sp30, 1);
-                        if (sp20 != 1) {
-                            fprintf(stderr, "%s: short read from %s.\n", B_10016A20, arg0);
+                
+                if (nibbleString[0] == 0xA) {
+                    if (++readPtr < headerWordAlignedByteSize) {
+                        retval = read(headerFd, &nibbleString, 1);
+                        if (retval != 1) {
+                            fprintf(stderr, "%s: short read from %s.\n", B_10016A20, headerFileName);
                             free(headerBuf);
-                            close(sp2BC);
+                            close(headerFd);
                             exit(1);
                         }
                     }
                 }
-                sp2C = strtol(sp30, 0, 16);
-                if (sp28 % 2) {
-                    headerBuf[sp28 >> 1] |= sp2C;
+                nibbleVal = strtol(nibbleString, 0, 16);
+                if (i % 2) {
+                    headerBuf[i >> 1] |= nibbleVal;
                 } else {
-                    headerBuf[sp28 >> 1] = sp2C << 4;
+                    headerBuf[i >> 1] = nibbleVal << 4;
                 }
         }
         
-        headerWordAlignedByteSize = (s32) (sp28 - 1) >> 1;
+        headerWordAlignedByteSize = (i - 1) >> 1;
         if (headerWordAlignedByteSize & 3) {
             headerWordAlignedByteSize += 4;
             headerWordAlignedByteSize &= ~3;
         }
-        close(sp2BC);
+        close(headerFd);
     } else {
         headerBuf = 0;
     }
 }
 
+
 //Checking Some environment variables
-char* gloadFindFile(char* dest, char* arg1, char* arg2) {
-    char* name;
-    char* src;
+unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuffix, unsigned char* fname) {
+    unsigned char* rootname;
+    unsigned char* rootpath;
+    s32 fd; //UNUSED
+    s32 try;
 
-    #ifdef MATCHING
-    s32 pad; //
-    #endif
-
-    int i;
-
-    for (i = 0; i < 3; i++) {
-        *dest = 0;
-        switch (i) {
+    for (try = 0; try < 3; try++) {
+        *fullpath = 0;
+        switch (try) {
         case 0:
-            name = "ROOT";
+            rootname = "ROOT";
             break;
         case 1:
-            name = "WORKAREA";
+            rootname = "WORKAREA";
             break;
         case 2:
-            name = NULL;
+            rootname = NULL;
             break;
         }
 
-        if (name != NULL) {
-            if ((src = getenv(name)) == NULL) {
+        if (rootname != NULL) {
+            if ((rootpath = getenv(rootname)) == NULL) {
                 continue;
             }
-            strcat(dest, src);
+            strcat(fullpath, rootpath);
         }
-        if (arg1 != NULL) {
-            strcat(dest, arg1);
-            strcat(dest, "/");
+        if (postRootSuffix != NULL) {
+            strcat(fullpath, postRootSuffix);
+            strcat(fullpath, "/");
         }
-        strcat(dest, arg2);
-        if (access(dest, 4) == 0) {
-            return dest;
+        strcat(fullpath, fname);
+        if (access(fullpath, 4) == 0) {
+            return fullpath;
         }
     }
-    fprintf(stderr, "gloadFindFile: can't find file %s\n", dest);
-    *dest = '\0';
+    fprintf(stderr, "gloadFindFile: can't find file %s\n", fullpath);
+    *fullpath = '\0';
     return NULL;
 }
 

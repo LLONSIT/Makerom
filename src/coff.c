@@ -6,10 +6,9 @@
 #include <unistd.h>
 #include <libelf.h>
 #include <fcntl.h>
-#include <dlfcn.h>
-#include "sex.h"
+
 #include "types.h"
-#include "structs.h"
+#include "makerom.h"
 
 
 
@@ -17,9 +16,9 @@ s32 readCoff(unsigned char *fname, unsigned int *buf) {
      int textSize;
      int dataSize;
      int bssSize;
-    
+
     OFileName = fname;
-    
+
     SName = ".text";
     
     textSize = func_0041093C(buf);

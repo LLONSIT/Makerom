@@ -7,7 +7,7 @@
 #include <libelf.h>
 #include <fcntl.h>
 #include "types.h"
-#include "structs.h"
+#include "makerom.h"
 #include "functions.h"
 
 const char *sys_errlist[];
@@ -321,185 +321,185 @@ int sizeObject(Segment* segment) {
 
 int checkOverlaps(void) {
     Wave* w;
-    SegmentChain* sp38;
-    SegmentChain* sp34;
-    Segment* sp30;
-    Segment* sp2C;
-    int sp28;
+    SegmentChain* sc;
+    SegmentChain* tc;
+    Segment* s;
+    Segment* t;
+    int isOverlap;
 
-    sp28 = 0;
+    isOverlap = 0;
     
     for (w = waveList; w != NULL; w = w->next) {
-        for (sp38 = w->segmentChain; sp38 != NULL; sp38 = sp38->next) {
-            for (sp34 = sp38->next; sp34 != NULL; sp34 = sp34->next) {
-                sp30 = sp38->segment;
-                sp2C = sp34->segment;
-                if ((sp30->address >= 0x80000000) && (sp30->address < 0xC0000000) 
-                        && (sp2C->address >= 0x80000000) && (sp2C->address < 0xC0000000) 
-                        && ((TO_PHYSICAL(sp30->address) + sp30->totalSize) > TO_PHYSICAL(sp2C->address)) 
-                        && ((TO_PHYSICAL(sp2C->address) + sp2C->totalSize) > TO_PHYSICAL(sp30->address))) {
-                    fprintf(stderr, "makerom: segment \"%s\" [0x%x, 0x%x) overlaps with\n", sp30->name, sp30->address, sp30->address + sp30->totalSize);
-                    fprintf(stderr, "         segment \"%s\" [0x%x, 0x%x)\n", sp2C->name, sp2C->address, sp2C->address + sp2C->totalSize);
+        for (sc = w->segmentChain; sc != NULL; sc = sc->next) {
+            for (tc = sc->next; tc != NULL; tc = tc->next) {
+                s = sc->segment;
+                t = tc->segment;
+                if ((s->address >= 0x80000000) && (s->address < 0xC0000000) 
+                        && (t->address >= 0x80000000) && (t->address < 0xC0000000) 
+                        && ((TO_PHYSICAL(s->address) + s->totalSize) > TO_PHYSICAL(t->address)) 
+                        && ((TO_PHYSICAL(t->address) + t->totalSize) > TO_PHYSICAL(s->address))) {
+                    fprintf(stderr, "makerom: segment \"%s\" [0x%x, 0x%x) overlaps with\n", s->name, s->address, s->address + s->totalSize);
+                    fprintf(stderr, "         segment \"%s\" [0x%x, 0x%x)\n", t->name, t->address, t->address + t->totalSize);
                     fprintf(stderr, "         in wave \"%s\"\n", w->name);
-                    sp28 = 1;
+                    isOverlap = 1;
                 }
             }
         }
     }
-    return sp28;
+    return isOverlap;
 }
 
-int createRomImage(const char* filename, const char* file) {
-    FILE* stream;
-    Segment* seg;
-    s32 pad;
-    char* sp50;
-    u32 sp4C;
-    s32 sp48;
-    Elf* sp44;
-    Elf32_Ehdr* sp40;
-    Elf_Scn* sp3C;
-    Elf32_Shdr* sp38;
-    s32 sp34;
-    s32 sp30;
-    s32 sp2C;
-    char* sp28;
-    s32 ptr;
 
-    if ((sp48 = open(file, 0)) == -1) {
-        fprintf(stderr, "makerom: %s: %s\n", file, sys_errlist[errno]);
+int createRomImage(unsigned char* romFile, unsigned char* object) {
+    FILE* f;
+    Segment* seg;
+    s32 bootStack; //???
+    unsigned char* sectName;
+    size_t romSize;
+    int fd;
+    Elf* elf;
+    Elf32_Ehdr* ehdr;
+    Elf_Scn* scn;
+    Elf32_Shdr* shdr;
+    int index;
+    int end;
+    int i;
+    unsigned char* fillbuffer;
+
+    int tmp_clock;
+        
+    if ((fd = open(object, 0)) == -1) {
+        fprintf(stderr, "makerom: %s: %s\n", object, sys_errlist[errno]);
         return -1;
     }
-    sp44 = elf_begin(sp48, ELF_C_READ, NULL);
-    sp40 = elf32_getehdr(sp44);
+    elf = elf_begin(fd, ELF_C_READ, NULL);
+    ehdr = elf32_getehdr(elf);
 
-    for (sp34 = 1; sp34 < sp40->e_shnum; sp34++) {
-                sp3C = elf_getscn(sp44, sp34);
-        sp38 = elf32_getshdr(sp3C);
-        sp50 = elf_strptr(sp44, (u32) sp40->e_shstrndx, sp38->sh_name);
-
-        if (strcmp(sp50, ".text") == 0) {
+    for (index = 1; index < ehdr->e_shnum; index++) {
+                scn = _elf_getscn(elf, index);
+        shdr = elf32_getshdr(scn);
+        sectName = elf_strptr(elf, (u32) ehdr->e_shstrndx, shdr->sh_name);
+        if (strcmp(sectName, ".text") == 0) {
             break;
         }
     }
 
-    //Checking some conditions
-    if (sp38->sh_size > 0x50) {
-        fprintf(stderr, "makerom: entr size %d is larger than %d\n", sp38->sh_size, 0x50);
+    if (shdr->sh_size > 0x50) {
+        fprintf(stderr, "makerom: entr size %d is larger than %d\n", shdr->sh_size, 0x50);
         return -1;
     }
-    if (lseek(sp48, sp38->sh_offset, 0) == -1) {
+    if (lseek(fd, shdr->sh_offset, 0) == -1) {
         fprintf(stderr, "makerom: lseek of entry section failed\n");
         return -1;
     }
-    if (read(sp48, B_10016A60, sp38->sh_size) != sp38->sh_size) {
+    if (read(fd, B_10016A60, shdr->sh_size) != shdr->sh_size) {
         fprintf(stderr, "makerom: read of entry section failed\n");
         return -1;
     }
     if (func_0040F214() != 0) {
         return -1;
     }
-    for (seg = SegmentList; seg != NULL; seg = seg->next) {
-        if (seg->unk_28 & 2) {
+    for (seg = segmentList; seg != NULL; seg = seg->next) {
+        if (seg->flags & 2) {
             func_0040F758(seg);
-        } else if (seg->unk_28 & 4) {
+        } else if (seg->flags & 4) {
             func_0040FDE0(seg);
         }
-        sp4C = seg->unk_24 + seg->text_size + seg->data_rodata_size + seg->sdata_size;
+        romSize = seg->romOffset + seg->textSize + seg->dataSize + seg->sdataSize;
     }
-    if ((stream = fopen(filename, "w+")) == NULL) {
-        fprintf(stderr, "makerom: %s: %s\n", filename, sys_errlist[errno]);
+    if ((f = fopen(romFile, "w+")) == NULL) {
+        fprintf(stderr, "makerom: %s: %s\n", romFile, sys_errlist[errno]);
         return -1;
     }
     if (offset != 0) {
-        if ((fseek(stream, offset, 0) != 0)) {
-            fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+        if ((fseek(f, offset, 0) != 0)) {
+            fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
             return -1;
         }
     }
-    if (fwrite(headerBuf, 1U, headerWordAlignedByteSize, stream) != headerWordAlignedByteSize) {
-        fprintf(stderr, "makerom: %s: write error\n", filename);
+    if (fwrite(headerBuf, 1, headerWordAlignedByteSize, f) != headerWordAlignedByteSize) {
+        fprintf(stderr, "makerom: %s: write error\n", romFile);
         return -1;
     }
-    if (fseek(stream, offset + 8, 0) != 0) {
-        fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+    if (fseek(f, offset + 8, 0) != 0) {
+        fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
         return -1;
     }
-    if (fwrite(&bootAddress, 4U, 1U, stream) != 1) {
-        fprintf(stderr, "makerom: %s: write error\n", filename);
+    if (fwrite(&bootAddress, 4, 1, f) != 1) {
+        fprintf(stderr, "makerom: %s: write error\n", romFile);
         return -1;
     }
     if (changeclock != 0) {
-        ptr = 0;
-        if (fseek(stream, offset + 4, 0) != 0) {
-            fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+        tmp_clock = 0;
+        if (fseek(f, offset + 4, 0) != 0) {
+            fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
             return -1;
         }
-        if (fread(&ptr, 4U, 1U, stream) != 1) {
-            fprintf(stderr, "makerom: %s: read error \n", filename);
+        if (fread(&tmp_clock, 4, 1, f) != 1) {
+            fprintf(stderr, "makerom: %s: read error \n", romFile);
             return -1;
         }
-        clockrate |=  ptr;
-        if (fseek(stream, offset + 4, 0) != 0) {
-            fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+        clockrate |= tmp_clock;
+        if (fseek(f, offset + 4, 0) != 0) {
+            fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
             return -1;
         }
-        if (fwrite(&clockrate, 4U, 1U, stream) != 1) {
-            fprintf(stderr, "makerom: %s: write error\n", filename);
+        if (fwrite(&clockrate, 4, 1, f) != 1) {
+            fprintf(stderr, "makerom: %s: write error\n", romFile);
             return -1;
         }
     }
-    if (fseek(stream, offset + 0x40, 0) != 0) {
-        fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+    if (fseek(f, offset + 0x40, 0) != 0) {
+        fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
         return -1;
     }
-    if (fwrite(bootBuf, 1U, bootWordAlignedByteSize, stream) != bootWordAlignedByteSize) {
-        fprintf(stderr, "makerom: %s: write error\n", filename);
+    if (fwrite(bootBuf, 1, bootWordAlignedByteSize, f) != bootWordAlignedByteSize) {
+        fprintf(stderr, "makerom: %s: write error\n", romFile);
         return -1;
     }
     if (nofont == 0) {
-        if (fseek(stream, offset + 0xB70, 0) != 0) {
-            fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+        if (fseek(f, offset + 0xB70, 0) != 0) {
+            fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
             return -1;
         }
-        if (fwrite(fontBuf, 1U, fontdataWordAlignedByteSize, stream) != fontdataWordAlignedByteSize) {
-            fprintf(stderr, "makerom: %s: write error\n", filename);
+        if (fwrite(fontBuf, 1, fontdataWordAlignedByteSize, f) != fontdataWordAlignedByteSize) {
+            fprintf(stderr, "makerom: %s: write error\n", romFile);
             return -1;
         }
     }
-    if (fseek(stream, offset + 0x1000, 0) != 0) {
-        fprintf(stderr, "makerom: %s: fseek error (%s)\n", filename, sys_errlist[errno]);
+    if (fseek(f, offset + 0x1000, 0) != 0) {
+        fprintf(stderr, "makerom: %s: fseek error (%s)\n", romFile, sys_errlist[errno]);
         return -1;
     }
-    if (fwrite(B_10016A60, 1, sp4C, stream) != sp4C) {
-        fprintf(stderr, "makerom: %s: write error\n", filename);
+    if (fwrite(B_10016A60, 1, romSize, f) != romSize) {
+        fprintf(stderr, "makerom: %s: write error\n", romFile);
         return -1;
     }
 
-    sp30 = sp4C + offset + 0x1000;
+    end = romSize + offset + 0x1000;
     finalromSize <<= 0x11;
-    if ((finalromSize != 0) && (sp30 < finalromSize)) {
-        if ((sp28 = malloc(0x2000)) == NULL) {
+    if ((finalromSize != 0) && (end < finalromSize)) {
+        if ((fillbuffer = malloc(0x2000)) == NULL) {
             fprintf(stderr, "malloc failed\n");
             return -1;
         }
 
-        for (sp2C = 0; sp2C < 0x2000; sp2C++) {
-            sp28[sp2C] = fillData;
+        for (i = 0; i < 0x2000; i++) {
+            fillbuffer[i] = fillData;
         }
-        while (sp30 < finalromSize) {
-            if ((finalromSize - sp30) > 0x2000) {
-                if (fwrite(sp28, 1, 0x2000, stream) != 0x2000) {
-                    fprintf(stderr, "makerom: %s: write error %x\n", filename, sp30);
+        while (end < finalromSize) {
+            if ((finalromSize - end) > 0x2000) {
+                if (fwrite(fillbuffer, 1, 0x2000, f) != 0x2000) {
+                    fprintf(stderr, "makerom: %s: write error %x\n", romFile, end);
                     return -1;
                 }
-                sp30 += 0x2000;
+                end += 0x2000;
             } else {
-                if (fwrite(sp28, 1, finalromSize - sp30, stream) != (finalromSize - sp30)) {
-                    fprintf(stderr, "makerom: %s: write error\n", filename);
+                if (fwrite(fillbuffer, 1, finalromSize - end, f) != (finalromSize - end)) {
+                    fprintf(stderr, "makerom: %s: write error\n", romFile);
                     return -1;
                 }
-                sp30 += finalromSize - sp30;
+                end += finalromSize - end;
             }
         }
     }
