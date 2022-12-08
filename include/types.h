@@ -1,3 +1,20 @@
+#include <sys/types.h>
+
+struct scnhdr
+       {
+       char	       s_name[8];    /* section name */
+       long	       s_paddr;      /* physical address, aliased s_nlib */
+       long	       s_vaddr;      /* virtual address */
+       long	       s_size;	     /* section size */
+       long	       s_scnptr;     /* file ptr to raw data for section */
+       long	       s_relptr;     /* file ptr to relocation */
+       long	       s_lnnoptr;    /* file ptr to gp table */
+       unsigned short  s_nreloc;     /* number of relocation entries */
+       unsigned short  s_nlnno;      /* number of gp table entries */
+       long	       s_flags;      /* flags */
+       };
+
+
 
 //types
 typedef signed int s32;
