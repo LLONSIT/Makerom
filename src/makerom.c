@@ -306,9 +306,6 @@ void unlinkTempFiles(void) {
 #endif
 
 
-
-
-
 //Checking Some environment variables
 unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuffix, unsigned char* fname) {
     unsigned char* rootname;
