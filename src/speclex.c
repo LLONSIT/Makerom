@@ -191,3 +191,35 @@ s32 yylex() {
 
     return 0;
 }
+
+s32 yyinput(void) {
+    return (
+        (
+            (
+                (
+                    yytchar = (yysptr > yysbuf) 
+                        ? *--yysptr 
+                        : getc(yyin)
+                ) == '\n'
+            ) 
+                ? (yylineno++, yytchar) 
+                : yytchar
+        ) == -1// EOF
+    )
+        ? 0 
+        : yytchar;
+}
+
+
+
+int yyback(int* p, int m) {
+    if (p == NULL) {
+        return 0;
+    }
+    while (*p != 0) {
+        if (*p++ == m) {
+            return 1;
+        }
+    }
+    return 0;
+}

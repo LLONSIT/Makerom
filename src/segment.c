@@ -399,14 +399,16 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
     if (func_0040F214() != 0) {
         return -1;
     }
-    for (seg = segmentList; seg != NULL; seg = seg->next) {
+    
+    for (seg = SegmentList; seg != NULL; seg = seg->next) {
         if (seg->flags & 2) {
             func_0040F758(seg);
         } else if (seg->flags & 4) {
-            func_0040FDE0(seg);
+            readRaw(seg);
         }
         romSize = seg->romOffset + seg->textSize + seg->dataSize + seg->sdataSize;
     }
+    
     if ((f = fopen(romFile, "w+")) == NULL) {
         fprintf(stderr, "makerom: %s: %s\n", romFile, sys_errlist[errno]);
         return -1;
@@ -417,6 +419,7 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
             return -1;
         }
     }
+    
     if (fwrite(headerBuf, 1, headerWordAlignedByteSize, f) != headerWordAlignedByteSize) {
         fprintf(stderr, "makerom: %s: write error\n", romFile);
         return -1;

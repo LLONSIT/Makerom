@@ -250,6 +250,65 @@ void getRomheaderFile(unsigned char *headerFileName) {
 }
 
 
+void nameTempFiles(void) {
+    Wave* wave;
+    unsigned char* tmpdir;
+
+
+
+
+    if ((tmpdir = getenv("TMPDIR")) == NULL) {
+        tmpdir = "/tmp";
+    }
+
+
+    for (wave = waveList  ; wave != NULL; wave=wave->next) {
+
+        sprintf(wave->elspecFile, "%s/%sElspecXXXXXX", tmpdir, wave->name);
+        mktemp(wave->elspecFile);
+
+    }
+
+    sprintf(&B_10016520, "%s/segmentXXXXXX", tmpdir);
+    mktemp((u8* ) &B_10016520);
+    strcpy(&B_10016620, &B_10016520);
+    strcat(&B_10016520, ".s");
+    strcat(&B_10016620, ".o");
+    sprintf(&B_10016720, "%s/entryXXXXXX", tmpdir);
+    mktemp((u8* ) &B_10016720);
+    strcpy(&B_10016820, &B_10016720);
+    strcat(&B_10016720, ".s");
+    strcat(&B_10016820, ".o");
+    sprintf(&B_10016920, "%s/objListXXXXXX", tmpdir);
+    mktemp((u8* ) &B_10016920);
+}
+
+//99,91%, probably a match would be fake
+#ifdef NON_MATCHING
+void unlinkTempFiles(void) {
+    Wave* wave;
+
+    //Same nameTempFiles for loop
+    if (debug == 0) {
+        for (wave = waveList  ; wave != NULL; wave = wave->next) {
+
+            unlink(wave->elspecFile);
+
+            }
+        }
+        unlink(&B_10016520);
+        unlink(&B_10016620);
+        unlink(&B_10016720);
+        unlink(&B_10016820);
+        unlink(&B_10016920);
+    }
+
+#endif
+
+
+
+
+
 //Checking Some environment variables
 unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuffix, unsigned char* fname) {
     unsigned char* rootname;
@@ -291,9 +350,49 @@ unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuf
     return NULL;
 }
 
+//Final makerom.c functions
+void getFontDataFile(s8* fontFileName) {
 
+    int fontFd;
+    unsigned char scratchFileName[255];
+    struct stat buf;
+    unsigned char errMessage[255];
 
-
+    if (gloadFindFile(&scratchFileName, "/usr/lib/PR", "font") != 0) {
+        fontFileName = &scratchFileName;
+    }
+    if (fontFileName != NULL) {
+        
+        if ((fontFd = open(fontFileName, 0x800)) < 0) {
+            sprintf(&errMessage, "%s: unable to open %s", B_10016A20, fontFileName);
+            perror(&errMessage);
+            exit(1);
+        }
+        
+        if (fstat(fontFd, &buf) < 0) {
+            sprintf(&errMessage, "%s unable to stat %s", B_10016A20, fontFileName);
+            perror(&errMessage);
+            close(fontFd);
+            exit(1);
+        }
+        fontBuf = malloc((size_t) buf.st_size);
+        if (fontBuf == NULL) {
+            fprintf(stderr, "%s: unable to malloc buffer to hold %d bytes\n", B_10016A20, buf.st_size);
+            close(fontFd);
+            exit(1);
+        }
+        fontdataWordAlignedByteSize = (size_t) buf.st_size;
+        if (read(fontFd, fontBuf, fontdataWordAlignedByteSize) != fontdataWordAlignedByteSize) {
+            sprintf(&errMessage, "%s unable to read %s", B_10016A20, fontFileName);
+            perror(&errMessage);
+            close(fontFd);
+            exit(1);
+        }
+        close(fontFd);
+    } else {
+        fontBuf = NULL;
+    }
+}
 
 int main(int argc, char** argv) {
     int c;
