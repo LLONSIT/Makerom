@@ -25,10 +25,6 @@ void getOsVersion(void) {
 
     FILE *procPtr; //file
 
-	
-	//Why put this as a char?
-    
-
     #ifdef NON_MATCHING
 	 //checking if we have uname
     if ((procPtr = popen("/sbin/uname -r", "r")) != 0) {
@@ -254,13 +250,9 @@ void nameTempFiles(void) {
     Wave* wave;
     unsigned char* tmpdir;
 
-
-
-
     if ((tmpdir = getenv("TMPDIR")) == NULL) {
         tmpdir = "/tmp";
     }
-
 
     for (wave = waveList  ; wave != NULL; wave=wave->next) {
 
