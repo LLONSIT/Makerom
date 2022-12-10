@@ -11,6 +11,31 @@
 #include "makerom.h"
 
 
+#define  MIPSEBMAGIC	0x0160
+#define  MIPSELMAGIC	0x0162
+#define  SMIPSEBMAGIC	0x6001
+#define  SMIPSELMAGIC	0x6201
+#define  MIPSEBUMAGIC	0x0180
+#define  MIPSELUMAGIC	0x0182
+
+#define  MIPSEBMAGIC_2	0x0163
+#define  MIPSELMAGIC_2	0x0166
+#define  SMIPSEBMAGIC_2	0x6301
+#define  SMIPSELMAGIC_2	0x6601
+
+
+#define  MIPSEBMAGIC_3	0x0140
+#define  MIPSELMAGIC_3	0x0142
+#define  SMIPSEBMAGIC_3	0x4001
+#define  SMIPSELMAGIC_3	0x4201
+
+
+/*
+ * Byte sex constants
+ */
+#define BIGENDIAN	0
+#define LITTLEENDIAN	1
+#define UNKNOWNENDIAN	2
 
 s32 readCoff(unsigned char *fname, unsigned int *buf) {
      int textSize;
@@ -20,9 +45,9 @@ s32 readCoff(unsigned char *fname, unsigned int *buf) {
     OFileName = fname;
 
     SName = ".text";
-    
+
     textSize = func_0041093C(buf);
-    
+
     if (textSize < 0) {
         return -1;
     }
@@ -32,7 +57,7 @@ s32 readCoff(unsigned char *fname, unsigned int *buf) {
 s32 Extract(u8** buff) {
 
         int bytesRead; //UNUSED
-    
+
     // LDPtr = ldopen(OFileName, NULL);
     if ((LDPtr = ldopen(OFileName, NULL)) == NULL) {
         fprintf(stderr, "Extract(): Cannot open %s.\n", OFileName);

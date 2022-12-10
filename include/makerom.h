@@ -29,7 +29,7 @@ typedef struct Segment_s {
     /* 0x0 */ struct Segment_s* next;
     /* 0x4 */ unsigned char* name;
     /* 0x8 */ Path* pathList;
-    /* 0xC */ int unk0C;
+    /* 0xC */ struct Wave_s *w;
     /* 0x10 */ unsigned int address;
     /* 0x14 */ int addrFunc;
     /* 0x18 */ struct Segment_s* afterSeg1;

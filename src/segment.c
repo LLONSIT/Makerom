@@ -8,17 +8,23 @@
 #include <fcntl.h>
 #include "types.h"
 #include "makerom.h"
-#include "functions.h"
 
 const char *sys_errlist[];
 
+extern Wave* waveList;
+extern Segment* SegmentList;
 
+#define SECTION_TEXT (1 << 0)
+#define SECTION_DATA_RODATA (1 << 1)
+#define SECTION_SDATA (1 << 2)
+#define SECTION_BSS (1 << 3)
+#define SECTION_SBSS (1 << 4)
 
 
 s32 readRaw(Segment* seg) {
     Path* p; // linked list (files?)
-    s32 fd;
-    s32 offset;
+    int fd;
+    int offset;
     off_t fileSize;
     off_t totalSize;
     struct stat statBuffer;
@@ -317,6 +323,43 @@ int sizeObject(Segment* segment) {
     return 0;
 }
 
+
+#if 0 //non_matching
+Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
+    Elf_Scn* scn;
+    Elf32_Shdr* shdr;
+    u32 index;
+    s8* sectName;
+
+
+    index = 1;
+    if ((u16) wave->ehdr->e_shnum >= 2U) {
+loop_1:
+        scn = _elf_getscn(wave->elf, index);
+        if ((scn == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+            fprintf(stderr, "makerom: %s: can't get section index %d\n", wave->name, index);
+            return NULL;
+        }
+        sectName = elf_strptr(wave->elf, (u32) wave->ehdr->e_shstrndx, shdr->sh_name);
+        if (strcmp(sectName, segSectName) == 0) {
+            goto block_7;
+        }
+       // temp_t8 = index + 1;
+        //index = temp_t8;
+        if (index >= (u16) wave->ehdr->e_shnum) {
+            goto block_7;
+        }
+        goto loop_1;
+    }
+block_7:
+    if (index >= (u16) wave->ehdr->e_shnum) {
+        fprintf(stderr, "makerom: %s: cannot find %s section\n", wave->name, segSectName);
+        return NULL;
+    }
+    return shdr;
+}
+#endif
+
 #define TO_PHYSICAL(addr) ((u32)(addr) & 0x1FFFFFFF)
 
 int checkOverlaps(void) {
@@ -349,6 +392,82 @@ int checkOverlaps(void) {
     return isOverlap;
 }
 
+s32 readObject(Segment* seg) {    
+    unsigned char* segSectName;
+    Elf32_Shdr* shdr;
+
+  
+    if ((segSectName = malloc(strlen((s8* ) seg->name) + 9)) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+    sprintf(segSectName, ".%s.text", seg->name);
+    
+    if ((shdr = func_0040F5C0(seg->w, segSectName)) == NULL) {
+        return -1;
+    }
+    if (shdr->sh_size != seg->textSize) {
+        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
+        fprintf(stderr, "makerom:   shdr = %d, textSize = %d\n", shdr->sh_size, seg->textSize);
+        free(segSectName);
+        return -1;
+    }
+    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
+        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    if (read(seg->w->fd, seg->romOffset + B_10016A60, shdr->sh_size) != shdr->sh_size) {
+        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    sprintf(segSectName, ".%s.data", seg->name);
+    
+    if ((shdr = func_0040F5C0(seg->w, segSectName)) == NULL) {
+        return -1;
+    }
+    if (shdr->sh_size != seg->dataSize) {
+        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
+        fprintf(stderr, "large data failed\n");
+        fprintf(stderr, "%s, file large=%x, our dataSize=%x\n", seg->name, shdr->sh_size, seg->dataSize);
+        free(segSectName);
+        return -1;
+    }
+    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
+        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    if (read(seg->w->fd, seg->romOffset + B_10016A60 + seg->textSize, shdr->sh_size) != shdr->sh_size) {
+        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    sprintf(segSectName, ".%s.sdata", seg->name);
+    
+    if ((shdr = func_0040F5C0(seg->w, segSectName)) == NULL) {
+        return -1;
+    }
+    if (shdr->sh_size != seg->sdataSize) {
+        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
+        fprintf(stderr, "small data failed\n");
+        free(segSectName);
+        return -1;
+    }
+    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
+        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    if (read(seg->w->fd, seg->romOffset + B_10016A60 + seg->textSize + seg->dataSize, shdr->sh_size) != shdr->sh_size) {
+        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    free(segSectName);
+    return 0;
+}
 
 int createRomImage(unsigned char* romFile, unsigned char* object) {
     FILE* f;
@@ -396,7 +515,7 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
         fprintf(stderr, "makerom: read of entry section failed\n");
         return -1;
     }
-    if (func_0040F214() != 0) {
+    if (lookupShdr() != 0) {
         return -1;
     }
     
@@ -490,7 +609,8 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
         for (i = 0; i < 0x2000; i++) {
             fillbuffer[i] = fillData;
         }
-        while (end < finalromSize) {
+ 
+       while (end < finalromSize) {
             if ((finalromSize - end) > 0x2000) {
                 if (fwrite(fillbuffer, 1, 0x2000, f) != 0x2000) {
                     fprintf(stderr, "makerom: %s: write error %x\n", romFile, end);
