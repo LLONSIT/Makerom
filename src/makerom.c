@@ -25,7 +25,13 @@ const char *sys_errlist[];
 extern s32 func_0040FDE0(struct Segment* segment);
 extern s32 func_0040F214(void);
 
-
+void printVersion(void) {
+    if (irixVersion == 0) {
+        printf("Nintendo64 Makerom v2.2 for IRIX.\n");
+    } else {
+        printf("Nintendo64 Makerom v2.2 -BETA- for IRIX.\n");
+    }
+}
 
 void getOsVersion(void) {
 
@@ -114,7 +120,7 @@ unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuf
     *fullpath = '\0';
     return NULL;
 }
-|
+
 
 void getPif2BootFile(char* pif2bootFileName) {
     int pif2bootFd; 
@@ -214,6 +220,20 @@ int execCommand(const char* cmd) {
 
 }
 
+void doWave(Wave* wave) {
+    if (debug != 0) {
+        printf("Translating ROM spec file into");
+        printf(" linker spec file in %s\n", wave->elspecFile);
+    }
+    if (createElspec(wave) == -1) {
+        unlinkTempFiles();
+        exit(1);
+    }
+    if ((runLinker(wave, &B_10016620, &B_10016920) == -1) && (keep_going == 0)) {
+        unlinkTempFiles();
+        exit(1);
+    }
+}
 
 void getRomheaderFile(unsigned char *headerFileName) {
     int headerFd;
@@ -343,8 +363,7 @@ void unlinkTempFiles(void) {
     }
     }
 
-<<<<<<< HEAD
-=======
+
 #endif
 
 
@@ -388,7 +407,7 @@ unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuf
     *fullpath = '\0';
     return NULL;
 }
->>>>>>> a60497190d5b524a28f3c450a24ca484f1873e0a
+
 
 //Final makerom.c functions
 void getFontDataFile(s8* fontFileName) {

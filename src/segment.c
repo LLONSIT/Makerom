@@ -392,6 +392,63 @@ int checkOverlaps(void) {
     return isOverlap;
 }
 
+#define 0 //asm_nonmatchings
+s32 lookupSymbol(Wave* wave, unsigned char* name) {
+    Elf_Scn* scn;
+    Elf32_Shdr* shdr;
+    Elf_Data* data;
+    Elf32_Sym* sym;
+    size_t index;
+    int i;
+    int count;
+    s32 temp_t2;
+    u32 temp_t5;
+
+    index = 1;
+    if ((u16) wave->ehdr->e_shnum >= 2U) {
+loop_1:
+        scn = _elf_getscn(wave->elf, index);
+        if ((scn == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+            return 0;
+        }
+        if (shdr->sh_type != 2) {
+            goto block_12;
+        }
+        data = NULL;
+        data = elf_getdata(scn, data);
+        if (data == NULL) {
+            return 0;
+        }
+        count = (u32) data->d_size >> 4;
+        sym = data->d_buf;
+        sym += 0x10;
+        i = 1;
+        if ((s32) count >= 2) {
+loop_9:
+            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
+                return sym->unk4;
+            }
+            sym += 0x10;
+            temp_t2 = i + 1;
+            i = temp_t2;
+            if (temp_t2 >= (s32) count) {
+                goto block_12;
+            }
+            goto loop_9;
+        }
+block_12:
+        temp_t5 = index + 1;
+        index = temp_t5;
+        if (temp_t5 >= (u16) wave->ehdr->e_shnum) {
+            goto block_13;
+        }
+        goto loop_1;
+    }
+block_13:
+    return 0;
+}
+#endif
+
 s32 readObject(Segment* seg) {    
     unsigned char* segSectName;
     Elf32_Shdr* shdr;
@@ -403,7 +460,7 @@ s32 readObject(Segment* seg) {
     }
     sprintf(segSectName, ".%s.text", seg->name);
     
-    if ((shdr = func_0040F5C0(seg->w, segSectName)) == NULL) {
+    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
         return -1;
     }
     if (shdr->sh_size != seg->textSize) {
@@ -424,7 +481,7 @@ s32 readObject(Segment* seg) {
     }
     sprintf(segSectName, ".%s.data", seg->name);
     
-    if ((shdr = func_0040F5C0(seg->w, segSectName)) == NULL) {
+    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
         return -1;
     }
     if (shdr->sh_size != seg->dataSize) {
@@ -446,7 +503,7 @@ s32 readObject(Segment* seg) {
     }
     sprintf(segSectName, ".%s.sdata", seg->name);
     
-    if ((shdr = func_0040F5C0(seg->w, segSectName)) == NULL) {
+    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
         return -1;
     }
     if (shdr->sh_size != seg->sdataSize) {
@@ -467,6 +524,102 @@ s32 readObject(Segment* seg) {
     }
     free(segSectName);
     return 0;
+}
+
+int createEntryFile(char* entryFilename, char* outFile) {
+    Segment* curSeg;
+    FILE* entryFile; // 50
+    char* compile_cmd; // 4C
+    char* segSectName;
+    unsigned int BssStart;
+    Wave* wave;
+    unsigned int entryAddr = 0; // bootEntry
+    unsigned int stackAddr = 0; // bootStack
+    char romsymbol[14] = "__osFinalrom"; // string is only 13 chars
+
+    if ((entryFile = fopen(entryFilename, "w")) == NULL) {
+        fprintf(stderr, "makerom: %s: cannot create\n", entryFilename);
+        return -1;
+    }
+
+    for (curSeg = segmentList; curSeg != NULL; curSeg = curSeg->next) {
+        if (curSeg->flags & 1) { // BOOT flag?
+            wave = curSeg->w;
+            if ((wave->fd = open(wave->name, 0)) == -1) {
+                fprintf(stderr, "makerom: %s: %s\n", wave->name, sys_errlist[errno]);
+                return -1;
+            }
+            wave->elf = elf_begin(wave->fd, ELF_C_READ, NULL);
+            if ((elf_kind(wave->elf) != 3) || ((wave->ehdr = elf32_getehdr(wave->elf)) == 0)) {
+                fprintf(stderr, "makerom: %s: not a valid ELF object file\n", wave->name);
+                return -1;
+            }
+            if ((finalromSize != 0) && (lookupSymbol(curSeg->w, romsymbol) == 0)) {
+                fprintf(stderr, "makerom: use libultra_rom.a to build real game cassette\n");
+                return -1;
+            }
+            if (bootEntryName != NULL) {
+                entryAddr = lookupSymbol(curSeg->w, bootEntryName);
+                if (entryAddr == 0) {
+                    fprintf(stderr, "makerom: %s: cannot find entry symbol %s\n", curSeg->w->name, bootEntryName);
+                    return -1;
+                }
+            }
+            if (bootStackName != NULL) {
+                if ((stackAddr = lookupSymbol(curSeg->w, bootStackName)) == 0) {
+                    fprintf(stderr, "makerom: %s: cannot find stack symbol %s\n", curSeg->w->name, bootStackName);
+                    return -1;
+                }
+            } else {
+                stackAddr = 0;
+            }
+
+            stackAddr += bootStackOffset;
+            if ((curSeg->bssSize != 0) && (cosim == 0)) {
+                if ((segSectName = malloc(strlen(curSeg->name) + 0x10)) == NULL) {
+                    fprintf(stderr, "malloc failed\n");
+                    return -1;
+                }
+                sprintf(segSectName, "_%sSegmentBssStart", curSeg->name);
+                BssStart = lookupSymbol(curSeg->w, segSectName);
+                fprintf(entryFile, " la\t$8 0x%x\n", BssStart);
+                fprintf(entryFile, " li\t$9 0x%x\n", curSeg->bssSize);
+                fprintf(entryFile, ".ent entryPoint\n");
+                fprintf(entryFile, "entryPoint:\n");
+                fprintf(entryFile, " sw $0, 0($8)\n");
+                fprintf(entryFile, " sw $0, 4($8)\n");
+                fprintf(entryFile, " addi $8, 8\n");
+                fprintf(entryFile, " addi $9, 0xfff8\n");
+                fprintf(entryFile, " bne  $9, $0, entryPoint\n");
+            }
+            if (stackAddr != 0) {
+                fprintf(entryFile, " la\t$29 0x%x\n", stackAddr);
+            }
+            if (entryAddr != 0) {
+                fprintf(entryFile, " la $10  0x%x\n", entryAddr);
+                fprintf(entryFile, " j $10\n");
+            }
+            fprintf(entryFile, ".end\n");
+        }
+    }
+
+    free(segSectName);
+    fclose(entryFile);
+    if ((compile_cmd = malloc(sysconf(1))) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+
+    strcpy(compile_cmd, "$TOOLROOT/usr/bin/cc -c -non_shared -o ");
+    strcat(compile_cmd, outFile);
+    strcat(compile_cmd, " ");
+    strcat(compile_cmd, entryFilename);
+
+    if (debug) {
+        printf("Compiling entry source file\n");
+        printf("  %s\n", compile_cmd);
+    }
+    return execCommand(compile_cmd);
 }
 
 int createRomImage(unsigned char* romFile, unsigned char* object) {
@@ -521,7 +674,7 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
     
     for (seg = SegmentList; seg != NULL; seg = seg->next) {
         if (seg->flags & 2) {
-            func_0040F758(seg);
+            readObject(seg);
         } else if (seg->flags & 4) {
             readRaw(seg);
         }

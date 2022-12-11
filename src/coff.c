@@ -46,7 +46,7 @@ s32 readCoff(unsigned char *fname, unsigned int *buf) {
 
     SName = ".text";
 
-    textSize = func_0041093C(buf);
+    textSize = Extract(buf);
 
     if (textSize < 0) {
         return -1;
