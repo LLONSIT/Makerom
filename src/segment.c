@@ -20,6 +20,14 @@ extern Segment* SegmentList;
 #define SECTION_BSS (1 << 3)
 #define SECTION_SBSS (1 << 4)
 
+                                         /* offset*/
+unsigned int ALIGNn(unsigned int romalign, int n) { 
+    if (romalign == 0) {
+        romalign = 0x10; //0x10 Alignment
+    }
+    return ((n + romalign - 1) / romalign) * romalign;
+}
+
 
 s32 readRaw(Segment* seg) {
     Path* p; // linked list (files?)
