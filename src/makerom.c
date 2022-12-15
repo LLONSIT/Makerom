@@ -376,51 +376,6 @@ void unlinkTempFiles(void) {
     }
 
 
-#endif
-
-
-//Checking Some environment variables
-unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuffix, unsigned char* fname) {
-    unsigned char* rootname;
-    unsigned char* rootpath;
-    s32 fd; //UNUSED
-    s32 try;
-
-    for (try = 0; try < 3; try++) {
-        *fullpath = 0;
-        switch (try) {
-        case 0:
-            rootname = "ROOT";
-            break;
-        case 1:
-            rootname = "WORKAREA";
-            break;
-        case 2:
-            rootname = NULL;
-            break;
-        }
-
-        if (rootname != NULL) {
-            if ((rootpath = getenv(rootname)) == NULL) {
-                continue;
-            }
-            strcat(fullpath, rootpath);
-        }
-        if (postRootSuffix != NULL) {
-            strcat(fullpath, postRootSuffix);
-            strcat(fullpath, "/");
-        }
-        strcat(fullpath, fname);
-        if (access(fullpath, 4) == 0) {
-            return fullpath;
-        }
-    }
-    fprintf(stderr, "gloadFindFile: can't find file %s\n", fullpath);
-    *fullpath = '\0';
-    return NULL;
-}
-
-
 //Final makerom.c functions
 void getFontDataFile(s8* fontFileName) {
 
