@@ -330,6 +330,47 @@ int sizeObject(Segment* segment) {
 }
 
 
+
+int scanSegments() {
+    Segment* seg;
+    u32 offset;
+    s32 rom_size; 
+
+    offset = 0x50;
+    if (elf_version(1) == 0) {  //Libelf stuff, Checks a version standart?
+        fprintf(stderr, "makerom: out of date\n");
+        return -1;
+    }
+    // s = segmentList;
+    for (seg = segmentList; seg != NULL; seg = seg->next) {
+        if (seg->w == 0) { //???
+            fprintf(stderr, "makerom: segment \"%s\": not found in any wave\n", seg->name);
+            return -1;
+        }
+        seg->romOffset = offset;
+        if (seg->flags & 2) {
+            if (sizeObject(seg) == -1) {
+                return -1;
+            }
+        } else if (seg->flags & 4) {
+            if (sizeObject(seg) == -1) {
+                return -1;
+            }
+        }
+
+        offset = seg->romOffset;
+        offset += seg->textSize + seg->dataSize + seg->sdataSize;
+        offset = ALIGNn(seg->align, offset);
+    }
+    rom_size = (offset > 0x50) ? offset : 0x50;
+    Allocate = calloc(rom_size, 1);
+    if (Allocate == NULL) {
+        fprintf(stderr, "makerom: malloc failed [RomSize= %d kB]\n", (rom_size + 0x3FF) / 0x400);
+        return -1;
+    }
+    return 0;
+}
+
 Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
     Elf_Scn* scn;
     Elf32_Shdr* shdr;
@@ -355,7 +396,7 @@ Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
 }
 
 #ifdef NON_MATCHING
-s32 func_0040F3DC(Wave* wave, s8* name) {
+s32 lookUpSymbol(Wave* wave, s8* name) {
     s32 scn;
     Elf32_Shdr* shdr;
     Elf_Data* data;
