@@ -1,4 +1,11 @@
 #include <sys/types.h>
+#include <signal.h>
+
+//types
+typedef signed int s32;
+typedef unsigned int u32;
+typedef unsigned char u8;
+typedef signed char s8;
 
 struct scnhdr
        {
@@ -15,19 +22,30 @@ struct scnhdr
        };
 
 
-
-//types
-typedef signed int s32;
-typedef unsigned int u32;
-typedef unsigned char u8;
-typedef signed char s8;
-
+static u8 B_10016520[0x100];
+static u8 B_10016620[0x100];
+static u8 B_10016720[0x100];
+static u8 B_10016820[0x100];
+static u8 B_10016920[0x100];
 
 
+
+/*
 static char B_10016520[1];
 static char B_10016620[1];
 static char B_10016720[1];
 static char B_10016820[1];
+*/
+
+static const sigaction act;
+static unsigned char segmentSymbolSource[255];
+static unsigned char segmentSymbolObject[255];
+static unsigned char entrySource[255];
+static unsigned char entryObject[255];
+static unsigned char objectListFile[255];
+static unsigned char* romFile;
+static int checkOverlap;
+static unsigned char* progName;
 
 //First
 int irixVersion;
@@ -68,3 +86,12 @@ static u8 *yyval;
 static char* B_10016A20;
 s32 cosim;
 s32 emulator;
+
+//Four
+s32 pif2bootBuf;
+s32 pif2bootWordAlignedByteSize;
+static u8 *bootEntryName;
+static u8 *bootStackName;
+static u8 *bootStackOffset;
+static int checkOverlap;
+

@@ -1,0 +1,6449 @@
+SymbolicHeader(magic=28681, vstamp=1802, ilineMax=59372, cbLine=17427, cbLineOffset=311392, idnMax=0, cbDnOffset=0, ipdMax=721, cbPdOffset=328820, isymMax=4957, cbSymOffset=366312, ioptMax=0, cbOptOffset=0, iauxMax=9034, cbAuxOffset=425796, issMax=41625, cbSsOffset=461932, issExtMax=10053, cbSsExtOffset=503557, ifdMax=146, cbFdOffset=513612, crfd=2600, cbRfdOffset=524124, iextMax=773, cbExtOffset=534524)
+FileDescriptor(adr=4232928, rss=1, issBase=0, cbSs=83, isymBase=0, csym=12, ilineBase=0, cline=74, ioptBase=0, copt=0, ipdFirst=0, cpd=2, iauxBase=0, caux=8, rfdBase=0, crfd=9, XXX_bitfield=427819008, cbLineOffset=0, cbLine=64)
+    name:crt1text.s
+    pretty print:
+// begin file crt1text.s
+
+static LOCALSZ;
+
+static FRAMESZ;
+
+static RAOFF;
+
+static GPOFF;
+
+nil __start();
+//Label: 10$0000000000 @ 4232940;
+//Label: 1$0000000000 @ 4233024;
+
+nil _mcount();
+
+// end file crt1text.s
+FileDescriptor(adr=4232928, rss=1, issBase=83, cbSs=46, isymBase=12, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=2, cpd=0, iauxBase=8, caux=0, rfdBase=9, crfd=9, XXX_bitfield=494927872, cbLineOffset=64, cbLine=0)
+    name:/xlv3/bonsai-oct28/root/usr/include/regdef.h
+    pretty print:
+// begin file /xlv3/bonsai-oct28/root/usr/include/regdef.h
+
+// end file /xlv3/bonsai-oct28/root/usr/include/regdef.h
+FileDescriptor(adr=4232928, rss=1, issBase=129, cbSs=47, isymBase=14, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=2, cpd=0, iauxBase=8, caux=0, rfdBase=18, crfd=9, XXX_bitfield=494927872, cbLineOffset=64, cbLine=0)
+    name:/xlv3/bonsai-oct28/root/usr/include/sgidefs.h
+    pretty print:
+// begin file /xlv3/bonsai-oct28/root/usr/include/sgidefs.h
+
+// end file /xlv3/bonsai-oct28/root/usr/include/sgidefs.h
+FileDescriptor(adr=4232928, rss=1, issBase=176, cbSs=52, isymBase=16, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=2, cpd=0, iauxBase=8, caux=0, rfdBase=27, crfd=9, XXX_bitfield=494927872, cbLineOffset=64, cbLine=0)
+    name:/xlv3/bonsai-oct28/root/usr/include/sys/fpregdef.h
+    pretty print:
+// begin file /xlv3/bonsai-oct28/root/usr/include/sys/fpregdef.h
+
+// end file /xlv3/bonsai-oct28/root/usr/include/sys/fpregdef.h
+FileDescriptor(adr=4232928, rss=1, issBase=228, cbSs=43, isymBase=18, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=2, cpd=0, iauxBase=8, caux=0, rfdBase=36, crfd=9, XXX_bitfield=494927872, cbLineOffset=64, cbLine=0)
+    name:/xlv3/bonsai-oct28/root/usr/include/asm.h
+    pretty print:
+// begin file /xlv3/bonsai-oct28/root/usr/include/asm.h
+
+// end file /xlv3/bonsai-oct28/root/usr/include/asm.h
+FileDescriptor(adr=4232928, rss=1, issBase=271, cbSs=22, isymBase=20, csym=4, ilineBase=74, cline=1, ioptBase=0, copt=0, ipdFirst=2, cpd=1, iauxBase=8, caux=4, rfdBase=45, crfd=9, XXX_bitfield=427819008, cbLineOffset=64, cbLine=1)
+    name:crt1tinit.s
+    pretty print:
+// begin file crt1tinit.s
+
+nil __istart();
+
+// end file crt1tinit.s
+FileDescriptor(adr=4233248, rss=1, issBase=293, cbSs=1252, isymBase=24, csym=141, ilineBase=75, cline=2489, ioptBase=0, copt=0, ipdFirst=3, cpd=15, iauxBase=12, caux=226, rfdBase=54, crfd=33, XXX_bitfield=16777216, cbLineOffset=65, cbLine=506)
+    name:makerom.c
+    pretty print:
+// begin file makerom.c
+
+static const sigaction_t act;
+
+static unsigned char segmentSymbolSource[255];
+
+static unsigned char segmentSymbolObject[255];
+
+static unsigned char entrySource[255];
+
+static unsigned char entryObject[255];
+
+static unsigned char objectListFile[255];
+
+static unsigned char* romFile;
+
+static int checkOverlap;
+
+static unsigned char* progName;
+
+int main(int argc, unsigned char** argv);
+//{
+//    int c;
+//    FILE* f;
+//    Wave* wave;
+//    unsigned char* cppCmd;
+//    long cppCmdCount;
+//    int headerFd;
+//    int pif2bootFd;
+//    unsigned char* bootFileName;
+//    unsigned char* headerFileName;
+//    unsigned char* pif2bootFileName;
+//    unsigned char* fontFileName;
+//    int createRom;
+//    unsigned char CheckerBuf[255];
+//    unsigned char NameBuf[255];
+//    unsigned char* rootName;
+//    int quietMode;
+//    {
+//        unsigned chaer gcordFileBuf[255];
+//    }
+//}
+
+void usage();
+//{
+//}
+
+void getOsVersion();
+//{e
+//    unsigned char* cmd;
+//    unsigned char buf[4096];
+//    FILE* procPtr;
+//}
+
+int checkIdoVersion(unsigned char* rootName);
+//{
+//    int u64CheckFound;
+//    int v70Found;
+//    unsigned char cmd[255];
+//    unsigned char buffer[255];
+//    stat statBuffer;
+//    FILE* procPtr;
+//}
+
+void printVersion();
+//{
+//}
+
+void getBootFile(unsigned char* bootFileName);
+//{
+//    int bootFd;
+//    unsigned char scratchFileName[255];
+//    stat buf;
+//    unsigned char errMessage[255];
+//}
+
+void getPif2BootFile(unsigned char* pif2bootFileName);
+//{
+//    int pif2bootFd;
+//    unsigned char scratchFileName[255];
+//    stat buf;
+//    unsigned char errMessage[255];
+//}
+
+void getRomheaderFile(unsigned char* headerFileName);
+//{
+//    int headerFd;
+//    unsigned char scratchFileName[255];
+//    stat buf;
+//    unsigned char errMessage[255];
+//    unsigned char nibbleString[2];
+//    int nibbleVal;
+//    int i;
+//    int readPtr;
+//    int retval;
+//}
+
+void getFontDataFile(unsigned char* fontFileName);
+//{
+//    int fontFd;
+//    unsigned char scratchFileName[255];
+//    stat buf;
+//    unsigned char errMessage[255];
+//}
+
+unsigned char* gloadFindFile(unsigned char* fullpath, unsigned char* postRootSuffix, unsigned char* fname);
+//{
+//    unsigned char* rootname;
+//    unsigned char* rootpath;
+//    int fd;
+//    int try;
+//}
+
+void doWave(Wave* wave);
+//{
+//}
+
+void nameTempFiles();
+//{
+//    Wave* wave;
+//    unsigned char* tmpdir;
+//}
+
+void unlinkTempFiles();
+//{
+//    Wave* wave;
+//}
+
+void cleanup(int sig);
+//{
+//}
+
+int execCommand(unsigned char* s);
+//{
+//    int status;
+//}
+
+// end file makerom.c
+FileDescriptor(adr=4233248, rss=1, issBase=1545, cbSs=170, isymBase=165, csym=10, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=238, caux=27, rfdBase=87, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sgidefs.h
+    pretty print:
+// begin file /usr/include/sgidefs.h
+
+typedef int __int32_t;
+
+typedef unsigned int __uint32_t;
+
+typedef long long __int64_t;
+
+typedef unsigned long long __uint64_t;
+
+typedef __int32_t __psint_t;
+
+typedef __uint32_t __psunsigned_t;
+
+typedef __int32_t __scint_t;
+
+typedef __uint32_t __scunsigned_t;
+
+// end file /usr/include/sgidefs.h
+FileDescriptor(adr=4233248, rss=1, issBase=1715, cbSs=772, isymBase=175, csym=91, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=265, caux=110, rfdBase=120, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/types.h
+    pretty print:
+// begin file /usr/include/sys/types.h
+
+typedef unsigned char uchar_t;
+
+typedef unsigned short ushort_t;
+
+typedef unsigned int uint_t;
+
+typedef unsigned long ulong_t;
+
+typedef unsigned char* addr_t;
+
+typedef unsigned char* caddr_t;
+
+typedef long daddr_t;
+
+typedef long pgno_t;
+
+typedef __uint32_t pfn_t;
+
+typedef short cnt_t;
+
+typedef __int32_t pgcnt_t;
+
+typedef enum {
+    B_FALSE = 0,
+    B_TRUE = 1,
+} boolean_t;
+
+typedef long id_t;
+
+typedef ulong_t major_t;
+
+typedef ulong_t minor_t;
+
+typedef ushort_t o_mode_t;
+
+typedef short o_dev_t;
+
+typedef ushort_t o_uid_t;
+
+typedef o_uid_t o_gid_t;
+
+typedef short o_nlink_t;
+
+typedef short o_pid_t;
+
+typedef __uint32_t o_ino_t;
+
+typedef unsigned long mode_t;
+
+typedef unsigned long dev_t;
+
+typedef long uid_t;
+
+typedef long gid_t;
+
+typedef unsigned long nlink_t;
+
+typedef long pid_t;
+
+typedef unsigned long ino_t;
+
+typedef __uint64_t ino64_t;
+
+typedef long off_t;
+
+typedef __int64_t off64_t;
+
+typedef __scint_t __scoff_t;
+
+typedef __scoff_t scoff_t;
+
+typedef long blkcnt_t;
+
+typedef ulong_t fsblkcnt_t;
+
+typedef ulong_t fsfilcnt_t;
+
+typedef long swblk_t;
+
+typedef unsigned long paddr_t;
+
+typedef int key_t;
+
+typedef unsigned char use_t;
+
+typedef short sysid_t;
+
+typedef short index_t;
+
+typedef unsigned int lock_t;
+
+typedef signed char cpuid_t;
+
+typedef unsigned char pri_t;
+
+typedef __uint64_t accum_t;
+
+typedef __int64_t prid_t;
+
+typedef __int64_t ash_t;
+
+typedef unsigned int size_t;
+
+typedef int ssize_t;
+
+typedef long time_t;
+
+typedef long clock_t;
+
+typedef long wchar_t;
+
+typedef int clockid_t;
+
+typedef int timer_t;
+
+typedef unsigned int useconds_t;
+
+typedef __scunsigned_t bitnum_t;
+
+typedef __scunsigned_t bitlen_t;
+
+typedef int processorid_t;
+
+typedef int toid_t;
+
+typedef long* qaddr_t;
+
+typedef __uint32_t inst_t;
+
+typedef unsigned int machreg_t;
+
+typedef __uint32_t fpreg_t;
+
+typedef signed char int8_t;
+
+typedef unsigned char uint8_t;
+
+typedef short int16_t;
+
+typedef unsigned short uint16_t;
+
+typedef int int32_t;
+
+typedef unsigned int uint32_t;
+
+typedef __int64_t int64_t;
+
+typedef __uint64_t uint64_t;
+
+typedef __int64_t intmax_t;
+
+typedef __uint64_t uintmax_t;
+
+typedef long intptr_t;
+
+typedef unsigned long uintptr_t;
+
+typedef unsigned char u_int8_t;
+
+typedef unsigned short u_int16_t;
+
+typedef __uint32_t u_int32_t;
+
+typedef long hostid_t;
+
+typedef struct {
+    /* 0x0 */ __uint32_t sigbits[2];
+} k_sigset_t;
+
+// end file /usr/include/sys/types.h
+FileDescriptor(adr=4233248, rss=1, issBase=2487, cbSs=168, isymBase=266, csym=18, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=375, caux=33, rfdBase=153, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/bsd_types.h
+    pretty print:
+// begin file /usr/include/sys/bsd_types.h
+
+typedef struct {
+    /* 0x0 */ int r[1];
+}* physadr;
+
+typedef unsigned char unchar;
+
+typedef unsigned char u_char;
+
+typedef unsigned short ushort;
+
+typedef unsigned short u_short;
+
+typedef unsigned int uint;
+
+typedef unsigned int u_int;
+
+typedef unsigned long ulong;
+
+typedef unsigned long u_long;
+
+typedef struct _quad {
+    /* 0x0 */ long val[2];
+} quad;
+
+// end file /usr/include/sys/bsd_types.h
+FileDescriptor(adr=4233248, rss=1, issBase=2655, cbSs=136, isymBase=284, csym=9, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=408, caux=26, rfdBase=186, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/select.h
+    pretty print:
+// begin file /usr/include/sys/select.h
+
+typedef long fd_mask_t;
+
+typedef unsigned long ufd_mask_t;
+
+typedef struct fd_set {
+    /* 0x0 */ fd_mask_t fds_bits[32];
+} fd_set;
+
+typedef long fd_mask;
+
+// end file /usr/include/sys/select.h
+FileDescriptor(adr=4233248, rss=1, issBase=2791, cbSs=76, isymBase=293, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=434, caux=15, rfdBase=219, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/string.h
+    pretty print:
+// begin file /usr/include/string.h
+
+// end file /usr/include/string.h
+FileDescriptor(adr=4233248, rss=1, issBase=2867, cbSs=275, isymBase=295, csym=29, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=449, caux=45, rfdBase=252, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/time.h
+    pretty print:
+// begin file /usr/include/sys/time.h
+
+typedef long long stamp_t;
+
+typedef struct USTMSCpair {
+    /* 0x0 */ stamp_t ust;
+    /* 0x8 */ stamp_t msc;
+} USTMSCpair;
+
+struct timeval {
+    /* 0x0 */ time_t tv_sec;
+    /* 0x4 */ long tv_usec;
+};
+
+struct __irix5_timeval {
+    /* 0x0 */ __int32_t tv_sec;
+    /* 0x4 */ __int32_t tv_usec;
+};
+
+struct itimerval {
+    /* 0x0 */ timeval it_interval;
+    /* 0x8 */ timeval it_value;
+};
+
+struct timezone {
+    /* 0x0 */ int tz_minuteswest;
+    /* 0x4 */ int tz_dsttime;
+};
+
+typedef struct timestruc {
+    /* 0x0 */ time_t tv_sec;
+    /* 0x4 */ long tv_nsec;
+} timestruc_t;
+
+// end file /usr/include/sys/time.h
+FileDescriptor(adr=4233248, rss=1, issBase=3142, cbSs=838, isymBase=324, csym=105, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=494, caux=204, rfdBase=285, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/signal.h
+    pretty print:
+// begin file /usr/include/sys/signal.h
+
+typedef void (*SIG_PF)(/* ECOFF does not store param types */);
+
+typedef union sigval {
+    /* 0x0 */ int sival_int;
+    /* 0x0 */ void* sival_ptr;
+} sigval_t;
+
+typedef union notifyinfo {
+    /* 0x0 */ int nisigno;
+    /* 0x0 */ void (*nifunc)(/* ECOFF does not store param types */);
+} notifyinfo_t;
+
+typedef struct sigevent {
+    /* 0x0 */ int sigev_notify;
+    /* 0x4 */ notifyinfo_t sigev_notifyinfo;
+    /* 0x8 */ sigval_t sigev_value;
+    /* 0xC */ unsigned long sigev_reserved[13];
+    /* 0x40 */ unsigned long sigev_pad[6];
+} sigevent_t;
+
+typedef struct siginfo {
+    /* 0x0 */ int si_signo;
+    /* 0x4 */ int si_code;
+    /* 0x8 */ int si_errno;
+    /* 0xC */ union {
+        /* 0x0 */ int si_pad[29];
+        /* 0x0 */ struct {
+            /* 0x0 */ pid_t __pid;
+            /* 0x4 */ union {
+                /* 0x0 */ struct {
+                    /* 0x0 */ uid_t __uid;
+                } __kill;
+                /* 0x0 */ struct {
+                    /* 0x0 */ clock_t __utime;
+                    /* 0x4 */ int __status;
+                    /* 0x8 */ clock_t __stime;
+                } __cld;
+            } __pdata;
+        } __proc;
+        /* 0x0 */ struct {
+            /* 0x0 */ void* __addr;
+        } __fault;
+        /* 0x0 */ struct {
+            /* 0x0 */ int __fd;
+            /* 0x4 */ long __band;
+        } __file;
+        /* 0x0 */ sigval_t __value;
+    } __data;
+} siginfo_t;
+
+typedef struct {
+    /* 0x0 */ __uint32_t __sigbits[4];
+} sigset_t;
+
+typedef union __sighandler {
+    /* 0x0 */ void (*__sa_handler)(/* ECOFF does not store param types */);
+    /* 0x0 */ void (*__sa_sigaction)(/* ECOFF does not store param types */);
+} __sighandler_t;
+
+typedef struct sigaction {
+    /* 0x0 */ int sa_flags;
+    /* 0x4 */ __sighandler_t sa_sighandler;
+    /* 0x8 */ sigset_t sa_mask;
+    /* 0x18 */ int sa_resv[2];
+} sigaction_t;
+
+struct sigstack {
+    /* 0x0 */ unsigned char* ss_sp;
+    /* 0x4 */ int ss_onstack;
+};
+
+typedef struct sigaltstack {
+    /* 0x0 */ unsigned char* ss_sp;
+    /* 0x4 */ int ss_size;
+    /* 0x8 */ int ss_flags;
+} stack_t;
+
+typedef struct sigcontext {
+    /* 0x0 */ __uint32_t sc_regmask;
+    /* 0x4 */ __uint32_t sc_status;
+    /* 0x8 */ __uint64_t sc_pc;
+    /* 0x10 */ __uint64_t sc_regs[32];
+    /* 0x110 */ __uint64_t sc_fpregs[32];
+    /* 0x210 */ __uint32_t sc_ownedfp;
+    /* 0x214 */ __uint32_t sc_fpc_csr;
+    /* 0x218 */ __uint32_t sc_fpc_eir;
+    /* 0x21C */ __uint32_t sc_ssflags;
+    /* 0x220 */ __uint64_t sc_mdhi;
+    /* 0x228 */ __uint64_t sc_mdlo;
+    /* 0x230 */ __uint64_t sc_cause;
+    /* 0x238 */ __uint64_t sc_badvaddr;
+    /* 0x240 */ __uint64_t sc_triggersave;
+    /* 0x248 */ sigset_t sc_sigset;
+    /* 0x258 */ __uint64_t sc_fp_rounded_result;
+    /* 0x260 */ __uint64_t sc_pancake[5];
+    /* 0x288 */ __uint64_t sc_pad[26];
+} sigcontext_t;
+
+// end file /usr/include/sys/signal.h
+FileDescriptor(adr=4233248, rss=1, issBase=3980, cbSs=299, isymBase=429, csym=31, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=698, caux=85, rfdBase=318, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/ucontext.h
+    pretty print:
+// begin file /usr/include/sys/ucontext.h
+
+typedef unsigned int greg_t;
+
+typedef greg_t gregset_t[36];
+
+typedef struct fpregset {
+    /* 0x0 */ union {
+        /* 0x0 */ double fp_dregs[16];
+        /* 0x0 */ float fp_fregs[32];
+        /* 0x0 */ unsigned int fp_regs[32];
+    } fp_r;
+    /* 0x80 */ unsigned int fp_csr;
+    /* 0x84 */ unsigned int fp_pad;
+} fpregset_t;
+
+typedef struct {
+    /* 0x0 */ gregset_t gregs;
+    /* 0x90 */ fpregset_t fpregs;
+} mcontext_t;
+
+typedef struct ucontext {
+    /* 0x0 */ unsigned long uc_flags;
+    /* 0x4 */ ucontext_t* uc_link;
+    /* 0x8 */ sigset_t uc_sigmask;
+    /* 0x18 */ stack_t uc_stack;
+    /* 0x28 */ mcontext_t uc_mcontext;
+    /* 0x140 */ __int64_t uc_pancake[5];
+    /* 0x168 */ long uc_filler[37];
+    /* 0x1FC */ int uc_triggersave;
+} ucontext_t;
+
+// end file /usr/include/sys/ucontext.h
+FileDescriptor(adr=4233248, rss=1, issBase=4279, cbSs=264, isymBase=460, csym=22, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=783, caux=45, rfdBase=351, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/ptimers.h
+    pretty print:
+// begin file /usr/include/sys/ptimers.h
+
+typedef struct timespec {
+    /* 0x0 */ time_t tv_sec;
+    /* 0x4 */ long tv_nsec;
+} timespec_t;
+
+typedef struct itimerspec {
+    /* 0x0 */ timespec_t it_interval;
+    /* 0x8 */ timespec_t it_value;
+} itimerspec_t;
+
+typedef struct ptimer_info {
+    /* 0x0 */ __int64_t next_timeout;
+    /* 0x8 */ __int64_t interval_tick;
+    /* 0x10 */ int signo;
+    /* 0x14 */ sigval_t value;
+    /* 0x18 */ int clock_type;
+    /* 0x1C */ toid_t next_toid;
+    /* 0x20 */ int overrun_cnt;
+} ptimer_info_t;
+
+// end file /usr/include/sys/ptimers.h
+FileDescriptor(adr=4233248, rss=1, issBase=4543, cbSs=145, isymBase=482, csym=13, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=828, caux=27, rfdBase=384, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/time.h
+    pretty print:
+// begin file /usr/include/time.h
+
+struct tm {
+    /* 0x0 */ int tm_sec;
+    /* 0x4 */ int tm_min;
+    /* 0x8 */ int tm_hour;
+    /* 0xC */ int tm_mday;
+    /* 0x10 */ int tm_mon;
+    /* 0x14 */ int tm_year;
+    /* 0x18 */ int tm_wday;
+    /* 0x1C */ int tm_yday;
+    /* 0x20 */ int tm_isdst;
+};
+
+// end file /usr/include/time.h
+FileDescriptor(adr=4233248, rss=1, issBase=4688, cbSs=388, isymBase=495, csym=42, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=855, caux=135, rfdBase=417, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/stat.h
+    pretty print:
+// begin file /usr/include/sys/stat.h
+
+struct stat {
+    /* 0x0 */ dev_t st_dev;
+    /* 0x4 */ long st_pad1[3];
+    /* 0x10 */ ino_t st_ino;
+    /* 0x14 */ mode_t st_mode;
+    /* 0x18 */ nlink_t st_nlink;
+    /* 0x1C */ uid_t st_uid;
+    /* 0x20 */ gid_t st_gid;
+    /* 0x24 */ dev_t st_rdev;
+    /* 0x28 */ long st_pad2[2];
+    /* 0x30 */ off_t st_size;
+    /* 0x34 */ long st_pad3;
+    /* 0x38 */ timestruc_t st_atim;
+    /* 0x40 */ timestruc_t st_mtim;
+    /* 0x48 */ timestruc_t st_ctim;
+    /* 0x50 */ long st_blksize;
+    /* 0x54 */ blkcnt_t st_blocks;
+    /* 0x58 */ unsigned char st_fstype[16];
+    /* 0x68 */ long st_pad4[8];
+};
+
+struct stat64 {
+    /* 0x0 */ dev_t st_dev;
+    /* 0x4 */ long st_pad1[3];
+    /* 0x10 */ ino64_t st_ino;
+    /* 0x18 */ mode_t st_mode;
+    /* 0x1C */ nlink_t st_nlink;
+    /* 0x20 */ uid_t st_uid;
+    /* 0x24 */ gid_t st_gid;
+    /* 0x28 */ dev_t st_rdev;
+    /* 0x2C */ long st_pad2[2];
+    /* 0x38 */ off64_t st_size;
+    /* 0x40 */ long st_pad3;
+    /* 0x44 */ timestruc_t st_atim;
+    /* 0x4C */ timestruc_t st_mtim;
+    /* 0x54 */ timestruc_t st_ctim;
+    /* 0x5C */ long st_blksize;
+    /* 0x60 */ __int64_t st_blocks;
+    /* 0x68 */ unsigned char st_fstype[16];
+    /* 0x78 */ long st_pad4[8];
+};
+
+// end file /usr/include/sys/stat.h
+FileDescriptor(adr=4233248, rss=1, issBase=5076, cbSs=74, isymBase=537, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=990, caux=21, rfdBase=450, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/errno.h
+    pretty print:
+// begin file /usr/include/errno.h
+
+// end file /usr/include/errno.h
+FileDescriptor(adr=4233248, rss=1, issBase=5150, cbSs=94, isymBase=539, csym=7, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1011, caux=27, rfdBase=483, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/limits.h
+    pretty print:
+// begin file /usr/include/limits.h
+
+typedef union _h_val {
+    /* 0x0 */ unsigned long i[2];
+    /* 0x0 */ double d;
+} _h_val;
+
+// end file /usr/include/limits.h
+FileDescriptor(adr=4233248, rss=1, issBase=5244, cbSs=76, isymBase=546, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1038, caux=16, rfdBase=516, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/getopt.h
+    pretty print:
+// begin file /usr/include/getopt.h
+
+// end file /usr/include/getopt.h
+FileDescriptor(adr=4233248, rss=1, issBase=5320, cbSs=89, isymBase=548, csym=3, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1054, caux=21, rfdBase=549, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/signal.h
+    pretty print:
+// begin file /usr/include/signal.h
+
+typedef int sig_atomic_t;
+
+// end file /usr/include/signal.h
+FileDescriptor(adr=4233248, rss=1, issBase=5409, cbSs=251, isymBase=551, csym=28, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1075, caux=39, rfdBase=582, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/procset.h
+    pretty print:
+// begin file /usr/include/sys/procset.h
+
+typedef enum idtype {
+    P_PID = 0,
+    P_PPID = 1,
+    P_PGID = 2,
+    P_SID = 3,
+    P_CID = 4,
+    P_UID = 5,
+    P_GID = 6,
+    P_ALL = 7,
+} idtype_t;
+
+typedef enum idop {
+    POP_DIFF = 0,
+    POP_AND = 1,
+    POP_OR = 2,
+    POP_XOR = 3,
+} idop_t;
+
+typedef struct procset {
+    /* 0x0 */ idop_t p_op;
+    /* 0x4 */ idtype_t p_lidtype;
+    /* 0x8 */ id_t p_lid;
+    /* 0xC */ idtype_t p_ridtype;
+    /* 0x10 */ id_t p_rid;
+} procset_t;
+
+// end file /usr/include/sys/procset.h
+FileDescriptor(adr=4233248, rss=1, issBase=5660, cbSs=124, isymBase=579, csym=17, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1114, caux=30, rfdBase=615, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/stdlib.h
+    pretty print:
+// begin file /usr/include/stdlib.h
+
+typedef struct {
+    /* 0x0 */ int quot;
+    /* 0x4 */ int rem;
+} div_t;
+
+typedef struct {
+    /* 0x0 */ long quot;
+    /* 0x4 */ long rem;
+} ldiv_t;
+
+typedef struct {
+    /* 0x0 */ long long quot;
+    /* 0x8 */ long long rem;
+} lldiv_t;
+
+// end file /usr/include/stdlib.h
+FileDescriptor(adr=4233248, rss=1, issBase=5784, cbSs=86, isymBase=596, csym=3, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1144, caux=18, rfdBase=648, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/unistd.h
+    pretty print:
+// begin file /usr/include/unistd.h
+
+// end file /usr/include/unistd.h
+FileDescriptor(adr=4233248, rss=1, issBase=5870, cbSs=109, isymBase=599, csym=7, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1162, caux=22, rfdBase=681, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/uio.h
+    pretty print:
+// begin file /usr/include/sys/uio.h
+
+typedef struct iovec {
+    /* 0x0 */ void* iov_base;
+    /* 0x4 */ size_t iov_len;
+} iovec_t;
+
+// end file /usr/include/sys/uio.h
+FileDescriptor(adr=4233248, rss=1, issBase=5979, cbSs=104, isymBase=606, csym=6, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1184, caux=21, rfdBase=714, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/utime.h
+    pretty print:
+// begin file /usr/include/sys/utime.h
+
+struct utimbuf {
+    /* 0x0 */ time_t actime;
+    /* 0x4 */ time_t modtime;
+};
+
+// end file /usr/include/sys/utime.h
+FileDescriptor(adr=4233248, rss=1, issBase=6083, cbSs=74, isymBase=612, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1205, caux=15, rfdBase=747, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/utime.h
+    pretty print:
+// begin file /usr/include/utime.h
+
+// end file /usr/include/utime.h
+FileDescriptor(adr=4233248, rss=1, issBase=6157, cbSs=77, isymBase=614, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1220, caux=15, rfdBase=780, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/re_comp.h
+    pretty print:
+// begin file /usr/include/re_comp.h
+
+// end file /usr/include/re_comp.h
+FileDescriptor(adr=4233248, rss=1, issBase=6234, cbSs=409, isymBase=616, csym=45, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1235, caux=84, rfdBase=813, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/fcntl.h
+    pretty print:
+// begin file /usr/include/sys/fcntl.h
+
+typedef struct flock {
+    /* 0x0 */ short l_type;
+    /* 0x2 */ short l_whence;
+    /* 0x4 */ off_t l_start;
+    /* 0x8 */ off_t l_len;
+    /* 0xC */ long l_sysid;
+    /* 0x10 */ pid_t l_pid;
+    /* 0x14 */ long l_pad[4];
+} flock_t;
+
+typedef struct flock64 {
+    /* 0x0 */ short l_type;
+    /* 0x2 */ short l_whence;
+    /* 0x8 */ off64_t l_start;
+    /* 0x10 */ off64_t l_len;
+    /* 0x18 */ long l_sysid;
+    /* 0x1C */ pid_t l_pid;
+    /* 0x20 */ long l_pad[4];
+} flock64_t;
+
+struct dioattr {
+    /* 0x0 */ unsigned int d_mem;
+    /* 0x4 */ unsigned int d_miniosz;
+    /* 0x8 */ unsigned int d_maxiosz;
+};
+
+struct fsxattr {
+    /* 0x0 */ __uint32_t fsx_xflags;
+    /* 0x4 */ __uint32_t fsx_extsize;
+    /* 0x8 */ __uint32_t fsx_nextents;
+    /* 0xC */ unsigned char fsx_pad[16];
+};
+
+struct getbmap {
+    /* 0x0 */ __int64_t bmv_offset;
+    /* 0x8 */ __int64_t bmv_block;
+    /* 0x10 */ __int64_t bmv_length;
+    /* 0x18 */ __int32_t bmv_count;
+    /* 0x1C */ __int32_t bmv_entries;
+};
+
+struct fsdmidata {
+    /* 0x0 */ __int32_t fsd_dmevmask;
+    /* 0x4 */ unsigned short fsd_padding;
+    /* 0x6 */ unsigned short fsd_dmstate;
+};
+
+// end file /usr/include/sys/fcntl.h
+FileDescriptor(adr=4233248, rss=1, issBase=6643, cbSs=74, isymBase=661, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1319, caux=15, rfdBase=846, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/fcntl.h
+    pretty print:
+// begin file /usr/include/fcntl.h
+
+// end file /usr/include/fcntl.h
+FileDescriptor(adr=4233248, rss=1, issBase=6717, cbSs=178, isymBase=663, csym=19, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1334, caux=38, rfdBase=879, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/wait.h
+    pretty print:
+// begin file /usr/include/sys/wait.h
+
+typedef union wait {
+    /* 0x0 */ int w_status;
+    /* 0x0 */ struct {
+        /* 0x0 */ unsigned int w_Filler : 16;
+        /* 0x2 */ unsigned int w_Retcode : 8;
+        /* 0x3 */ unsigned int w_Coredump : 1;
+        /* 0x3 */ unsigned int w_Termsig : 7;
+    } w_T;
+    /* 0x0 */ struct {
+        /* 0x0 */ unsigned int w_Filler : 16;
+        /* 0x2 */ unsigned int w_Stopsig : 8;
+        /* 0x3 */ unsigned int w_Stopval : 8;
+    } w_S;
+} wait_t;
+
+// end file /usr/include/sys/wait.h
+FileDescriptor(adr=4233248, rss=1, issBase=6895, cbSs=320, isymBase=682, csym=30, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1372, caux=36, rfdBase=912, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/resource.h
+    pretty print:
+// begin file /usr/include/sys/resource.h
+
+struct rusage {
+    /* 0x0 */ timeval ru_utime;
+    /* 0x8 */ timeval ru_stime;
+    /* 0x10 */ long ru_maxrss;
+    /* 0x14 */ long ru_ixrss;
+    /* 0x18 */ long ru_idrss;
+    /* 0x1C */ long ru_isrss;
+    /* 0x20 */ long ru_minflt;
+    /* 0x24 */ long ru_majflt;
+    /* 0x28 */ long ru_nswap;
+    /* 0x2C */ long ru_inblock;
+    /* 0x30 */ long ru_oublock;
+    /* 0x34 */ long ru_msgsnd;
+    /* 0x38 */ long ru_msgrcv;
+    /* 0x3C */ long ru_nsignals;
+    /* 0x40 */ long ru_nvcsw;
+    /* 0x44 */ long ru_nivcsw;
+};
+
+typedef unsigned long rlim_t;
+
+struct rlimit {
+    /* 0x0 */ rlim_t rlim_cur;
+    /* 0x4 */ rlim_t rlim_max;
+};
+
+typedef __uint64_t rlim64_t;
+
+struct rlimit64 {
+    /* 0x0 */ rlim64_t rlim_cur;
+    /* 0x8 */ rlim64_t rlim_max;
+};
+
+// end file /usr/include/sys/resource.h
+FileDescriptor(adr=4233248, rss=1, issBase=7215, cbSs=273, isymBase=712, csym=18, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1408, caux=33, rfdBase=945, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/elftypes.h
+    pretty print:
+// begin file /usr/include/sys/elftypes.h
+
+typedef unsigned long Elf32_Addr;
+
+typedef unsigned short Elf32_Half;
+
+typedef unsigned long Elf32_Off;
+
+typedef long Elf32_Sword;
+
+typedef unsigned long Elf32_Word;
+
+typedef unsigned char Elf32_Byte;
+
+typedef unsigned short Elf32_Section;
+
+typedef __uint64_t Elf64_Addr;
+
+typedef unsigned short Elf64_Half;
+
+typedef __uint64_t Elf64_Off;
+
+typedef __int32_t Elf64_Sword;
+
+typedef __int64_t Elf64_Sxword;
+
+typedef __uint32_t Elf64_Word;
+
+typedef __uint64_t Elf64_Xword;
+
+typedef unsigned char Elf64_Byte;
+
+typedef unsigned short Elf64_Section;
+
+// end file /usr/include/sys/elftypes.h
+FileDescriptor(adr=4233248, rss=1, issBase=7488, cbSs=543, isymBase=730, csym=72, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1441, caux=174, rfdBase=978, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/elf.h
+    pretty print:
+// begin file /usr/include/elf.h
+
+typedef struct {
+    /* 0x0 */ unsigned char e_ident[16];
+    /* 0x10 */ Elf32_Half e_type;
+    /* 0x12 */ Elf32_Half e_machine;
+    /* 0x14 */ Elf32_Word e_version;
+    /* 0x18 */ Elf32_Addr e_entry;
+    /* 0x1C */ Elf32_Off e_phoff;
+    /* 0x20 */ Elf32_Off e_shoff;
+    /* 0x24 */ Elf32_Word e_flags;
+    /* 0x28 */ Elf32_Half e_ehsize;
+    /* 0x2A */ Elf32_Half e_phentsize;
+    /* 0x2C */ Elf32_Half e_phnum;
+    /* 0x2E */ Elf32_Half e_shentsize;
+    /* 0x30 */ Elf32_Half e_shnum;
+    /* 0x32 */ Elf32_Half e_shstrndx;
+} Elf32_Ehdr;
+
+typedef struct {
+    /* 0x0 */ Elf32_Word p_type;
+    /* 0x4 */ Elf32_Off p_offset;
+    /* 0x8 */ Elf32_Addr p_vaddr;
+    /* 0xC */ Elf32_Addr p_paddr;
+    /* 0x10 */ Elf32_Word p_filesz;
+    /* 0x14 */ Elf32_Word p_memsz;
+    /* 0x18 */ Elf32_Word p_flags;
+    /* 0x1C */ Elf32_Word p_align;
+} Elf32_Phdr;
+
+typedef struct {
+    /* 0x0 */ Elf32_Word sh_name;
+    /* 0x4 */ Elf32_Word sh_type;
+    /* 0x8 */ Elf32_Word sh_flags;
+    /* 0xC */ Elf32_Addr sh_addr;
+    /* 0x10 */ Elf32_Off sh_offset;
+    /* 0x14 */ Elf32_Word sh_size;
+    /* 0x18 */ Elf32_Word sh_link;
+    /* 0x1C */ Elf32_Word sh_info;
+    /* 0x20 */ Elf32_Word sh_addralign;
+    /* 0x24 */ Elf32_Word sh_entsize;
+} Elf32_Shdr;
+
+typedef struct {
+    /* 0x0 */ Elf32_Word st_name;
+    /* 0x4 */ Elf32_Addr st_value;
+    /* 0x8 */ Elf32_Word st_size;
+    /* 0xC */ unsigned char st_info;
+    /* 0xD */ unsigned char st_other;
+    /* 0xE */ Elf32_Half st_shndx;
+} Elf32_Sym;
+
+typedef struct {
+    /* 0x0 */ Elf32_Addr r_offset;
+    /* 0x4 */ Elf32_Word r_info;
+} Elf32_Rel;
+
+typedef struct {
+    /* 0x0 */ Elf32_Addr r_offset;
+    /* 0x4 */ Elf32_Word r_info;
+    /* 0x8 */ Elf32_Sword r_addend;
+} Elf32_Rela;
+
+typedef struct {
+    /* 0x0 */ Elf32_Sword d_tag;
+    /* 0x4 */ union {
+        /* 0x0 */ Elf32_Word d_val;
+        /* 0x0 */ Elf32_Addr d_ptr;
+    } d_un;
+} Elf32_Dyn;
+
+// end file /usr/include/elf.h
+FileDescriptor(adr=4233248, rss=1, issBase=8031, cbSs=2534, isymBase=802, csym=262, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=1615, caux=420, rfdBase=1011, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/sys/elf.h
+    pretty print:
+// begin file /usr/include/sys/elf.h
+
+typedef union {
+    /* 0x0 */ struct {
+        /* 0x0 */ Elf32_Word gt_current_g_value;
+        /* 0x4 */ Elf32_Word gt_unused;
+    } gt_header;
+    /* 0x0 */ struct {
+        /* 0x0 */ Elf32_Word gt_g_value;
+        /* 0x4 */ Elf32_Word gt_bytes;
+    } gt_entry;
+} Elf32_Gptab;
+
+typedef struct {
+    /* 0x0 */ Elf32_Word ri_gprmask;
+    /* 0x4 */ Elf32_Word ri_cprmask[4];
+    /* 0x14 */ Elf32_Sword ri_gp_value;
+} Elf32_RegInfo;
+
+typedef struct {
+    /* 0x0 */ Elf32_Byte kind;
+    /* 0x1 */ Elf32_Byte size;
+    /* 0x2 */ Elf32_Section section;
+    /* 0x4 */ Elf32_Word info;
+} Elf_Options;
+
+typedef struct {
+    /* 0x0 */ Elf32_Word hwp_flags1;
+    /* 0x4 */ Elf32_Word hwp_flags2;
+} Elf_Options_Hw;
+
+typedef union {
+    /* 0x0 */ struct {
+        /* 0x0 */ Elf32_Word con_info;
+        /* 0x4 */ Elf32_Word con_start;
+    } con_y;
+    /* 0x0 */ Elf32_Word con_xval;
+} Elf32_Content;
+
+typedef enum {
+    CK_NULL = 0,
+    CK_DEFAULT = 48,
+    CK_ALIGN = 49,
+    CK_INSTR = 50,
+    CK_DATA = 51,
+    CK_SADDR_32 = 52,
+    CK_GADDR_32 = 53,
+    CK_CADDR_32 = 54,
+    CK_SADDR_64 = 55,
+    CK_GADDR_64 = 56,
+    CK_CADDR_64 = 57,
+    CK_NO_XFORM = 58,
+    CK_NO_REORDER = 59,
+    CK_GP_GROUP = 60,
+    CK_STUBS = 61,
+} Elf_Content_Kind;
+
+typedef enum {
+    EK_NULL = 0,
+    EK_ADDR_RESET = 1,
+    EK_INCR_LOC_EXT = 2,
+    EK_ENTRY = 3,
+    EK_IF_ENTRY = 4,
+    EK_EXIT = 5,
+    EK_PEND = 6,
+    EK_SWITCH_32 = 7,
+    EK_SWITCH_64 = 8,
+    EK_DUMMY = 9,
+    EK_BB_START = 10,
+    EK_INCR_LOC_UNALIGNED = 11,
+    EK_GP_PROLOG_HI = 12,
+    EK_GP_PROLOG_LO = 13,
+    EK_GOT_PAGE = 14,
+    EK_GOT_OFST = 15,
+    EK_HI = 16,
+    EK_LO = 17,
+    EK_64_HIGHEST = 18,
+    EK_64_HIGHER = 19,
+    EK_64_HIGH = 20,
+    EK_64_LOW = 21,
+    EK_GPREL = 22,
+    EK_DEF = 23,
+    EK_FCALL_LOCAL = 24,
+    EK_FCALL_EXTERN = 25,
+    EK_FCALL_EXTERN_BIG = 26,
+    EK_FCALL_MULT = 27,
+    EK_FCALL_MULT_PARTIAL = 28,
+    EK_LTR_FCALL = 29,
+    EK_PCREL_GOT0 = 30,
+    EK_MEM_COPY_LOAD = 31,
+    EK_MEM_COPY_STORE = 32,
+    EK_MEM_PARTIAL_LOAD = 33,
+    EK_MEM_EAGER_LOAD = 34,
+    EK_MEM_VALID_LOAD = 35,
+    EK_CK_UNUSED_NONE_0 = 80,
+    EK_CK_UNUSED_NONE_1 = 81,
+    EK_CK_UNUSED_NONE_2 = 82,
+    EK_CK_UNUSED_NONE_3 = 83,
+    EK_CK_UNUSED_NONE_4 = 84,
+    EK_CK_UNUSED_16BIT_0 = 85,
+    EK_CK_UNUSED_16BIT_1 = 86,
+    EK_CK_UNUSED_16BIT_2 = 87,
+    EK_CK_UNUSED_16BIT_3 = 88,
+    EK_CK_UNUSED_16BIT_4 = 89,
+    EK_CK_UNUSED_32BIT_0 = 90,
+    EK_CK_UNUSED_32BIT_1 = 91,
+    EK_CK_UNUSED_32BIT_2 = 92,
+    EK_CK_UNUSED_64BIT_0 = 93,
+    EK_CK_UNUSED_64BIT_1 = 94,
+    EK_CK_UNUSED_64BIT_2 = 95,
+    EK_CK_UNUSED_64BIT_3 = 96,
+    EK_CK_UNUSED_64BIT_4 = 97,
+    EK_CK_UNUSED_ULEB128_0 = 98,
+    EK_CK_UNUSED_ULEB128_1 = 99,
+    EK_CK_UNUSED_ULEB128_2 = 100,
+    EK_CK_UNUSED_ULEB128_3 = 101,
+    EK_CK_UNUSED_ULEB128_4 = 102,
+    EK_CK_UNUSED_ULEB128_5 = 103,
+    EK_CK_UNUSED_ULEB128_6 = 104,
+    EK_CK_UNUSED_ULEB128_7 = 105,
+    EK_CK_UNUSED_ULEB128_8 = 106,
+    EK_CK_UNUSED_ULEB128_9 = 107,
+    EK_INCR_LOC = 128,
+} Elf_Event_Kind;
+
+typedef struct {
+    /* 0x0 */ Elf64_Word symbol;
+    /* 0x4 */ Elf64_Half attrs;
+    /* 0x6 */ Elf64_Byte pcnt;
+    /* 0x7 */ Elf64_Byte fpmask;
+} Elf_Interface_Descriptor;
+
+typedef struct {
+    /* 0x0 */ Elf32_Word l_name;
+    /* 0x4 */ Elf32_Word l_time_stamp;
+    /* 0x8 */ Elf32_Word l_checksum;
+    /* 0xC */ Elf32_Word l_version;
+    /* 0x10 */ Elf32_Word l_flags;
+} Elf32_Lib;
+
+typedef Elf32_Addr Elf32_Conflict;
+
+typedef struct {
+    /* 0x0 */ Elf32_Addr g_index;
+} Elf32_Got;
+
+typedef struct {
+    /* 0x0 */ Elf64_Addr g_index;
+} Elf64_Got;
+
+typedef struct {
+    /* 0x0 */ unsigned char e_ident[16];
+    /* 0x10 */ Elf64_Half e_type;
+    /* 0x12 */ Elf64_Half e_machine;
+    /* 0x14 */ Elf64_Word e_version;
+    /* 0x18 */ Elf64_Addr e_entry;
+    /* 0x20 */ Elf64_Off e_phoff;
+    /* 0x28 */ Elf64_Off e_shoff;
+    /* 0x30 */ Elf64_Word e_flags;
+    /* 0x34 */ Elf64_Half e_ehsize;
+    /* 0x36 */ Elf64_Half e_phentsize;
+    /* 0x38 */ Elf64_Half e_phnum;
+    /* 0x3A */ Elf64_Half e_shentsize;
+    /* 0x3C */ Elf64_Half e_shnum;
+    /* 0x3E */ Elf64_Half e_shstrndx;
+} Elf64_Ehdr;
+
+typedef struct {
+    /* 0x0 */ Elf64_Word p_type;
+    /* 0x4 */ Elf64_Word p_flags;
+    /* 0x8 */ Elf64_Off p_offset;
+    /* 0x10 */ Elf64_Addr p_vaddr;
+    /* 0x18 */ Elf64_Addr p_paddr;
+    /* 0x20 */ Elf64_Xword p_filesz;
+    /* 0x28 */ Elf64_Xword p_memsz;
+    /* 0x30 */ Elf64_Xword p_align;
+} Elf64_Phdr;
+
+typedef struct {
+    /* 0x0 */ Elf64_Word sh_name;
+    /* 0x4 */ Elf64_Word sh_type;
+    /* 0x8 */ Elf64_Xword sh_flags;
+    /* 0x10 */ Elf64_Addr sh_addr;
+    /* 0x18 */ Elf64_Off sh_offset;
+    /* 0x20 */ Elf64_Xword sh_size;
+    /* 0x28 */ Elf64_Word sh_link;
+    /* 0x2C */ Elf64_Word sh_info;
+    /* 0x30 */ Elf64_Xword sh_addralign;
+    /* 0x38 */ Elf64_Xword sh_entsize;
+} Elf64_Shdr;
+
+typedef struct {
+    /* 0x0 */ Elf64_Word st_name;
+    /* 0x4 */ unsigned char st_info;
+    /* 0x5 */ unsigned char st_other;
+    /* 0x6 */ Elf64_Half st_shndx;
+    /* 0x8 */ Elf64_Addr st_value;
+    /* 0x10 */ Elf64_Xword st_size;
+} Elf64_Sym;
+
+typedef struct {
+    /* 0x0 */ Elf64_Addr r_offset;
+    /* 0x8 */ Elf64_Word r_sym;
+    /* 0xC */ Elf64_Byte r_ssym;
+    /* 0xD */ Elf64_Byte r_type3;
+    /* 0xE */ Elf64_Byte r_type2;
+    /* 0xF */ Elf64_Byte r_type;
+} Elf64_Rel;
+
+typedef struct {
+    /* 0x0 */ Elf64_Addr r_offset;
+    /* 0x8 */ Elf64_Word r_sym;
+    /* 0xC */ Elf64_Byte r_ssym;
+    /* 0xD */ Elf64_Byte r_type3;
+    /* 0xE */ Elf64_Byte r_type2;
+    /* 0xF */ Elf64_Byte r_type;
+    /* 0x10 */ Elf64_Sxword r_addend;
+} Elf64_Rela;
+
+typedef enum {
+    RSS_UNDEF = 0,
+    RSS_GP = 1,
+    RSS_GP0 = 2,
+    RSS_LOC = 3,
+} Elf64_Rel_Ssym;
+
+typedef Elf64_Addr Elf64_Conflict;
+
+typedef struct {
+    /* 0x0 */ Elf64_Word ri_gprmask;
+    /* 0x4 */ Elf64_Word ri_pad;
+    /* 0x8 */ Elf64_Word ri_cprmask[4];
+    /* 0x18 */ Elf64_Addr ri_gp_value;
+} Elf64_RegInfo;
+
+typedef union {
+    /* 0x0 */ struct {
+        /* 0x0 */ Elf64_Word con_info;
+        /* 0x4 */ Elf64_Word con_start;
+    } con_y;
+    /* 0x0 */ Elf64_Xword con_xval;
+} Elf64_Content;
+
+typedef struct {
+    /* 0x0 */ Elf64_Xword d_tag;
+    /* 0x8 */ union {
+        /* 0x0 */ Elf64_Xword d_val;
+        /* 0x0 */ Elf64_Addr d_ptr;
+    } d_un;
+} Elf64_Dyn;
+
+typedef struct {
+    /* 0x0 */ Elf64_Word l_name;
+    /* 0x4 */ Elf64_Word l_time_stamp;
+    /* 0x8 */ Elf64_Word l_checksum;
+    /* 0xC */ Elf64_Word l_version;
+    /* 0x10 */ Elf64_Word l_flags;
+} Elf64_Lib;
+
+// end file /usr/include/sys/elf.h
+FileDescriptor(adr=4233248, rss=1, issBase=10565, cbSs=648, isymBase=1064, csym=73, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=2035, caux=81, rfdBase=1044, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/libelf.h
+    pretty print:
+// begin file /usr/include/libelf.h
+
+typedef void Elf_Void;
+
+typedef enum {
+    ELF_C_NULL = 0,
+    ELF_C_READ = 1,
+    ELF_C_WRITE = 2,
+    ELF_C_CLR = 3,
+    ELF_C_SET = 4,
+    ELF_C_FDDONE = 5,
+    ELF_C_FDREAD = 6,
+    ELF_C_RDWR = 7,
+    ELF_C_READ_MMAP = 8,
+    ELF_C_WRITE_FAST = 9,
+    ELF_C_NUM = 10,
+} Elf_Cmd;
+
+typedef enum {
+    ELF_K_NONE = 0,
+    ELF_K_AR = 1,
+    ELF_K_COFF = 2,
+    ELF_K_ELF = 3,
+    ELF_K_NUM = 4,
+} Elf_Kind;
+
+typedef enum {
+    ELF_T_BYTE = 0,
+    ELF_T_ADDR = 1,
+    ELF_T_DYN = 2,
+    ELF_T_EHDR = 3,
+    ELF_T_HALF = 4,
+    ELF_T_OFF = 5,
+    ELF_T_PHDR = 6,
+    ELF_T_RELA = 7,
+    ELF_T_REL = 8,
+    ELF_T_SHDR = 9,
+    ELF_T_SWORD = 10,
+    ELF_T_SXWORD = 11,
+    ELF_T_SYM = 12,
+    ELF_T_WORD = 13,
+    ELF_T_XWORD = 14,
+    ELF_T_NUM = 15,
+} Elf_Type;
+
+typedef Elf Elf;
+
+typedef Elf_Scn Elf_Scn;
+
+typedef struct {
+    /* 0x0 */ unsigned char* ar_name;
+    /* 0x4 */ time_t ar_date;
+    /* 0x8 */ uid_t ar_uid;
+    /* 0xC */ gid_t ar_gid;
+    /* 0x10 */ mode_t ar_mode;
+    /* 0x14 */ off_t ar_size;
+    /* 0x18 */ unsigned char* ar_rawname;
+} Elf_Arhdr;
+
+typedef struct {
+    /* 0x0 */ unsigned char* as_name;
+    /* 0x4 */ size_t as_off;
+    /* 0x8 */ unsigned long as_hash;
+} Elf_Arsym;
+
+typedef struct {
+    /* 0x0 */ Elf_Void* d_buf;
+    /* 0x4 */ Elf_Type d_type;
+    /* 0x8 */ size_t d_size;
+    /* 0xC */ off_t d_off;
+    /* 0x10 */ size_t d_align;
+    /* 0x14 */ unsigned int d_version;
+} Elf_Data;
+
+// end file /usr/include/libelf.h
+FileDescriptor(adr=4233248, rss=1, issBase=11213, cbSs=141, isymBase=1137, csym=13, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=2116, caux=53, rfdBase=1077, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:/usr/include/stdio.h
+    pretty print:
+// begin file /usr/include/stdio.h
+
+typedef long fpos_t;
+
+typedef __int64_t fpos64_t;
+
+typedef unsigned char* va_list;
+
+typedef struct __file_s {
+    /* 0x0 */ int _cnt;
+    /* 0x4 */ unsigned char* _ptr;
+    /* 0x8 */ unsigned char* _base;
+    /* 0xC */ unsigned char _flag;
+    /* 0xD */ unsigned char _file;
+} FILE;
+
+// end file /usr/include/stdio.h
+FileDescriptor(adr=4233248, rss=1, issBase=11354, cbSs=673, isymBase=1150, csym=73, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=18, cpd=0, iauxBase=2169, caux=100, rfdBase=1110, crfd=33, XXX_bitfield=83886080, cbLineOffset=571, cbLine=0)
+    name:./makerom.h
+    pretty print:
+// begin file ./makerom.h
+
+typedef struct Path_s {
+    /* 0x0 */ Path* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ unsigned int textSize;
+    /* 0xC */ unsigned int dataSize;
+    /* 0x10 */ unsigned int sdataSize;
+    /* 0x14 */ unsigned int sbssSize;
+    /* 0x18 */ unsigned int bssSize;
+    /* 0x1C */ unsigned int textAlign;
+    /* 0x20 */ unsigned int dataAlign;
+    /* 0x24 */ unsigned int sdataAlign;
+    /* 0x28 */ unsigned int sbssAlign;
+    /* 0x2C */ unsigned int bssAlign;
+    /* 0x30 */ unsigned int textStart;
+    /* 0x34 */ unsigned int dataStart;
+    /* 0x38 */ unsigned int sdataStart;
+    /* 0x3C */ unsigned int sbssStart;
+    /* 0x40 */ unsigned int bssStart;
+    /* 0x44 */ unsigned int sectionsExisting;
+} Path;
+
+typedef struct Segment_s {
+    /* 0x0 */ Segment* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ Path* pathList;
+    /* 0x10 */ unsigned int address;
+    /* 0x14 */ int addrFunc;
+    /* 0x18 */ Segment* afterSeg1;
+    /* 0x1C */ Segment* afterSeg2;
+    /* 0x20 */ unsigned int align;
+    /* 0x24 */ unsigned int romOffset;
+    /* 0x28 */ int flags;
+    /* 0x2C */ unsigned int textSize;
+    /* 0x30 */ unsigned int dataSize;
+    /* 0x34 */ unsigned int sdataSize;
+    /* 0x38 */ unsigned int sbssSize;
+    /* 0x3C */ unsigned int bssSize;
+    /* 0x40 */ unsigned int totalSize;
+    /* 0x44 */ unsigned int maxSize;
+    /* 0x48 */ int romalign;
+    /* 0x4C */ unsigned int textAlign;
+    /* 0x50 */ unsigned int dataAlign;
+    /* 0x54 */ unsigned int sdataAlign;
+    /* 0x58 */ unsigned int sbssAlign;
+    /* 0x5C */ unsigned int bssAlign;
+    /* 0x60 */ unsigned int sectionsExisting;
+    /* 0x64 */ unsigned int textStart;
+    /* 0x68 */ unsigned int dataStart;
+    /* 0x6C */ unsigned int sdataStart;
+    /* 0x70 */ unsigned int sbssStart;
+    /* 0x74 */ unsigned int bssStart;
+} Segment;
+
+typedef struct SegmentChain_s {
+    /* 0x0 */ SegmentChain* next;
+    /* 0x4 */ Segment* segment;
+} SegmentChain;
+
+struct Wave_s {
+    /* 0x0 */ Wave* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ SegmentChain* segmentChain;
+    /* 0xC */ Elf* elf;
+    /* 0x10 */ Elf32_Ehdr* ehdr;
+    /* 0x14 */ unsigned char elspecFile[255];
+    /* 0x114 */ int fd;
+    /* 0x118 */ size_t searchIndex;
+};
+
+typedef struct Wave_s {
+    /* 0x0 */ Wave* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ SegmentChain* segmentChain;
+    /* 0xC */ Elf* elf;
+    /* 0x10 */ Elf32_Ehdr* ehdr;
+    /* 0x14 */ unsigned char elspecFile[255];
+    /* 0x114 */ int fd;
+    /* 0x118 */ size_t searchIndex;
+} Wave;
+
+// end file ./makerom.h
+FileDescriptor(adr=4243216, rss=1, issBase=12027, cbSs=431, isymBase=1223, csym=23, ilineBase=2564, cline=650, ioptBase=0, copt=0, ipdFirst=18, cpd=2, iauxBase=2269, caux=52, rfdBase=1143, crfd=21, XXX_bitfield=16777216, cbLineOffset=571, cbLine=119)
+    name:elspec.c
+    pretty print:
+// begin file elspec.c
+
+int createElspec(Wave* wave);
+//{
+//    FILE* f;
+//    SegmentChain* sc;
+//    Segment* s;
+//    Path* p;
+//}
+
+int runLinker(Wave* wave, unsigned char* symbolFile, unsigned char* objListFile);
+//{
+//    unsigned char* cmd;
+//    SegmentChain* sc;
+//    Segment* s;
+//    Path* p;
+//    FILE* objfd;
+//}
+
+// end file elspec.c
+FileDescriptor(adr=4243216, rss=1, issBase=12458, cbSs=94, isymBase=1246, csym=4, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=20, cpd=0, iauxBase=2321, caux=21, rfdBase=1164, crfd=21, XXX_bitfield=83886080, cbLineOffset=690, cbLine=0)
+    name:/usr/include/unistd.h
+    pretty print:
+// begin file /usr/include/unistd.h
+
+// end file /usr/include/unistd.h
+FileDescriptor(adr=4245824, rss=1, issBase=12552, cbSs=1093, isymBase=1250, csym=154, ilineBase=3214, cline=4057, ioptBase=0, copt=0, ipdFirst=20, cpd=14, iauxBase=2342, caux=221, rfdBase=1185, crfd=32, XXX_bitfield=16777216, cbLineOffset=690, cbLine=847)
+    name:segment.c
+    pretty print:
+// begin file segment.c
+
+static unsigned char* romImage;
+
+int scanSegments();
+//{
+//    Segment* s;
+//    unsigned int offset;
+//    int rom_size;
+//}
+
+int sizeObject(Segment* s);
+//{
+//    unsigned int address1;
+//    unsigned int address2;
+//    int fd;
+//    Elf* elf;
+//    Elf_Scn* scn;
+//    Elf32_Ehdr* ehdr;
+//    Elf32_Shdr* shdr;
+//    Path* p;
+//    size_t index;
+//    unsigned char* sectName;
+//    int currAddress;
+//    int firstSection;
+//}
+
+int sizeRaw(Segment* s);
+//{
+//    unsigned int address1;
+//    unsigned int address2;
+//    unsigned int currAddress;
+//    int fd;
+//    Path* p;
+//    stat statBuffer;
+//}
+
+int checkSizes();
+//{
+//    Segment* s;
+//    int sizeViolation;
+//}
+
+int checkOverlaps();
+//{
+//    Wave* w;
+//    SegmentChain* sc;
+//    SegmentChain* tc;
+//    Segment* s;
+//    Segment* t;
+//    int isOverlap;
+//}
+
+int createSegmentSymbols(unsigned char* source, unsigned char* object);
+//{
+//    FILE* f;
+//    Segment* s;
+//    unsigned char* cmd;
+//}
+
+int createRomImage(unsigned char* romFile, unsigned char* object);
+//{
+//    FILE* f;
+//    Segment* s;
+//    ptrdiff_t bootStack;
+//    unsigned char* sectName;
+//    size_t romSize;
+//    int fd;
+//    Elf* elf;
+//    Elf32_Ehdr* ehdr;
+//    Elf_Scn* scn;
+//    Elf32_Shdr* shdr;
+//    int index;
+//    int end;
+//    int i;
+//    unsigned char* fillbuffer;
+//    {
+//        int tmp_clock;
+//    }
+//}
+
+int openAouts();
+//{
+//    Wave* wave;
+//    unsigned char gcordFileBuf[256];
+//}
+
+void* lookupSymbol(Wave* wave, unsigned char* name);
+//{
+//    Elf_Scn* scn;
+//    Elf32_Shdr* shdr;
+//    Elf_Data* data;
+//    Elf32_Sym* sym;
+//    size_t index;
+//    int i;
+//    int count;
+//}
+
+Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName);
+//{
+//    Elf_Scn* scn;
+//    Elf32_Shdr* shdr;
+//    size_t index;
+//    unsigned char* sectName;
+//}
+
+int readObject(Segment* s);
+//{
+//    unsigned char* segSectName;
+//    Elf32_Shdr* shdr;
+//}
+
+int readRaw(Segment* s);
+//{
+//    Path* p;
+//    int fd;
+//    unsigned int offset;
+//    off_t fileSize;
+//    off_t totalSize;
+//    stat statBuffer;
+//}
+
+int createEntryFile(unsigned char* source, unsigned char* object);
+//{
+//    Segment* s;
+//    FILE* f;
+//    unsigned char* cmd;
+//    unsigned char* segSectName;
+//    void* BssStart;
+//    Wave* wave;
+//    void* bootEntry;
+//    void* bootStack;
+//    unsigned char romsymbol[14];
+//}
+
+unsigned int ALIGNn(unsigned int romalign, int n);
+//{
+//}
+
+// end file segment.c
+FileDescriptor(adr=4245824, rss=1, issBase=13645, cbSs=86, isymBase=1404, csym=3, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=34, cpd=0, iauxBase=2563, caux=15, rfdBase=1217, crfd=32, XXX_bitfield=83886080, cbLineOffset=1537, cbLine=0)
+    name:/usr/include/stddef.h
+    pretty print:
+// begin file /usr/include/stddef.h
+
+typedef int ptrdiff_t;
+
+// end file /usr/include/stddef.h
+FileDescriptor(adr=4245824, rss=1, issBase=13731, cbSs=166, isymBase=1407, csym=20, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=34, cpd=0, iauxBase=2578, caux=23, rfdBase=1249, crfd=32, XXX_bitfield=83886080, cbLineOffset=1537, cbLine=0)
+    name:/usr/include/PR/ultratypes.h
+    pretty print:
+// begin file /usr/include/PR/ultratypes.h
+
+typedef unsigned char u8;
+
+typedef unsigned short u16;
+
+typedef unsigned long u32;
+
+typedef unsigned long long u64;
+
+typedef signed char s8;
+
+typedef short s16;
+
+typedef long s32;
+
+typedef long long s64;
+
+typedef volatile unsigned char vu8;
+
+typedef volatile unsigned short vu16;
+
+typedef volatile unsigned long vu32;
+
+typedef volatile unsigned long long vu64;
+
+typedef volatile signed char vs8;
+
+typedef volatile short vs16;
+
+typedef volatile long vs32;
+
+typedef volatile long long vs64;
+
+typedef float f32;
+
+typedef double f64;
+
+// end file /usr/include/PR/ultratypes.h
+FileDescriptor(adr=4245824, rss=1, issBase=13897, cbSs=184, isymBase=1427, csym=9, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=34, cpd=0, iauxBase=2601, caux=24, rfdBase=1281, crfd=32, XXX_bitfield=83886080, cbLineOffset=1537, cbLine=0)
+    name:/hosts/liberte//disk7/nightly/mdev2/PR/include/ramrom.h
+    pretty print:
+// begin file /hosts/liberte//disk7/nightly/mdev2/PR/include/ramrom.h
+
+typedef struct {
+    /* 0x0 */ long type;
+    /* 0x4 */ long length;
+    /* 0x8 */ long magic;
+    /* 0xC */ unsigned char userdata[24564];
+} RamRomBuffer;
+
+// end file /hosts/liberte//disk7/nightly/mdev2/PR/include/ramrom.h
+FileDescriptor(adr=4262064, rss=1, issBase=14081, cbSs=410, isymBase=1436, csym=17, ilineBase=7271, cline=241, ioptBase=0, copt=0, ipdFirst=34, cpd=2, iauxBase=2625, caux=34, rfdBase=1313, crfd=29, XXX_bitfield=16777216, cbLineOffset=1537, cbLine=48)
+    name:coff.c
+    pretty print:
+// begin file coff.c
+
+int readCoff(unsigned char* fname, unsigned int* buf);
+//{
+//    int textSize;
+//    int dataSize;
+//    int bssSize;
+//}
+
+int Extract(unsigned int* buf);
+//{
+//    int bytesRead;
+//}
+
+// end file coff.c
+FileDescriptor(adr=4262064, rss=1, issBase=14491, cbSs=148, isymBase=1453, csym=14, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=2659, caux=53, rfdBase=1342, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/stdio.h
+    pretty print:
+// begin file /usr/include/stdio.h
+
+typedef unsigned int size_t;
+
+typedef long fpos_t;
+
+typedef __int64_t fpos64_t;
+
+typedef unsigned char* va_list;
+
+typedef struct __file_s {
+    /* 0x0 */ int _cnt;
+    /* 0x4 */ unsigned char* _ptr;
+    /* 0x8 */ unsigned char* _base;
+    /* 0xC */ unsigned char _flag;
+    /* 0xD */ unsigned char _file;
+} FILE;
+
+// end file /usr/include/stdio.h
+FileDescriptor(adr=4262064, rss=1, issBase=14639, cbSs=1334, isymBase=1467, csym=174, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=2712, caux=311, rfdBase=1371, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/sex.h
+    pretty print:
+// begin file /usr/include/sex.h
+
+struct __sgi_hdrr_s {
+    /* 0x0 */ short magic;
+    /* 0x2 */ short vstamp;
+    /* 0x4 */ long_i ilineMax;
+    /* 0x8 */ long_i cbLine;
+    /* 0xC */ long_i cbLineOffset;
+    /* 0x10 */ long_i idnMax;
+    /* 0x14 */ long_i cbDnOffset;
+    /* 0x18 */ long_i ipdMax;
+    /* 0x1C */ long_i cbPdOffset;
+    /* 0x20 */ long_i isymMax;
+    /* 0x24 */ long_i cbSymOffset;
+    /* 0x28 */ long_i ioptMax;
+    /* 0x2C */ long_i cbOptOffset;
+    /* 0x30 */ long_i iauxMax;
+    /* 0x34 */ long_i cbAuxOffset;
+    /* 0x38 */ long_i issMax;
+    /* 0x3C */ long_i cbSsOffset;
+    /* 0x40 */ long_i issExtMax;
+    /* 0x44 */ long_i cbSsExtOffset;
+    /* 0x48 */ long_i ifdMax;
+    /* 0x4C */ long_i cbFdOffset;
+    /* 0x50 */ long_i crfd;
+    /* 0x54 */ long_i cbRfdOffset;
+    /* 0x58 */ long_i iextMax;
+    /* 0x5C */ long_i cbExtOffset;
+};
+
+struct fdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i rss;
+    /* 0x8 */ long_i issBase;
+    /* 0xC */ long_i cbSs;
+    /* 0x10 */ long_i isymBase;
+    /* 0x14 */ long_i csym;
+    /* 0x18 */ long_i ilineBase;
+    /* 0x1C */ long_i cline;
+    /* 0x20 */ long_i ioptBase;
+    /* 0x24 */ long_i copt;
+    /* 0x28 */ unsigned short ipdFirst;
+    /* 0x2A */ unsigned short cpd;
+    /* 0x2C */ long_i iauxBase;
+    /* 0x30 */ long_i caux;
+    /* 0x34 */ long_i rfdBase;
+    /* 0x38 */ long_i crfd;
+    /* 0x3C */ unsigned int lang : 5;
+    /* 0x3C */ unsigned int fMerge : 1;
+    /* 0x3C */ unsigned int fReadin : 1;
+    /* 0x3C */ unsigned int fBigendian : 1;
+    /* 0x3D */ unsigned int glevel : 2;
+    /* 0x3D */ unsigned int signedchar : 1;
+    /* 0x3D */ unsigned int ipdFirstMSBits : 4;
+    /* 0x3D */ unsigned int cpdMSBits : 4;
+    /* 0x3E */ unsigned int reserved : 13;
+    /* 0x40 */ long_i cbLineOffset;
+    /* 0x44 */ long_i cbLine;
+};
+
+struct pdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i isym;
+    /* 0x8 */ long_i iline;
+    /* 0xC */ long_i regmask;
+    /* 0x10 */ long_i regoffset;
+    /* 0x14 */ long_i iopt;
+    /* 0x18 */ long_i fregmask;
+    /* 0x1C */ long_i fregoffset;
+    /* 0x20 */ long_i frameoffset;
+    /* 0x24 */ short framereg;
+    /* 0x26 */ short pcreg;
+    /* 0x28 */ long_i lnLow;
+    /* 0x2C */ long_i lnHigh;
+    /* 0x30 */ long_i cbLineOffset;
+};
+
+struct __sgi_symr_s {
+    /* 0x0 */ long_i iss;
+    /* 0x4 */ long_i value;
+    /* 0x8 */ unsigned int st : 6;
+    /* 0x8 */ unsigned int sc : 5;
+    /* 0x9 */ unsigned int reserved : 1;
+    /* 0x9 */ unsigned int index : 20;
+};
+
+struct __sgi_extr__ {
+    /* 0x0 */ unsigned int jmptbl : 1;
+    /* 0x0 */ unsigned int cobol_main : 1;
+    /* 0x0 */ unsigned int weakext : 1;
+    /* 0x0 */ unsigned int deltacplus : 1;
+    /* 0x0 */ unsigned int multiext : 1;
+    /* 0x0 */ unsigned int reserved : 11;
+    /* 0x2 */ unsigned short ifd;
+    /* 0x4 */ __sgi_symr_s asym;
+};
+
+union __sgi_auxu_u {
+    /* 0x0 */ TIR ti;
+    /* 0x0 */ RNDXR rndx;
+    /* 0x0 */ long_i dnLow;
+    /* 0x0 */ long_i dnHigh;
+    /* 0x0 */ long_i isym;
+    /* 0x0 */ long_i iss;
+    /* 0x0 */ long_i width;
+    /* 0x0 */ long_i count;
+};
+
+struct __sgi_optr_s {
+    /* 0x0 */ unsigned int ot : 8;
+    /* 0x1 */ unsigned int value : 24;
+    /* 0x4 */ RNDXR rndx;
+    /* 0x8 */ ulong_i offset;
+};
+
+struct filehdr {
+    /* 0x0 */ unsigned short f_magic;
+    /* 0x2 */ unsigned short f_nscns;
+    /* 0x4 */ long f_timdat;
+    /* 0x8 */ long f_symptr;
+    /* 0xC */ long f_nsyms;
+    /* 0x10 */ unsigned short f_opthdr;
+    /* 0x12 */ unsigned short f_flags;
+};
+
+struct aouthdr {
+    /* 0x0 */ short magic;
+    /* 0x2 */ short vstamp;
+    /* 0x4 */ long tsize;
+    /* 0x8 */ long dsize;
+    /* 0xC */ long bsize;
+    /* 0x10 */ long entry;
+    /* 0x14 */ long text_start;
+    /* 0x18 */ long data_start;
+    /* 0x1C */ long bss_start;
+    /* 0x20 */ long gprmask;
+    /* 0x24 */ long cprmask[4];
+    /* 0x34 */ long gp_value;
+};
+
+struct scnhdr {
+    /* 0x0 */ unsigned char s_name[8];
+    /* 0x8 */ long s_paddr;
+    /* 0xC */ long s_vaddr;
+    /* 0x10 */ long s_size;
+    /* 0x14 */ long s_scnptr;
+    /* 0x18 */ long s_relptr;
+    /* 0x1C */ long s_lnnoptr;
+    /* 0x20 */ unsigned short s_nreloc;
+    /* 0x22 */ unsigned short s_nlnno;
+    /* 0x24 */ long s_flags;
+};
+
+union gp_table {
+    /* 0x0 */ struct {
+        /* 0x0 */ long current_g_value;
+        /* 0x4 */ long unused;
+    } header;
+    /* 0x0 */ struct {
+        /* 0x0 */ long g_value;
+        /* 0x4 */ long bytes;
+    } entry;
+};
+
+struct reloc {
+    /* 0x0 */ long r_vaddr;
+    /* 0x4 */ unsigned int r_symndx : 24;
+    /* 0x7 */ unsigned int r_reserved : 2;
+    /* 0x7 */ unsigned int r_type : 5;
+    /* 0x7 */ unsigned int r_extern : 1;
+};
+
+// end file /usr/include/sex.h
+FileDescriptor(adr=4262064, rss=1, issBase=15973, cbSs=680, isymBase=1641, csym=110, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3023, caux=245, rfdBase=1400, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/sym.h
+    pretty print:
+// begin file /usr/include/sym.h
+
+typedef long long_i;
+
+typedef unsigned long ulong_i;
+
+typedef struct __sgi_hdrr_s {
+    /* 0x0 */ short magic;
+    /* 0x2 */ short vstamp;
+    /* 0x4 */ long_i ilineMax;
+    /* 0x8 */ long_i cbLine;
+    /* 0xC */ long_i cbLineOffset;
+    /* 0x10 */ long_i idnMax;
+    /* 0x14 */ long_i cbDnOffset;
+    /* 0x18 */ long_i ipdMax;
+    /* 0x1C */ long_i cbPdOffset;
+    /* 0x20 */ long_i isymMax;
+    /* 0x24 */ long_i cbSymOffset;
+    /* 0x28 */ long_i ioptMax;
+    /* 0x2C */ long_i cbOptOffset;
+    /* 0x30 */ long_i iauxMax;
+    /* 0x34 */ long_i cbAuxOffset;
+    /* 0x38 */ long_i issMax;
+    /* 0x3C */ long_i cbSsOffset;
+    /* 0x40 */ long_i issExtMax;
+    /* 0x44 */ long_i cbSsExtOffset;
+    /* 0x48 */ long_i ifdMax;
+    /* 0x4C */ long_i cbFdOffset;
+    /* 0x50 */ long_i crfd;
+    /* 0x54 */ long_i cbRfdOffset;
+    /* 0x58 */ long_i iextMax;
+    /* 0x5C */ long_i cbExtOffset;
+} HDRR;
+
+typedef struct __sgi_hdrr_s {
+    /* 0x0 */ short magic;
+    /* 0x2 */ short vstamp;
+    /* 0x4 */ long_i ilineMax;
+    /* 0x8 */ long_i cbLine;
+    /* 0xC */ long_i cbLineOffset;
+    /* 0x10 */ long_i idnMax;
+    /* 0x14 */ long_i cbDnOffset;
+    /* 0x18 */ long_i ipdMax;
+    /* 0x1C */ long_i cbPdOffset;
+    /* 0x20 */ long_i isymMax;
+    /* 0x24 */ long_i cbSymOffset;
+    /* 0x28 */ long_i ioptMax;
+    /* 0x2C */ long_i cbOptOffset;
+    /* 0x30 */ long_i iauxMax;
+    /* 0x34 */ long_i cbAuxOffset;
+    /* 0x38 */ long_i issMax;
+    /* 0x3C */ long_i cbSsOffset;
+    /* 0x40 */ long_i issExtMax;
+    /* 0x44 */ long_i cbSsExtOffset;
+    /* 0x48 */ long_i ifdMax;
+    /* 0x4C */ long_i cbFdOffset;
+    /* 0x50 */ long_i crfd;
+    /* 0x54 */ long_i cbRfdOffset;
+    /* 0x58 */ long_i iextMax;
+    /* 0x5C */ long_i cbExtOffset;
+}* pHDRR;
+
+typedef struct fdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i rss;
+    /* 0x8 */ long_i issBase;
+    /* 0xC */ long_i cbSs;
+    /* 0x10 */ long_i isymBase;
+    /* 0x14 */ long_i csym;
+    /* 0x18 */ long_i ilineBase;
+    /* 0x1C */ long_i cline;
+    /* 0x20 */ long_i ioptBase;
+    /* 0x24 */ long_i copt;
+    /* 0x28 */ unsigned short ipdFirst;
+    /* 0x2A */ unsigned short cpd;
+    /* 0x2C */ long_i iauxBase;
+    /* 0x30 */ long_i caux;
+    /* 0x34 */ long_i rfdBase;
+    /* 0x38 */ long_i crfd;
+    /* 0x3C */ unsigned int lang : 5;
+    /* 0x3C */ unsigned int fMerge : 1;
+    /* 0x3C */ unsigned int fReadin : 1;
+    /* 0x3C */ unsigned int fBigendian : 1;
+    /* 0x3D */ unsigned int glevel : 2;
+    /* 0x3D */ unsigned int signedchar : 1;
+    /* 0x3D */ unsigned int ipdFirstMSBits : 4;
+    /* 0x3D */ unsigned int cpdMSBits : 4;
+    /* 0x3E */ unsigned int reserved : 13;
+    /* 0x40 */ long_i cbLineOffset;
+    /* 0x44 */ long_i cbLine;
+} FDR;
+
+typedef struct fdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i rss;
+    /* 0x8 */ long_i issBase;
+    /* 0xC */ long_i cbSs;
+    /* 0x10 */ long_i isymBase;
+    /* 0x14 */ long_i csym;
+    /* 0x18 */ long_i ilineBase;
+    /* 0x1C */ long_i cline;
+    /* 0x20 */ long_i ioptBase;
+    /* 0x24 */ long_i copt;
+    /* 0x28 */ unsigned short ipdFirst;
+    /* 0x2A */ unsigned short cpd;
+    /* 0x2C */ long_i iauxBase;
+    /* 0x30 */ long_i caux;
+    /* 0x34 */ long_i rfdBase;
+    /* 0x38 */ long_i crfd;
+    /* 0x3C */ unsigned int lang : 5;
+    /* 0x3C */ unsigned int fMerge : 1;
+    /* 0x3C */ unsigned int fReadin : 1;
+    /* 0x3C */ unsigned int fBigendian : 1;
+    /* 0x3D */ unsigned int glevel : 2;
+    /* 0x3D */ unsigned int signedchar : 1;
+    /* 0x3D */ unsigned int ipdFirstMSBits : 4;
+    /* 0x3D */ unsigned int cpdMSBits : 4;
+    /* 0x3E */ unsigned int reserved : 13;
+    /* 0x40 */ long_i cbLineOffset;
+    /* 0x44 */ long_i cbLine;
+}* pFDR;
+
+typedef struct pdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i isym;
+    /* 0x8 */ long_i iline;
+    /* 0xC */ long_i regmask;
+    /* 0x10 */ long_i regoffset;
+    /* 0x14 */ long_i iopt;
+    /* 0x18 */ long_i fregmask;
+    /* 0x1C */ long_i fregoffset;
+    /* 0x20 */ long_i frameoffset;
+    /* 0x24 */ short framereg;
+    /* 0x26 */ short pcreg;
+    /* 0x28 */ long_i lnLow;
+    /* 0x2C */ long_i lnHigh;
+    /* 0x30 */ long_i cbLineOffset;
+} PDR;
+
+typedef struct pdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i isym;
+    /* 0x8 */ long_i iline;
+    /* 0xC */ long_i regmask;
+    /* 0x10 */ long_i regoffset;
+    /* 0x14 */ long_i iopt;
+    /* 0x18 */ long_i fregmask;
+    /* 0x1C */ long_i fregoffset;
+    /* 0x20 */ long_i frameoffset;
+    /* 0x24 */ short framereg;
+    /* 0x26 */ short pcreg;
+    /* 0x28 */ long_i lnLow;
+    /* 0x2C */ long_i lnHigh;
+    /* 0x30 */ long_i cbLineOffset;
+}* pPDR;
+
+typedef struct runtime_pdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i regmask;
+    /* 0x8 */ long_i regoffset;
+    /* 0xC */ long_i fregmask;
+    /* 0x10 */ long_i fregoffset;
+    /* 0x14 */ long_i frameoffset;
+    /* 0x18 */ short framereg;
+    /* 0x1A */ short pcreg;
+    /* 0x1C */ long_i irpss;
+    /* 0x20 */ long_i reserved;
+} RPDR;
+
+typedef struct runtime_pdr {
+    /* 0x0 */ ulong_i adr;
+    /* 0x4 */ long_i regmask;
+    /* 0x8 */ long_i regoffset;
+    /* 0xC */ long_i fregmask;
+    /* 0x10 */ long_i fregoffset;
+    /* 0x14 */ long_i frameoffset;
+    /* 0x18 */ short framereg;
+    /* 0x1A */ short pcreg;
+    /* 0x1C */ long_i irpss;
+    /* 0x20 */ long_i reserved;
+}* pRPDR;
+
+typedef long_i LINER;
+
+typedef long_i* pLINER;
+
+typedef struct __sgi_symr_s {
+    /* 0x0 */ long_i iss;
+    /* 0x4 */ long_i value;
+    /* 0x8 */ unsigned int st : 6;
+    /* 0x8 */ unsigned int sc : 5;
+    /* 0x9 */ unsigned int reserved : 1;
+    /* 0x9 */ unsigned int index : 20;
+} SYMR;
+
+typedef struct __sgi_symr_s {
+    /* 0x0 */ long_i iss;
+    /* 0x4 */ long_i value;
+    /* 0x8 */ unsigned int st : 6;
+    /* 0x8 */ unsigned int sc : 5;
+    /* 0x9 */ unsigned int reserved : 1;
+    /* 0x9 */ unsigned int index : 20;
+}* pSYMR;
+
+typedef struct __sgi_extr__ {
+    /* 0x0 */ unsigned int jmptbl : 1;
+    /* 0x0 */ unsigned int cobol_main : 1;
+    /* 0x0 */ unsigned int weakext : 1;
+    /* 0x0 */ unsigned int deltacplus : 1;
+    /* 0x0 */ unsigned int multiext : 1;
+    /* 0x0 */ unsigned int reserved : 11;
+    /* 0x2 */ unsigned short ifd;
+    /* 0x4 */ __sgi_symr_s asym;
+} EXTR;
+
+typedef struct __sgi_extr__ {
+    /* 0x0 */ unsigned int jmptbl : 1;
+    /* 0x0 */ unsigned int cobol_main : 1;
+    /* 0x0 */ unsigned int weakext : 1;
+    /* 0x0 */ unsigned int deltacplus : 1;
+    /* 0x0 */ unsigned int multiext : 1;
+    /* 0x0 */ unsigned int reserved : 11;
+    /* 0x2 */ unsigned short ifd;
+    /* 0x4 */ __sgi_symr_s asym;
+}* pEXTR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int bt : 6;
+    /* 0x1 */ unsigned int tq4 : 4;
+    /* 0x1 */ unsigned int tq5 : 4;
+    /* 0x2 */ unsigned int tq0 : 4;
+    /* 0x2 */ unsigned int tq1 : 4;
+    /* 0x3 */ unsigned int tq2 : 4;
+    /* 0x3 */ unsigned int tq3 : 4;
+} TIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int bt : 6;
+    /* 0x1 */ unsigned int tq4 : 4;
+    /* 0x1 */ unsigned int tq5 : 4;
+    /* 0x2 */ unsigned int tq0 : 4;
+    /* 0x2 */ unsigned int tq1 : 4;
+    /* 0x3 */ unsigned int tq2 : 4;
+    /* 0x3 */ unsigned int tq3 : 4;
+}* pTIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int alignment : 2;
+    /* 0x0 */ unsigned int anonunion : 2;
+    /* 0x0 */ unsigned int size : 26;
+} SIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int alignment : 2;
+    /* 0x0 */ unsigned int anonunion : 2;
+    /* 0x0 */ unsigned int size : 26;
+}* pSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int xxx : 1;
+    /* 0x0 */ unsigned int alignment : 2;
+    /* 0x0 */ unsigned int yyy : 4;
+    /* 0x1 */ unsigned char fldpos;
+    /* 0x2 */ unsigned char dclsize;
+    /* 0x3 */ unsigned char fldsize;
+} FSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int xxx : 1;
+    /* 0x0 */ unsigned int alignment : 2;
+    /* 0x0 */ unsigned int yyy : 4;
+    /* 0x1 */ unsigned char fldpos;
+    /* 0x2 */ unsigned char dclsize;
+    /* 0x3 */ unsigned char fldsize;
+}* pFSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int isQualified : 1;
+    /* 0x0 */ unsigned int classIndex : 31;
+} RIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int isQualified : 1;
+    /* 0x0 */ unsigned int classIndex : 31;
+}* pRIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int alignment : 2;
+    /* 0x0 */ unsigned int anonunion : 2;
+    /* 0x0 */ unsigned int pos : 26;
+} DSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int fBitfield : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int alignment : 2;
+    /* 0x0 */ unsigned int anonunion : 2;
+    /* 0x0 */ unsigned int pos : 26;
+}* pDSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int xxx : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int yyy : 6;
+    /* 0x1 */ unsigned char fldpos;
+    /* 0x2 */ unsigned char zzz;
+    /* 0x3 */ unsigned char fldsize;
+} DFSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int xxx : 1;
+    /* 0x0 */ unsigned int continued : 1;
+    /* 0x0 */ unsigned int yyy : 6;
+    /* 0x1 */ unsigned char fldpos;
+    /* 0x2 */ unsigned char zzz;
+    /* 0x3 */ unsigned char fldsize;
+}* pDFSIR;
+
+typedef struct {
+    /* 0x0 */ unsigned int rfd : 12;
+    /* 0x1 */ unsigned int index : 20;
+} RNDXR;
+
+typedef struct {
+    /* 0x0 */ unsigned int rfd : 12;
+    /* 0x1 */ unsigned int index : 20;
+}* pRNDXR;
+
+typedef struct {
+    /* 0x0 */ ulong_i rfd;
+    /* 0x4 */ ulong_i index;
+} DNR;
+
+typedef struct {
+    /* 0x0 */ ulong_i rfd;
+    /* 0x4 */ ulong_i index;
+}* pDNR;
+
+typedef union __sgi_auxu_u {
+    /* 0x0 */ TIR ti;
+    /* 0x0 */ RNDXR rndx;
+    /* 0x0 */ long_i dnLow;
+    /* 0x0 */ long_i dnHigh;
+    /* 0x0 */ long_i isym;
+    /* 0x0 */ long_i iss;
+    /* 0x0 */ long_i width;
+    /* 0x0 */ long_i count;
+} AUXU;
+
+typedef union __sgi_auxu_u {
+    /* 0x0 */ TIR ti;
+    /* 0x0 */ RNDXR rndx;
+    /* 0x0 */ long_i dnLow;
+    /* 0x0 */ long_i dnHigh;
+    /* 0x0 */ long_i isym;
+    /* 0x0 */ long_i iss;
+    /* 0x0 */ long_i width;
+    /* 0x0 */ long_i count;
+}* pAUXU;
+
+typedef struct __sgi_optr_s {
+    /* 0x0 */ unsigned int ot : 8;
+    /* 0x1 */ unsigned int value : 24;
+    /* 0x4 */ RNDXR rndx;
+    /* 0x8 */ ulong_i offset;
+} OPTR;
+
+typedef struct __sgi_optr_s {
+    /* 0x0 */ unsigned int ot : 8;
+    /* 0x1 */ unsigned int value : 24;
+    /* 0x4 */ RNDXR rndx;
+    /* 0x8 */ ulong_i offset;
+}* pOPTR;
+
+typedef long_i RFDT;
+
+typedef long_i* pRFDT;
+
+typedef long_i FIT;
+
+typedef long_i* pFIT;
+
+// end file /usr/include/sym.h
+FileDescriptor(adr=4262064, rss=1, issBase=16653, cbSs=359, isymBase=1751, csym=50, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3268, caux=87, rfdBase=1429, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/cmplrs/stsupport.h
+    pretty print:
+// begin file /usr/include/cmplrs/stsupport.h
+
+typedef struct {
+    /* 0x0 */ pFDR pfd;
+    /* 0x4 */ pSYMR psym;
+    /* 0x8 */ long csymMax;
+    /* 0xC */ pAUXU paux;
+    /* 0x10 */ long cauxMax;
+    /* 0x14 */ unsigned char* pss;
+    /* 0x18 */ long cbssMax;
+    /* 0x1C */ pOPTR popt;
+    /* 0x20 */ long coptMax;
+    /* 0x24 */ pLINER pline;
+    /* 0x28 */ long clineMax;
+    /* 0x2C */ pRFDT prfd;
+    /* 0x30 */ long crfdMax;
+    /* 0x34 */ pPDR ppd;
+    /* 0x38 */ long cpdMax;
+    /* 0x3C */ long freadin;
+} CFDR;
+
+typedef struct {
+    /* 0x0 */ pFDR pfd;
+    /* 0x4 */ pSYMR psym;
+    /* 0x8 */ long csymMax;
+    /* 0xC */ pAUXU paux;
+    /* 0x10 */ long cauxMax;
+    /* 0x14 */ unsigned char* pss;
+    /* 0x18 */ long cbssMax;
+    /* 0x1C */ pOPTR popt;
+    /* 0x20 */ long coptMax;
+    /* 0x24 */ pLINER pline;
+    /* 0x28 */ long clineMax;
+    /* 0x2C */ pRFDT prfd;
+    /* 0x30 */ long crfdMax;
+    /* 0x34 */ pPDR ppd;
+    /* 0x38 */ long cpdMax;
+    /* 0x3C */ long freadin;
+}* pCFDR;
+
+typedef struct {
+    /* 0x0 */ long fappend;
+    /* 0x4 */ pCFDR pcfd;
+    /* 0x8 */ pFDR pfd;
+    /* 0xC */ long cfd;
+    /* 0x10 */ long cfdMax;
+    /* 0x14 */ pSYMR psym;
+    /* 0x18 */ pEXTR pext;
+    /* 0x1C */ long cext;
+    /* 0x20 */ long cextMax;
+    /* 0x24 */ unsigned char* pssext;
+    /* 0x28 */ long cbssext;
+    /* 0x2C */ long cbssextMax;
+    /* 0x30 */ pAUXU paux;
+    /* 0x34 */ unsigned char* pss;
+    /* 0x38 */ pDNR pdn;
+    /* 0x3C */ long cdn;
+    /* 0x40 */ long cdnMax;
+    /* 0x44 */ pOPTR popt;
+    /* 0x48 */ pLINER pline;
+    /* 0x4C */ pRFDT prfd;
+    /* 0x50 */ pPDR ppd;
+    /* 0x54 */ int flags;
+    /* 0x58 */ int fswap;
+    /* 0x5C */ __sgi_hdrr_s hdr;
+} CHDRR;
+
+typedef struct {
+    /* 0x0 */ long fappend;
+    /* 0x4 */ pCFDR pcfd;
+    /* 0x8 */ pFDR pfd;
+    /* 0xC */ long cfd;
+    /* 0x10 */ long cfdMax;
+    /* 0x14 */ pSYMR psym;
+    /* 0x18 */ pEXTR pext;
+    /* 0x1C */ long cext;
+    /* 0x20 */ long cextMax;
+    /* 0x24 */ unsigned char* pssext;
+    /* 0x28 */ long cbssext;
+    /* 0x2C */ long cbssextMax;
+    /* 0x30 */ pAUXU paux;
+    /* 0x34 */ unsigned char* pss;
+    /* 0x38 */ pDNR pdn;
+    /* 0x3C */ long cdn;
+    /* 0x40 */ long cdnMax;
+    /* 0x44 */ pOPTR popt;
+    /* 0x48 */ pLINER pline;
+    /* 0x4C */ pRFDT prfd;
+    /* 0x50 */ pPDR ppd;
+    /* 0x54 */ int flags;
+    /* 0x58 */ int fswap;
+    /* 0x5C */ __sgi_hdrr_s hdr;
+}* pCHDRR;
+
+// end file /usr/include/cmplrs/stsupport.h
+FileDescriptor(adr=4262064, rss=1, issBase=17012, cbSs=199, isymBase=1801, csym=22, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3355, caux=37, rfdBase=1458, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/ldfcn.h
+    pretty print:
+// begin file /usr/include/ldfcn.h
+
+struct ldfile {
+    /* 0x0 */ int _fnum_;
+    /* 0x4 */ FILE* ioptr;
+    /* 0x8 */ long offset;
+    /* 0xC */ filehdr header;
+    /* 0x20 */ pCHDRR pchdr;
+    /* 0x24 */ long lastindex;
+    /* 0x28 */ unsigned short type;
+    /* 0x2A */ unsigned int fswap : 1;
+    /* 0x2A */ unsigned int fBigendian : 1;
+};
+
+typedef struct {
+    /* 0x0 */ unsigned char ar_name[16];
+    /* 0x10 */ long ar_date;
+    /* 0x14 */ int ar_uid;
+    /* 0x18 */ int ar_gid;
+    /* 0x1C */ long ar_mode;
+    /* 0x20 */ long ar_size;
+} archdr;
+
+// end file /usr/include/ldfcn.h
+FileDescriptor(adr=4262064, rss=1, issBase=17211, cbSs=150, isymBase=1823, csym=14, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3392, caux=20, rfdBase=1487, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/nlist.h
+    pretty print:
+// begin file /usr/include/nlist.h
+
+struct nlist {
+    /* 0x0 */ unsigned char* n_name;
+    /* 0x4 */ unsigned long n_value;
+    /* 0x8 */ short n_type;
+    /* 0xA */ short reserved;
+};
+
+struct nlist64 {
+    /* 0x0 */ unsigned char* n_name;
+    /* 0x8 */ __uint64_t n_value;
+    /* 0x10 */ short n_type;
+    /* 0x12 */ short reserved;
+};
+
+// end file /usr/include/nlist.h
+FileDescriptor(adr=4262064, rss=1, issBase=17361, cbSs=86, isymBase=1837, csym=3, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3412, caux=18, rfdBase=1516, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/aouthdr.h
+    pretty print:
+// begin file /usr/include/aouthdr.h
+
+typedef struct aouthdr {
+    /* 0x0 */ short magic;
+    /* 0x2 */ short vstamp;
+    /* 0x4 */ long tsize;
+    /* 0x8 */ long dsize;
+    /* 0xC */ long bsize;
+    /* 0x10 */ long entry;
+    /* 0x14 */ long text_start;
+    /* 0x18 */ long data_start;
+    /* 0x1C */ long bss_start;
+    /* 0x20 */ long gprmask;
+    /* 0x24 */ long cprmask[4];
+    /* 0x34 */ long gp_value;
+} AOUTHDR;
+
+// end file /usr/include/aouthdr.h
+FileDescriptor(adr=4262064, rss=1, issBase=17447, cbSs=146, isymBase=1840, csym=12, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3430, caux=15, rfdBase=1545, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/scnhdr.h
+    pretty print:
+// begin file /usr/include/scnhdr.h
+
+struct libscn {
+    /* 0x0 */ long size;
+    /* 0x4 */ long offset;
+    /* 0x8 */ long tsize;
+    /* 0xC */ long dsize;
+    /* 0x10 */ long bsize;
+    /* 0x14 */ long text_start;
+    /* 0x18 */ long data_start;
+    /* 0x1C */ long bss_start;
+};
+
+// end file /usr/include/scnhdr.h
+FileDescriptor(adr=4262064, rss=1, issBase=17593, cbSs=105, isymBase=1852, csym=7, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3445, caux=24, rfdBase=1574, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/msym.h
+    pretty print:
+// begin file /usr/include/msym.h
+
+typedef struct {
+    /* 0x0 */ Elf32_Word ms_hash_value;
+    /* 0x4 */ Elf32_Word ms_info;
+} Elf32_Msym;
+
+// end file /usr/include/msym.h
+FileDescriptor(adr=4262064, rss=1, issBase=17698, cbSs=765, isymBase=1859, csym=90, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3469, caux=110, rfdBase=1603, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/sys/types.h
+    pretty print:
+// begin file /usr/include/sys/types.h
+
+typedef unsigned char uchar_t;
+
+typedef unsigned short ushort_t;
+
+typedef unsigned int uint_t;
+
+typedef unsigned long ulong_t;
+
+typedef unsigned char* addr_t;
+
+typedef unsigned char* caddr_t;
+
+typedef long daddr_t;
+
+typedef long pgno_t;
+
+typedef __uint32_t pfn_t;
+
+typedef short cnt_t;
+
+typedef __int32_t pgcnt_t;
+
+typedef enum {
+    B_FALSE = 0,
+    B_TRUE = 1,
+} boolean_t;
+
+typedef long id_t;
+
+typedef ulong_t major_t;
+
+typedef ulong_t minor_t;
+
+typedef ushort_t o_mode_t;
+
+typedef short o_dev_t;
+
+typedef ushort_t o_uid_t;
+
+typedef o_uid_t o_gid_t;
+
+typedef short o_nlink_t;
+
+typedef short o_pid_t;
+
+typedef __uint32_t o_ino_t;
+
+typedef unsigned long mode_t;
+
+typedef unsigned long dev_t;
+
+typedef long uid_t;
+
+typedef long gid_t;
+
+typedef unsigned long nlink_t;
+
+typedef long pid_t;
+
+typedef unsigned long ino_t;
+
+typedef __uint64_t ino64_t;
+
+typedef long off_t;
+
+typedef __int64_t off64_t;
+
+typedef __scint_t __scoff_t;
+
+typedef __scoff_t scoff_t;
+
+typedef long blkcnt_t;
+
+typedef ulong_t fsblkcnt_t;
+
+typedef ulong_t fsfilcnt_t;
+
+typedef long swblk_t;
+
+typedef unsigned long paddr_t;
+
+typedef int key_t;
+
+typedef unsigned char use_t;
+
+typedef short sysid_t;
+
+typedef short index_t;
+
+typedef unsigned int lock_t;
+
+typedef signed char cpuid_t;
+
+typedef unsigned char pri_t;
+
+typedef __uint64_t accum_t;
+
+typedef __int64_t prid_t;
+
+typedef __int64_t ash_t;
+
+typedef int ssize_t;
+
+typedef long time_t;
+
+typedef long clock_t;
+
+typedef long wchar_t;
+
+typedef int clockid_t;
+
+typedef int timer_t;
+
+typedef unsigned int useconds_t;
+
+typedef __scunsigned_t bitnum_t;
+
+typedef __scunsigned_t bitlen_t;
+
+typedef int processorid_t;
+
+typedef int toid_t;
+
+typedef long* qaddr_t;
+
+typedef __uint32_t inst_t;
+
+typedef unsigned int machreg_t;
+
+typedef __uint32_t fpreg_t;
+
+typedef signed char int8_t;
+
+typedef unsigned char uint8_t;
+
+typedef short int16_t;
+
+typedef unsigned short uint16_t;
+
+typedef int int32_t;
+
+typedef unsigned int uint32_t;
+
+typedef __int64_t int64_t;
+
+typedef __uint64_t uint64_t;
+
+typedef __int64_t intmax_t;
+
+typedef __uint64_t uintmax_t;
+
+typedef long intptr_t;
+
+typedef unsigned long uintptr_t;
+
+typedef unsigned char u_int8_t;
+
+typedef unsigned short u_int16_t;
+
+typedef __uint32_t u_int32_t;
+
+typedef long hostid_t;
+
+typedef struct {
+    /* 0x0 */ __uint32_t sigbits[2];
+} k_sigset_t;
+
+// end file /usr/include/sys/types.h
+FileDescriptor(adr=4262064, rss=1, issBase=18463, cbSs=1012, isymBase=1949, csym=109, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3579, caux=200, rfdBase=1632, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/obj_type.h
+    pretty print:
+// begin file /usr/include/obj_type.h
+
+typedef struct obj_type {
+    /* 0x4 */ unsigned long init;
+    /* 0x8 */ long type;
+    /* 0xC */ TIR ti;
+    /* 0x10 */ unsigned long skip;
+    /* 0x14 */ long bt_symbol;
+    /* 0x18 */ long bt_type;
+    /* 0x1C */ unsigned long bt_low;
+    /* 0x20 */ unsigned long bt_high;
+    /* 0x24 */ unsigned long tq;
+    /* 0x28 */ unsigned long tq_index;
+    /* 0x2C */ unsigned long tq_save;
+    /* 0x30 */ long symbol;
+    /* 0x34 */ unsigned long low;
+    /* 0x38 */ unsigned long high;
+    /* 0x3C */ unsigned long stride;
+    /* 0x40 */ unsigned long width;
+    /* 0x44 */ unsigned long dimension;
+    /* 0x48 */ unsigned long dimcount;
+    /* 0x4C */ unsigned long offset;
+    /* 0x50 */ unsigned long precision;
+    /* 0x54 */ unsigned long isproc;
+    /* 0x58 */ long nodesym;
+    /* 0x5C */ unsigned int language;
+} OBJ_TYPE;
+
+typedef struct obj_type {
+    /* 0x4 */ unsigned long init;
+    /* 0x8 */ long type;
+    /* 0xC */ TIR ti;
+    /* 0x10 */ unsigned long skip;
+    /* 0x14 */ long bt_symbol;
+    /* 0x18 */ long bt_type;
+    /* 0x1C */ unsigned long bt_low;
+    /* 0x20 */ unsigned long bt_high;
+    /* 0x24 */ unsigned long tq;
+    /* 0x28 */ unsigned long tq_index;
+    /* 0x2C */ unsigned long tq_save;
+    /* 0x30 */ long symbol;
+    /* 0x34 */ unsigned long low;
+    /* 0x38 */ unsigned long high;
+    /* 0x3C */ unsigned long stride;
+    /* 0x40 */ unsigned long width;
+    /* 0x44 */ unsigned long dimension;
+    /* 0x48 */ unsigned long dimcount;
+    /* 0x4C */ unsigned long offset;
+    /* 0x50 */ unsigned long precision;
+    /* 0x54 */ unsigned long isproc;
+    /* 0x58 */ long nodesym;
+    /* 0x5C */ unsigned int language;
+}* pOBJ_TYPE;
+
+struct obj {
+    /* 0x0 */ unsigned char o_target_swapped : 1;
+    /* 0x1 */ unsigned char o_arch;
+    /* 0x4 */ stat o_statb;
+    /* 0x8C */ unsigned long o_type;
+    /* 0x90 */ filehdr* o_pfilehdr;
+    /* 0x94 */ aouthdr* o_paouthdr;
+    /* 0x98 */ scnhdr* o_pscnhdr;
+    /* 0x9C */ pHDRR o_phdrr;
+    /* 0xA0 */ pFDR o_pfdr;
+    /* 0xA4 */ pPDR o_ppdr;
+    /* 0xA8 */ pSYMR o_psymr;
+    /* 0xAC */ pEXTR o_pextr;
+    /* 0xB0 */ unsigned char* o_pssext;
+    /* 0xB4 */ unsigned char* o_pss;
+    /* 0xB8 */ unsigned char* o_pline;
+    /* 0xBC */ unsigned long* o_prfd;
+    /* 0xC0 */ pAUXU o_pauxu;
+    /* 0xC4 */ unsigned char* o_praw;
+    /* 0xC8 */ unsigned long o_type_base;
+    /* 0xCC */ unsigned long o_symbol_base;
+    /* 0xD0 */ unsigned long o_file_base;
+    /* 0xD4 */ unsigned long o_procedure_base;
+    /* 0xD8 */ unsigned long o_external_base;
+    /* 0xDC */ unsigned char* o_name;
+    /* 0xE0 */ Elf32_Ehdr* o_pelfhdr;
+    /* 0xE4 */ Elf32_Phdr* o_pproghdr;
+    /* 0xE8 */ Elf32_Shdr* o_psecthdr;
+    /* 0xEC */ unsigned char* o_path;
+    /* 0xF0 */ unsigned char* o_soname;
+    /* 0xF4 */ int o_fd;
+    /* 0xF8 */ unsigned long o_base_address;
+    /* 0xFC */ unsigned long o_text_start;
+    /* 0x100 */ unsigned long o_text_size;
+    /* 0x104 */ unsigned long o_data_start;
+    /* 0x108 */ unsigned long o_bss_start;
+    /* 0x10C */ unsigned long o_bss_size;
+    /* 0x110 */ Elf32_Addr o_entry;
+    /* 0x114 */ Elf32_Addr* o_base;
+    /* 0x118 */ Elf32_Addr* o_hash;
+    /* 0x11C */ unsigned char* o_str;
+    /* 0x120 */ Elf32_Sym* o_dsym;
+    /* 0x124 */ Elf32_Msym* o_msym;
+    /* 0x128 */ Elf32_Got* o_got;
+    /* 0x12C */ Elf32_Got* o_extgot;
+    /* 0x130 */ Elf32_Rel* o_rel;
+    /* 0x134 */ Elf32_Lib* o_libl;
+    /* 0x138 */ Elf32_Conflict* o_conf;
+    /* 0x13C */ Elf32_Word o_dyflags;
+    /* 0x140 */ Elf32_Word o_locgotno;
+    /* 0x144 */ unsigned char* o_rpath;
+    /* 0x148 */ Elf32_Word o_rldver;
+    /* 0x14C */ Elf32_Word o_tstamp;
+    /* 0x150 */ Elf32_Word o_ichksum;
+    /* 0x154 */ Elf32_Word o_iversion;
+    /* 0x158 */ Elf32_Sword o_symcount;
+    /* 0x15C */ Elf32_Word o_syent;
+    /* 0x160 */ Elf32_Word o_stsize;
+    /* 0x164 */ Elf32_Word o_rlsize;
+    /* 0x168 */ Elf32_Word o_rlent;
+    /* 0x16C */ Elf32_Sword o_llcount;
+    /* 0x170 */ Elf32_Word o_htsize;
+    /* 0x174 */ Elf32_Sword o_cfcount;
+    /* 0x178 */ Elf32_Word o_rldflag;
+    /* 0x17C */ Elf32_Word o_flag;
+    /* 0x180 */ Elf32_Word o_mode;
+    /* 0x184 */ Elf32_Addr o_init;
+    /* 0x188 */ Elf32_Addr o_fini;
+    /* 0x18C */ Elf32_Word o_unrefextno;
+    /* 0x190 */ Elf32_Word o_gotsym;
+    /* 0x194 */ unsigned long o_rld_map;
+    /* 0x198 */ dbx_proctbl* o_dbx_ptbl;
+    /* 0x19C */ Elf32_Byte o_init_done;
+    /* 0x1A0 */ Elf32_Addr o_proc_table;
+    /* 0x1A4 */ Elf32_Addr o_pixie_init;
+    /* 0x1A8 */ Elf32_Addr o_symlib;
+    /* 0x1AC */ Elf32_Addr o_rld_text_resolve_addr;
+};
+
+// end file /usr/include/obj_type.h
+FileDescriptor(adr=4262064, rss=1, issBase=19475, cbSs=112, isymBase=2058, csym=8, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3779, caux=24, rfdBase=1661, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/obj_list.h
+    pretty print:
+// begin file /usr/include/obj_list.h
+
+typedef struct obj_list {
+    /* 0x0 */ unsigned long data;
+    /* 0x4 */ objList* next;
+    /* 0x8 */ objList* prev;
+} objList;
+
+// end file /usr/include/obj_list.h
+FileDescriptor(adr=4262064, rss=1, issBase=19587, cbSs=89, isymBase=2066, csym=4, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3803, caux=21, rfdBase=1690, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/obj_ext.h
+    pretty print:
+// begin file /usr/include/obj_ext.h
+
+// end file /usr/include/obj_ext.h
+FileDescriptor(adr=4262064, rss=1, issBase=19676, cbSs=100, isymBase=2070, csym=9, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3824, caux=24, rfdBase=1719, crfd=29, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/obj.h
+    pretty print:
+// begin file /usr/include/obj.h
+
+typedef struct {
+    /* 0x0 */ unsigned long ipd;
+    /* 0x4 */ unsigned long adr;
+} dbx_proctbl;
+
+typedef struct obj {
+    /* 0x0 */ unsigned char o_target_swapped : 1;
+    /* 0x1 */ unsigned char o_arch;
+    /* 0x4 */ stat o_statb;
+    /* 0x8C */ unsigned long o_type;
+    /* 0x90 */ filehdr* o_pfilehdr;
+    /* 0x94 */ aouthdr* o_paouthdr;
+    /* 0x98 */ scnhdr* o_pscnhdr;
+    /* 0x9C */ pHDRR o_phdrr;
+    /* 0xA0 */ pFDR o_pfdr;
+    /* 0xA4 */ pPDR o_ppdr;
+    /* 0xA8 */ pSYMR o_psymr;
+    /* 0xAC */ pEXTR o_pextr;
+    /* 0xB0 */ unsigned char* o_pssext;
+    /* 0xB4 */ unsigned char* o_pss;
+    /* 0xB8 */ unsigned char* o_pline;
+    /* 0xBC */ unsigned long* o_prfd;
+    /* 0xC0 */ pAUXU o_pauxu;
+    /* 0xC4 */ unsigned char* o_praw;
+    /* 0xC8 */ unsigned long o_type_base;
+    /* 0xCC */ unsigned long o_symbol_base;
+    /* 0xD0 */ unsigned long o_file_base;
+    /* 0xD4 */ unsigned long o_procedure_base;
+    /* 0xD8 */ unsigned long o_external_base;
+    /* 0xDC */ unsigned char* o_name;
+    /* 0xE0 */ Elf32_Ehdr* o_pelfhdr;
+    /* 0xE4 */ Elf32_Phdr* o_pproghdr;
+    /* 0xE8 */ Elf32_Shdr* o_psecthdr;
+    /* 0xEC */ unsigned char* o_path;
+    /* 0xF0 */ unsigned char* o_soname;
+    /* 0xF4 */ int o_fd;
+    /* 0xF8 */ unsigned long o_base_address;
+    /* 0xFC */ unsigned long o_text_start;
+    /* 0x100 */ unsigned long o_text_size;
+    /* 0x104 */ unsigned long o_data_start;
+    /* 0x108 */ unsigned long o_bss_start;
+    /* 0x10C */ unsigned long o_bss_size;
+    /* 0x110 */ Elf32_Addr o_entry;
+    /* 0x114 */ Elf32_Addr* o_base;
+    /* 0x118 */ Elf32_Addr* o_hash;
+    /* 0x11C */ unsigned char* o_str;
+    /* 0x120 */ Elf32_Sym* o_dsym;
+    /* 0x124 */ Elf32_Msym* o_msym;
+    /* 0x128 */ Elf32_Got* o_got;
+    /* 0x12C */ Elf32_Got* o_extgot;
+    /* 0x130 */ Elf32_Rel* o_rel;
+    /* 0x134 */ Elf32_Lib* o_libl;
+    /* 0x138 */ Elf32_Conflict* o_conf;
+    /* 0x13C */ Elf32_Word o_dyflags;
+    /* 0x140 */ Elf32_Word o_locgotno;
+    /* 0x144 */ unsigned char* o_rpath;
+    /* 0x148 */ Elf32_Word o_rldver;
+    /* 0x14C */ Elf32_Word o_tstamp;
+    /* 0x150 */ Elf32_Word o_ichksum;
+    /* 0x154 */ Elf32_Word o_iversion;
+    /* 0x158 */ Elf32_Sword o_symcount;
+    /* 0x15C */ Elf32_Word o_syent;
+    /* 0x160 */ Elf32_Word o_stsize;
+    /* 0x164 */ Elf32_Word o_rlsize;
+    /* 0x168 */ Elf32_Word o_rlent;
+    /* 0x16C */ Elf32_Sword o_llcount;
+    /* 0x170 */ Elf32_Word o_htsize;
+    /* 0x174 */ Elf32_Sword o_cfcount;
+    /* 0x178 */ Elf32_Word o_rldflag;
+    /* 0x17C */ Elf32_Word o_flag;
+    /* 0x180 */ Elf32_Word o_mode;
+    /* 0x184 */ Elf32_Addr o_init;
+    /* 0x188 */ Elf32_Addr o_fini;
+    /* 0x18C */ Elf32_Word o_unrefextno;
+    /* 0x190 */ Elf32_Word o_gotsym;
+    /* 0x194 */ unsigned long o_rld_map;
+    /* 0x198 */ dbx_proctbl* o_dbx_ptbl;
+    /* 0x19C */ Elf32_Byte o_init_done;
+    /* 0x1A0 */ Elf32_Addr o_proc_table;
+    /* 0x1A4 */ Elf32_Addr o_pixie_init;
+    /* 0x1A8 */ Elf32_Addr o_symlib;
+    /* 0x1AC */ Elf32_Addr o_rld_text_resolve_addr;
+} OBJ;
+
+typedef struct obj {
+    /* 0x0 */ unsigned char o_target_swapped : 1;
+    /* 0x1 */ unsigned char o_arch;
+    /* 0x4 */ stat o_statb;
+    /* 0x8C */ unsigned long o_type;
+    /* 0x90 */ filehdr* o_pfilehdr;
+    /* 0x94 */ aouthdr* o_paouthdr;
+    /* 0x98 */ scnhdr* o_pscnhdr;
+    /* 0x9C */ pHDRR o_phdrr;
+    /* 0xA0 */ pFDR o_pfdr;
+    /* 0xA4 */ pPDR o_ppdr;
+    /* 0xA8 */ pSYMR o_psymr;
+    /* 0xAC */ pEXTR o_pextr;
+    /* 0xB0 */ unsigned char* o_pssext;
+    /* 0xB4 */ unsigned char* o_pss;
+    /* 0xB8 */ unsigned char* o_pline;
+    /* 0xBC */ unsigned long* o_prfd;
+    /* 0xC0 */ pAUXU o_pauxu;
+    /* 0xC4 */ unsigned char* o_praw;
+    /* 0xC8 */ unsigned long o_type_base;
+    /* 0xCC */ unsigned long o_symbol_base;
+    /* 0xD0 */ unsigned long o_file_base;
+    /* 0xD4 */ unsigned long o_procedure_base;
+    /* 0xD8 */ unsigned long o_external_base;
+    /* 0xDC */ unsigned char* o_name;
+    /* 0xE0 */ Elf32_Ehdr* o_pelfhdr;
+    /* 0xE4 */ Elf32_Phdr* o_pproghdr;
+    /* 0xE8 */ Elf32_Shdr* o_psecthdr;
+    /* 0xEC */ unsigned char* o_path;
+    /* 0xF0 */ unsigned char* o_soname;
+    /* 0xF4 */ int o_fd;
+    /* 0xF8 */ unsigned long o_base_address;
+    /* 0xFC */ unsigned long o_text_start;
+    /* 0x100 */ unsigned long o_text_size;
+    /* 0x104 */ unsigned long o_data_start;
+    /* 0x108 */ unsigned long o_bss_start;
+    /* 0x10C */ unsigned long o_bss_size;
+    /* 0x110 */ Elf32_Addr o_entry;
+    /* 0x114 */ Elf32_Addr* o_base;
+    /* 0x118 */ Elf32_Addr* o_hash;
+    /* 0x11C */ unsigned char* o_str;
+    /* 0x120 */ Elf32_Sym* o_dsym;
+    /* 0x124 */ Elf32_Msym* o_msym;
+    /* 0x128 */ Elf32_Got* o_got;
+    /* 0x12C */ Elf32_Got* o_extgot;
+    /* 0x130 */ Elf32_Rel* o_rel;
+    /* 0x134 */ Elf32_Lib* o_libl;
+    /* 0x138 */ Elf32_Conflict* o_conf;
+    /* 0x13C */ Elf32_Word o_dyflags;
+    /* 0x140 */ Elf32_Word o_locgotno;
+    /* 0x144 */ unsigned char* o_rpath;
+    /* 0x148 */ Elf32_Word o_rldver;
+    /* 0x14C */ Elf32_Word o_tstamp;
+    /* 0x150 */ Elf32_Word o_ichksum;
+    /* 0x154 */ Elf32_Word o_iversion;
+    /* 0x158 */ Elf32_Sword o_symcount;
+    /* 0x15C */ Elf32_Word o_syent;
+    /* 0x160 */ Elf32_Word o_stsize;
+    /* 0x164 */ Elf32_Word o_rlsize;
+    /* 0x168 */ Elf32_Word o_rlent;
+    /* 0x16C */ Elf32_Sword o_llcount;
+    /* 0x170 */ Elf32_Word o_htsize;
+    /* 0x174 */ Elf32_Sword o_cfcount;
+    /* 0x178 */ Elf32_Word o_rldflag;
+    /* 0x17C */ Elf32_Word o_flag;
+    /* 0x180 */ Elf32_Word o_mode;
+    /* 0x184 */ Elf32_Addr o_init;
+    /* 0x188 */ Elf32_Addr o_fini;
+    /* 0x18C */ Elf32_Word o_unrefextno;
+    /* 0x190 */ Elf32_Word o_gotsym;
+    /* 0x194 */ unsigned long o_rld_map;
+    /* 0x198 */ dbx_proctbl* o_dbx_ptbl;
+    /* 0x19C */ Elf32_Byte o_init_done;
+    /* 0x1A0 */ Elf32_Addr o_proc_table;
+    /* 0x1A4 */ Elf32_Addr o_pixie_init;
+    /* 0x1A8 */ Elf32_Addr o_symlib;
+    /* 0x1AC */ Elf32_Addr o_rld_text_resolve_addr;
+}* pOBJ;
+
+// end file /usr/include/obj.h
+FileDescriptor(adr=4263056, rss=1, issBase=19776, cbSs=464, isymBase=2079, csym=12, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3848, caux=58, rfdBase=1748, crfd=23, XXX_bitfield=16777216, cbLineOffset=1585, cbLine=0)
+    name:lex.yy.c
+    pretty print:
+// begin file lex.yy.c
+
+struct yysvf {
+    /* 0x4 */ yysvf* yyother;
+    /* 0x8 */ int* yystops;
+};
+
+struct yywork {
+    /* 0x0 */ unsigned char verify;
+    /* 0x1 */ unsigned char advance;
+};
+
+// end file lex.yy.c
+FileDescriptor(adr=4263056, rss=1, issBase=20240, cbSs=78, isymBase=2091, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3906, caux=15, rfdBase=1771, crfd=23, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/bstring.h
+    pretty print:
+// begin file /usr/include/bstring.h
+
+// end file /usr/include/bstring.h
+FileDescriptor(adr=4263056, rss=1, issBase=20318, cbSs=140, isymBase=2093, csym=19, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3921, caux=30, rfdBase=1794, crfd=23, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/stdlib.h
+    pretty print:
+// begin file /usr/include/stdlib.h
+
+typedef struct {
+    /* 0x0 */ int quot;
+    /* 0x4 */ int rem;
+} div_t;
+
+typedef struct {
+    /* 0x0 */ long quot;
+    /* 0x4 */ long rem;
+} ldiv_t;
+
+typedef struct {
+    /* 0x0 */ long long quot;
+    /* 0x8 */ long long rem;
+} lldiv_t;
+
+typedef int ssize_t;
+
+typedef long wchar_t;
+
+// end file /usr/include/stdlib.h
+FileDescriptor(adr=4263056, rss=1, issBase=20458, cbSs=749, isymBase=2112, csym=88, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=3951, caux=110, rfdBase=1817, crfd=23, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:/usr/include/sys/types.h
+    pretty print:
+// begin file /usr/include/sys/types.h
+
+typedef unsigned char uchar_t;
+
+typedef unsigned short ushort_t;
+
+typedef unsigned int uint_t;
+
+typedef unsigned long ulong_t;
+
+typedef unsigned char* addr_t;
+
+typedef unsigned char* caddr_t;
+
+typedef long daddr_t;
+
+typedef long pgno_t;
+
+typedef __uint32_t pfn_t;
+
+typedef short cnt_t;
+
+typedef __int32_t pgcnt_t;
+
+typedef enum {
+    B_FALSE = 0,
+    B_TRUE = 1,
+} boolean_t;
+
+typedef long id_t;
+
+typedef ulong_t major_t;
+
+typedef ulong_t minor_t;
+
+typedef ushort_t o_mode_t;
+
+typedef short o_dev_t;
+
+typedef ushort_t o_uid_t;
+
+typedef o_uid_t o_gid_t;
+
+typedef short o_nlink_t;
+
+typedef short o_pid_t;
+
+typedef __uint32_t o_ino_t;
+
+typedef unsigned long mode_t;
+
+typedef unsigned long dev_t;
+
+typedef long uid_t;
+
+typedef long gid_t;
+
+typedef unsigned long nlink_t;
+
+typedef long pid_t;
+
+typedef unsigned long ino_t;
+
+typedef __uint64_t ino64_t;
+
+typedef long off_t;
+
+typedef __int64_t off64_t;
+
+typedef __scint_t __scoff_t;
+
+typedef __scoff_t scoff_t;
+
+typedef long blkcnt_t;
+
+typedef ulong_t fsblkcnt_t;
+
+typedef ulong_t fsfilcnt_t;
+
+typedef long swblk_t;
+
+typedef unsigned long paddr_t;
+
+typedef int key_t;
+
+typedef unsigned char use_t;
+
+typedef short sysid_t;
+
+typedef short index_t;
+
+typedef unsigned int lock_t;
+
+typedef signed char cpuid_t;
+
+typedef unsigned char pri_t;
+
+typedef __uint64_t accum_t;
+
+typedef __int64_t prid_t;
+
+typedef __int64_t ash_t;
+
+typedef long time_t;
+
+typedef long clock_t;
+
+typedef int clockid_t;
+
+typedef int timer_t;
+
+typedef unsigned int useconds_t;
+
+typedef __scunsigned_t bitnum_t;
+
+typedef __scunsigned_t bitlen_t;
+
+typedef int processorid_t;
+
+typedef int toid_t;
+
+typedef long* qaddr_t;
+
+typedef __uint32_t inst_t;
+
+typedef unsigned int machreg_t;
+
+typedef __uint32_t fpreg_t;
+
+typedef signed char int8_t;
+
+typedef unsigned char uint8_t;
+
+typedef short int16_t;
+
+typedef unsigned short uint16_t;
+
+typedef int int32_t;
+
+typedef unsigned int uint32_t;
+
+typedef __int64_t int64_t;
+
+typedef __uint64_t uint64_t;
+
+typedef __int64_t intmax_t;
+
+typedef __uint64_t uintmax_t;
+
+typedef long intptr_t;
+
+typedef unsigned long uintptr_t;
+
+typedef unsigned char u_int8_t;
+
+typedef unsigned short u_int16_t;
+
+typedef __uint32_t u_int32_t;
+
+typedef long hostid_t;
+
+typedef struct {
+    /* 0x0 */ __uint32_t sigbits[2];
+} k_sigset_t;
+
+// end file /usr/include/sys/types.h
+FileDescriptor(adr=4263056, rss=1, issBase=21207, cbSs=673, isymBase=2200, csym=73, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=4061, caux=91, rfdBase=1840, crfd=23, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:./makerom.h
+    pretty print:
+// begin file ./makerom.h
+
+typedef struct Path_s {
+    /* 0x0 */ Path* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ unsigned int textSize;
+    /* 0xC */ unsigned int dataSize;
+    /* 0x10 */ unsigned int sdataSize;
+    /* 0x14 */ unsigned int sbssSize;
+    /* 0x18 */ unsigned int bssSize;
+    /* 0x1C */ unsigned int textAlign;
+    /* 0x20 */ unsigned int dataAlign;
+    /* 0x24 */ unsigned int sdataAlign;
+    /* 0x28 */ unsigned int sbssAlign;
+    /* 0x2C */ unsigned int bssAlign;
+    /* 0x30 */ unsigned int textStart;
+    /* 0x34 */ unsigned int dataStart;
+    /* 0x38 */ unsigned int sdataStart;
+    /* 0x3C */ unsigned int sbssStart;
+    /* 0x40 */ unsigned int bssStart;
+    /* 0x44 */ unsigned int sectionsExisting;
+} Path;
+
+typedef struct Segment_s {
+    /* 0x0 */ Segment* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ Path* pathList;
+    /* 0x10 */ unsigned int address;
+    /* 0x14 */ int addrFunc;
+    /* 0x18 */ Segment* afterSeg1;
+    /* 0x1C */ Segment* afterSeg2;
+    /* 0x20 */ unsigned int align;
+    /* 0x24 */ unsigned int romOffset;
+    /* 0x28 */ int flags;
+    /* 0x2C */ unsigned int textSize;
+    /* 0x30 */ unsigned int dataSize;
+    /* 0x34 */ unsigned int sdataSize;
+    /* 0x38 */ unsigned int sbssSize;
+    /* 0x3C */ unsigned int bssSize;
+    /* 0x40 */ unsigned int totalSize;
+    /* 0x44 */ unsigned int maxSize;
+    /* 0x48 */ int romalign;
+    /* 0x4C */ unsigned int textAlign;
+    /* 0x50 */ unsigned int dataAlign;
+    /* 0x54 */ unsigned int sdataAlign;
+    /* 0x58 */ unsigned int sbssAlign;
+    /* 0x5C */ unsigned int bssAlign;
+    /* 0x60 */ unsigned int sectionsExisting;
+    /* 0x64 */ unsigned int textStart;
+    /* 0x68 */ unsigned int dataStart;
+    /* 0x6C */ unsigned int sdataStart;
+    /* 0x70 */ unsigned int sbssStart;
+    /* 0x74 */ unsigned int bssStart;
+} Segment;
+
+typedef struct SegmentChain_s {
+    /* 0x0 */ SegmentChain* next;
+    /* 0x4 */ Segment* segment;
+} SegmentChain;
+
+struct Wave_s {
+    /* 0x0 */ Wave* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ SegmentChain* segmentChain;
+    /* 0xC */ Elf* elf;
+    /* 0x10 */ Elf32_Ehdr* ehdr;
+    /* 0x14 */ unsigned char elspecFile[255];
+    /* 0x114 */ int fd;
+    /* 0x118 */ size_t searchIndex;
+};
+
+typedef struct Wave_s {
+    /* 0x0 */ Wave* next;
+    /* 0x4 */ unsigned char* name;
+    /* 0x8 */ SegmentChain* segmentChain;
+    /* 0xC */ Elf* elf;
+    /* 0x10 */ Elf32_Ehdr* ehdr;
+    /* 0x14 */ unsigned char elspecFile[255];
+    /* 0x114 */ int fd;
+    /* 0x118 */ size_t searchIndex;
+} Wave;
+
+// end file ./makerom.h
+FileDescriptor(adr=4263056, rss=1, issBase=21880, cbSs=99, isymBase=2273, csym=7, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=36, cpd=0, iauxBase=4152, caux=22, rfdBase=1863, crfd=23, XXX_bitfield=83886080, cbLineOffset=1585, cbLine=0)
+    name:./y.tab.h
+    pretty print:
+// begin file ./y.tab.h
+
+typedef union {
+    /* 0x0 */ int integer;
+    /* 0x0 */ unsigned char* string;
+} YYSTYPE;
+
+// end file ./y.tab.h
+FileDescriptor(adr=4263056, rss=1, issBase=21979, cbSs=255, isymBase=2280, csym=55, ilineBase=7512, cline=1790, ioptBase=0, copt=0, ipdFirst=36, cpd=8, iauxBase=4174, caux=104, rfdBase=1886, crfd=23, XXX_bitfield=16777216, cbLineOffset=1585, cbLine=356)
+    name:speclex.l
+    pretty print:
+// begin file speclex.l
+
+int yylex();
+//{
+//    int nstr;
+//    Label: yyfussy @ 4263116;
+//}
+
+void skipComments();
+//{
+//}
+
+void skipPound();
+//{
+//    int i;
+//    int lnumber;
+//    unsigned char c;
+//    unsigned char poundbuf[256];
+//    unsigned char fname[255];
+//}
+
+int yylook();
+//{
+//    register yysvf* yystate;
+//    register yysvf** lsp;
+//    register yywork* yyt;
+//    yysvf* yyz;
+//    int yych;
+//    int yyfirst;
+//    yywork* yyr;
+//    unsigned char* yylastch;
+//    Label: tryagain @ 4267040;
+//    Label: contin @ 4268248;
+//}
+
+int yyback(int* p, int m);
+//{
+//}
+
+int yyinput();
+//{
+//}
+
+void yyoutput(int c);
+//{
+//}
+
+void yyunput(int c);
+//{
+//}
+
+// end file speclex.l
+FileDescriptor(adr=4270256, rss=1, issBase=22234, cbSs=403, isymBase=2335, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=4278, caux=15, rfdBase=1909, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:y.tab.c
+    pretty print:
+// begin file y.tab.c
+
+// end file y.tab.c
+FileDescriptor(adr=4270256, rss=1, issBase=22637, cbSs=84, isymBase=2337, csym=3, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=4293, caux=16, rfdBase=1941, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:/usr/include/stdarg.h
+    pretty print:
+// begin file /usr/include/stdarg.h
+
+typedef unsigned char* va_list;
+
+// end file /usr/include/stdarg.h
+FileDescriptor(adr=4270256, rss=1, issBase=22721, cbSs=147, isymBase=2340, csym=20, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=4309, caux=30, rfdBase=1973, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:/usr/include/stdlib.h
+    pretty print:
+// begin file /usr/include/stdlib.h
+
+typedef struct {
+    /* 0x0 */ int quot;
+    /* 0x4 */ int rem;
+} div_t;
+
+typedef struct {
+    /* 0x0 */ long quot;
+    /* 0x4 */ long rem;
+} ldiv_t;
+
+typedef struct {
+    /* 0x0 */ long long quot;
+    /* 0x8 */ long long rem;
+} lldiv_t;
+
+typedef unsigned int size_t;
+
+typedef int ssize_t;
+
+typedef long wchar_t;
+
+// end file /usr/include/stdlib.h
+FileDescriptor(adr=4270256, rss=1, issBase=22868, cbSs=1582, isymBase=2360, csym=246, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=4339, caux=787, rfdBase=2005, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:/hosts/liberte//disk7/nightly/mdev2/PR/include/os.h
+    pretty print:
+// begin file /hosts/liberte//disk7/nightly/mdev2/PR/include/os.h
+
+typedef s32 OSPri;
+
+typedef s32 OSId;
+
+typedef union {
+    /* 0x0 */ struct {
+        /* 0x0 */ f32 f_odd;
+        /* 0x4 */ f32 f_even;
+    } f;
+    /* 0x0 */ f64 d;
+} __OSfp;
+
+typedef struct {
+    /* 0x0 */ u64 at;
+    /* 0x8 */ u64 v0;
+    /* 0x10 */ u64 v1;
+    /* 0x18 */ u64 a0;
+    /* 0x20 */ u64 a1;
+    /* 0x28 */ u64 a2;
+    /* 0x30 */ u64 a3;
+    /* 0x38 */ u64 t0;
+    /* 0x40 */ u64 t1;
+    /* 0x48 */ u64 t2;
+    /* 0x50 */ u64 t3;
+    /* 0x58 */ u64 t4;
+    /* 0x60 */ u64 t5;
+    /* 0x68 */ u64 t6;
+    /* 0x70 */ u64 t7;
+    /* 0x78 */ u64 s0;
+    /* 0x80 */ u64 s1;
+    /* 0x88 */ u64 s2;
+    /* 0x90 */ u64 s3;
+    /* 0x98 */ u64 s4;
+    /* 0xA0 */ u64 s5;
+    /* 0xA8 */ u64 s6;
+    /* 0xB0 */ u64 s7;
+    /* 0xB8 */ u64 t8;
+    /* 0xC0 */ u64 t9;
+    /* 0xC8 */ u64 gp;
+    /* 0xD0 */ u64 sp;
+    /* 0xD8 */ u64 s8;
+    /* 0xE0 */ u64 ra;
+    /* 0xE8 */ u64 lo;
+    /* 0xF0 */ u64 hi;
+    /* 0xF8 */ u32 sr;
+    /* 0xFC */ u32 pc;
+    /* 0x100 */ u32 cause;
+    /* 0x104 */ u32 badvaddr;
+    /* 0x108 */ u32 rcp;
+    /* 0x10C */ u32 fpcsr;
+    /* 0x110 */ __OSfp fp0;
+    /* 0x118 */ __OSfp fp2;
+    /* 0x120 */ __OSfp fp4;
+    /* 0x128 */ __OSfp fp6;
+    /* 0x130 */ __OSfp fp8;
+    /* 0x138 */ __OSfp fp10;
+    /* 0x140 */ __OSfp fp12;
+    /* 0x148 */ __OSfp fp14;
+    /* 0x150 */ __OSfp fp16;
+    /* 0x158 */ __OSfp fp18;
+    /* 0x160 */ __OSfp fp20;
+    /* 0x168 */ __OSfp fp22;
+    /* 0x170 */ __OSfp fp24;
+    /* 0x178 */ __OSfp fp26;
+    /* 0x180 */ __OSfp fp28;
+    /* 0x188 */ __OSfp fp30;
+} __OSThreadContext;
+
+typedef struct OSThread_s {
+    /* 0x0 */ OSThread* next;
+    /* 0x4 */ OSPri priority;
+    /* 0x8 */ OSThread** queue;
+    /* 0xC */ OSThread* tlnext;
+    /* 0x10 */ u16 state;
+    /* 0x12 */ u16 flags;
+    /* 0x14 */ OSId id;
+    /* 0x18 */ int fp;
+    /* 0x20 */ __OSThreadContext context;
+} OSThread;
+
+typedef u32 OSEvent;
+
+typedef u32 OSIntMask;
+
+typedef u32 OSPageMask;
+
+typedef u32 OSHWIntr;
+
+typedef void* OSMesg;
+
+typedef struct OSMesgQueue_s {
+    /* 0x0 */ OSThread* mtqueue;
+    /* 0x4 */ OSThread* fullqueue;
+    /* 0x8 */ s32 validCount;
+    /* 0xC */ s32 first;
+    /* 0x10 */ s32 msgCount;
+    /* 0x14 */ OSMesg* msg;
+} OSMesgQueue;
+
+typedef struct {
+    /* 0x0 */ u32 errStatus;
+    /* 0x4 */ void* dramAddr;
+    /* 0x8 */ void* C2Addr;
+    /* 0xC */ u32 sectorSize;
+    /* 0x10 */ u32 C1ErrNum;
+    /* 0x14 */ u32 C1ErrSector[4];
+} __OSBlockInfo;
+
+typedef struct {
+    /* 0x0 */ u32 cmdType;
+    /* 0x4 */ u16 transferMode;
+    /* 0x6 */ u16 blockNum;
+    /* 0x8 */ s32 sectorNum;
+    /* 0xC */ u32 devAddr;
+    /* 0x10 */ u32 bmCtlShadow;
+    /* 0x14 */ u32 seqCtlShadow;
+    /* 0x18 */ __OSBlockInfo block[2];
+} __OSTranxInfo;
+
+typedef struct OSPiHandle_s {
+    /* 0x0 */ OSPiHandle* next;
+    /* 0x4 */ u8 type;
+    /* 0x5 */ u8 latency;
+    /* 0x6 */ u8 pageSize;
+    /* 0x7 */ u8 relDuration;
+    /* 0x8 */ u8 pulse;
+    /* 0x9 */ u8 domain;
+    /* 0xC */ u32 baseAddress;
+    /* 0x10 */ u32 speed;
+    /* 0x14 */ __OSTranxInfo transferInfo;
+} OSPiHandle;
+
+typedef struct {
+    /* 0x0 */ u8 type;
+    /* 0x4 */ u32 address;
+} OSPiInfo;
+
+typedef struct {
+    /* 0x0 */ u16 type;
+    /* 0x2 */ u8 pri;
+    /* 0x3 */ u8 status;
+    /* 0x4 */ OSMesgQueue* retQueue;
+} OSIoMesgHdr;
+
+typedef struct {
+    /* 0x0 */ OSIoMesgHdr hdr;
+    /* 0x8 */ void* dramAddr;
+    /* 0xC */ u32 devAddr;
+    /* 0x10 */ u32 size;
+    /* 0x14 */ OSPiHandle* piHandle;
+} OSIoMesg;
+
+typedef struct {
+    /* 0x0 */ s32 active;
+    /* 0x4 */ OSThread* thread;
+    /* 0x8 */ OSMesgQueue* cmdQueue;
+    /* 0xC */ OSMesgQueue* evtQueue;
+    /* 0x10 */ OSMesgQueue* acsQueue;
+    /* 0x14 */ s32 (*dma)(/* ECOFF does not store param types */);
+    /* 0x18 */ s32 (*edma)(/* ECOFF does not store param types */);
+} OSDevMgr;
+
+typedef struct {
+    /* 0x0 */ u32 ctrl;
+    /* 0x4 */ u32 width;
+    /* 0x8 */ u32 burst;
+    /* 0xC */ u32 vSync;
+    /* 0x10 */ u32 hSync;
+    /* 0x14 */ u32 leap;
+    /* 0x18 */ u32 hStart;
+    /* 0x1C */ u32 xScale;
+    /* 0x20 */ u32 vCurrent;
+} OSViCommonRegs;
+
+typedef struct {
+    /* 0x0 */ u32 origin;
+    /* 0x4 */ u32 yScale;
+    /* 0x8 */ u32 vStart;
+    /* 0xC */ u32 vBurst;
+    /* 0x10 */ u32 vIntr;
+} OSViFieldRegs;
+
+typedef struct {
+    /* 0x0 */ u8 type;
+    /* 0x4 */ OSViCommonRegs comRegs;
+    /* 0x28 */ OSViFieldRegs fldRegs[2];
+} OSViMode;
+
+typedef u64 OSTime;
+
+typedef struct OSTimer_s {
+    /* 0x0 */ OSTimer* next;
+    /* 0x4 */ OSTimer* prev;
+    /* 0x8 */ OSTime interval;
+    /* 0x10 */ OSTime value;
+    /* 0x18 */ OSMesgQueue* mq;
+    /* 0x1C */ OSMesg msg;
+} OSTimer;
+
+typedef struct {
+    /* 0x0 */ u16 type;
+    /* 0x2 */ u8 status;
+    /* 0x3 */ u8 errno;
+} OSContStatus;
+
+typedef struct {
+    /* 0x0 */ u16 button;
+    /* 0x2 */ s8 stick_x;
+    /* 0x3 */ s8 stick_y;
+    /* 0x4 */ u8 errno;
+} OSContPad;
+
+typedef struct {
+    /* 0x0 */ void* address;
+    /* 0x4 */ u8 databuffer[32];
+    /* 0x24 */ u8 addressCrc;
+    /* 0x25 */ u8 dataCrc;
+    /* 0x26 */ u8 errno;
+} OSContRamIo;
+
+typedef struct {
+    /* 0x0 */ int status;
+    /* 0x4 */ OSMesgQueue* queue;
+    /* 0x8 */ int channel;
+    /* 0xC */ u8 id[32];
+    /* 0x2C */ u8 label[32];
+    /* 0x4C */ int version;
+    /* 0x50 */ int dir_size;
+    /* 0x54 */ int inode_table;
+    /* 0x58 */ int minode_table;
+    /* 0x5C */ int dir_table;
+    /* 0x60 */ int inode_start_page;
+    /* 0x64 */ u8 banks;
+    /* 0x65 */ u8 activebank;
+} OSPfs;
+
+typedef struct {
+    /* 0x0 */ u32 file_size;
+    /* 0x4 */ u32 game_code;
+    /* 0x8 */ u16 company_code;
+    /* 0xA */ unsigned char ext_name[4];
+    /* 0xE */ unsigned char game_name[16];
+} OSPfsState;
+
+typedef struct {
+    /* 0x0 */ u16* histo_base;
+    /* 0x4 */ u32 histo_size;
+    /* 0x8 */ u32* text_start;
+    /* 0xC */ u32* text_end;
+} OSProf;
+
+// end file /hosts/liberte//disk7/nightly/mdev2/PR/include/os.h
+FileDescriptor(adr=4270256, rss=1, issBase=24450, cbSs=1621, isymBase=2606, csym=333, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=5126, caux=640, rfdBase=2037, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:/usr/include/PR/gbi.h
+    pretty print:
+// begin file /usr/include/PR/gbi.h
+
+typedef struct {
+    /* 0x0 */ short ob[3];
+    /* 0x6 */ unsigned short flag;
+    /* 0x8 */ short tc[2];
+    /* 0xC */ unsigned char cn[4];
+} Vtx_t;
+
+typedef struct {
+    /* 0x0 */ short ob[3];
+    /* 0x6 */ unsigned short flag;
+    /* 0x8 */ short tc[2];
+    /* 0xC */ signed char n[3];
+    /* 0xF */ unsigned char a;
+} Vtx_tn;
+
+typedef union {
+    /* 0x0 */ Vtx_t v;
+    /* 0x0 */ Vtx_tn n;
+    /* 0x0 */ long long force_structure_alignment;
+} Vtx;
+
+typedef struct {
+    /* 0x0 */ void* SourceImagePointer;
+    /* 0x4 */ void* TlutPointer;
+    /* 0x8 */ short Stride;
+    /* 0xA */ short SubImageWidth;
+    /* 0xC */ short SubImageHeight;
+    /* 0xE */ unsigned char SourceImageType;
+    /* 0xF */ unsigned char SourceImageBitSize;
+    /* 0x10 */ short SourceImageOffsetS;
+    /* 0x12 */ short SourceImageOffsetT;
+    /* 0x14 */ unsigned char dummy[4];
+} uSprite_t;
+
+typedef union {
+    /* 0x0 */ uSprite_t s;
+    /* 0x0 */ long long force_structure_allignment[3];
+} uSprite;
+
+typedef struct {
+    /* 0x0 */ unsigned char flag;
+    /* 0x1 */ unsigned char v[3];
+} Tri;
+
+typedef long Mtx_t[4][4];
+
+typedef union {
+    /* 0x0 */ Mtx_t m;
+    /* 0x0 */ long long force_structure_alignment;
+} Mtx;
+
+typedef struct {
+    /* 0x0 */ short vscale[4];
+    /* 0x8 */ short vtrans[4];
+} Vp_t;
+
+typedef union {
+    /* 0x0 */ Vp_t vp;
+    /* 0x0 */ long long force_structure_alignment;
+} Vp;
+
+typedef struct {
+    /* 0x0 */ unsigned char col[3];
+    /* 0x3 */ unsigned char pad1;
+    /* 0x4 */ unsigned char colc[3];
+    /* 0x7 */ unsigned char pad2;
+    /* 0x8 */ signed char dir[3];
+    /* 0xB */ unsigned char pad3;
+} Light_t;
+
+typedef struct {
+    /* 0x0 */ unsigned char col[3];
+    /* 0x3 */ unsigned char pad1;
+    /* 0x4 */ unsigned char colc[3];
+    /* 0x7 */ unsigned char pad2;
+} Ambient_t;
+
+typedef struct {
+    /* 0x0 */ int x1;
+    /* 0x4 */ int y1;
+    /* 0x8 */ int x2;
+    /* 0xC */ int y2;
+} Hilite_t;
+
+typedef union {
+    /* 0x0 */ Light_t l;
+    /* 0x0 */ long long force_structure_alignment[2];
+} Light;
+
+typedef union {
+    /* 0x0 */ Ambient_t l;
+    /* 0x0 */ long long force_structure_alignment[1];
+} Ambient;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[7];
+} Lightsn;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[1];
+} Lights0;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[1];
+} Lights1;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[2];
+} Lights2;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[3];
+} Lights3;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[4];
+} Lights4;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[5];
+} Lights5;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[6];
+} Lights6;
+
+typedef struct {
+    /* 0x0 */ Ambient a;
+    /* 0x8 */ Light l[7];
+} Lights7;
+
+typedef struct {
+    /* 0x0 */ Light l[2];
+} LookAt;
+
+typedef union {
+    /* 0x0 */ Hilite_t h;
+    /* 0x0 */ long force_structure_alignment[4];
+} Hilite;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int par : 8;
+    /* 0x2 */ unsigned int len : 16;
+    /* 0x4 */ unsigned int addr;
+} Gdma;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad : 24;
+    /* 0x4 */ Tri tri;
+} Gtri;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad1 : 24;
+    /* 0x4 */ int pad2 : 24;
+    /* 0x7 */ unsigned char param : 8;
+} Gpopmtx;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad0 : 8;
+    /* 0x2 */ int mw_index : 8;
+    /* 0x3 */ int number : 8;
+    /* 0x4 */ int pad1 : 8;
+    /* 0x5 */ int base : 24;
+} Gsegment;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad0 : 8;
+    /* 0x2 */ int sft : 8;
+    /* 0x3 */ int len : 8;
+    /* 0x4 */ unsigned int data : 32;
+} GsetothermodeL;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad0 : 8;
+    /* 0x2 */ int sft : 8;
+    /* 0x3 */ int len : 8;
+    /* 0x4 */ unsigned int data : 32;
+} GsetothermodeH;
+
+typedef struct {
+    /* 0x0 */ unsigned char cmd;
+    /* 0x1 */ unsigned char lodscale;
+    /* 0x2 */ unsigned char tile;
+    /* 0x3 */ unsigned char on;
+    /* 0x4 */ unsigned short s;
+    /* 0x6 */ unsigned short t;
+} Gtexture;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad : 24;
+    /* 0x4 */ Tri line;
+} Gline3D;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int pad1 : 24;
+    /* 0x4 */ short pad2;
+    /* 0x6 */ short scale;
+} Gperspnorm;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int fmt : 3;
+    /* 0x1 */ unsigned int siz : 2;
+    /* 0x1 */ unsigned int pad : 7;
+    /* 0x2 */ unsigned int wd : 12;
+    /* 0x4 */ unsigned int dram;
+} Gsetimg;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int muxs0 : 24;
+    /* 0x4 */ unsigned int muxs1 : 32;
+} Gsetcombine;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned char pad;
+    /* 0x2 */ unsigned char prim_min_level;
+    /* 0x3 */ unsigned char prim_level;
+    /* 0x4 */ unsigned long color;
+} Gsetcolor;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ int x0 : 10;
+    /* 0x2 */ int x0frac : 2;
+    /* 0x2 */ int y0 : 10;
+    /* 0x3 */ int y0frac : 2;
+    /* 0x4 */ unsigned int pad : 8;
+    /* 0x5 */ int x1 : 10;
+    /* 0x6 */ int x1frac : 2;
+    /* 0x6 */ int y1 : 10;
+    /* 0x7 */ int y1frac : 2;
+} Gfillrect;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int fmt : 3;
+    /* 0x1 */ unsigned int siz : 2;
+    /* 0x1 */ unsigned int pad0 : 1;
+    /* 0x1 */ unsigned int line : 9;
+    /* 0x2 */ unsigned int tmem : 9;
+    /* 0x4 */ unsigned int pad1 : 5;
+    /* 0x4 */ unsigned int tile : 3;
+    /* 0x5 */ unsigned int palette : 4;
+    /* 0x5 */ unsigned int ct : 1;
+    /* 0x5 */ unsigned int mt : 1;
+    /* 0x5 */ unsigned int maskt : 4;
+    /* 0x6 */ unsigned int shiftt : 4;
+    /* 0x6 */ unsigned int cs : 1;
+    /* 0x6 */ unsigned int ms : 1;
+    /* 0x7 */ unsigned int masks : 4;
+    /* 0x7 */ unsigned int shifts : 4;
+} Gsettile;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int sl : 12;
+    /* 0x2 */ unsigned int tl : 12;
+    /* 0x4 */ int pad : 5;
+    /* 0x4 */ unsigned int tile : 3;
+    /* 0x5 */ unsigned int sh : 12;
+    /* 0x6 */ unsigned int th : 12;
+} Gloadtile;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int sl : 12;
+    /* 0x2 */ unsigned int tl : 12;
+    /* 0x4 */ int pad : 5;
+    /* 0x4 */ unsigned int tile : 3;
+    /* 0x5 */ unsigned int sh : 12;
+    /* 0x6 */ unsigned int th : 12;
+} Gloadblock;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int sl : 12;
+    /* 0x2 */ unsigned int tl : 12;
+    /* 0x4 */ int pad : 5;
+    /* 0x4 */ unsigned int tile : 3;
+    /* 0x5 */ unsigned int sh : 12;
+    /* 0x6 */ unsigned int th : 12;
+} Gsettilesize;
+
+typedef struct {
+    /* 0x0 */ int cmd : 8;
+    /* 0x1 */ unsigned int sl : 12;
+    /* 0x2 */ unsigned int tl : 12;
+    /* 0x4 */ int pad : 5;
+    /* 0x4 */ unsigned int tile : 3;
+    /* 0x5 */ unsigned int sh : 12;
+    /* 0x6 */ unsigned int th : 12;
+} Gloadtlut;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int xl : 12;
+    /* 0x2 */ unsigned int yl : 12;
+    /* 0x4 */ unsigned int pad1 : 5;
+    /* 0x4 */ unsigned int tile : 3;
+    /* 0x5 */ unsigned int xh : 12;
+    /* 0x6 */ unsigned int yh : 12;
+    /* 0x8 */ unsigned int s : 16;
+    /* 0xA */ unsigned int t : 16;
+    /* 0xC */ unsigned int dsdx : 16;
+    /* 0xE */ unsigned int dtdy : 16;
+} Gtexrect;
+
+typedef struct {
+    /* 0x0 */ unsigned long w0;
+    /* 0x4 */ unsigned long w1;
+    /* 0x8 */ unsigned long w2;
+    /* 0xC */ unsigned long w3;
+} TexRect;
+
+typedef struct {
+    /* 0x0 */ unsigned int w0;
+    /* 0x4 */ unsigned int w1;
+} Gwords;
+
+typedef union {
+    /* 0x0 */ Gwords words;
+    /* 0x0 */ Gdma dma;
+    /* 0x0 */ Gtri tri;
+    /* 0x0 */ Gline3D line;
+    /* 0x0 */ Gpopmtx popmtx;
+    /* 0x0 */ Gsegment segment;
+    /* 0x0 */ GsetothermodeH setothermodeH;
+    /* 0x0 */ GsetothermodeL setothermodeL;
+    /* 0x0 */ Gtexture texture;
+    /* 0x0 */ Gperspnorm perspnorm;
+    /* 0x0 */ Gsetimg setimg;
+    /* 0x0 */ Gsetcombine setcombine;
+    /* 0x0 */ Gsetcolor setcolor;
+    /* 0x0 */ Gfillrect fillrect;
+    /* 0x0 */ Gsettile settile;
+    /* 0x0 */ Gloadtile loadtile;
+    /* 0x0 */ Gloadtile settilesize;
+    /* 0x0 */ Gloadtile loadtlut;
+    /* 0x0 */ long long force_structure_alignment;
+} Gfx;
+
+// end file /usr/include/PR/gbi.h
+FileDescriptor(adr=4270256, rss=1, issBase=26071, cbSs=873, isymBase=2939, csym=164, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=5766, caux=285, rfdBase=2069, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:/usr/include/PR/abi.h
+    pretty print:
+// begin file /usr/include/PR/abi.h
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int gain : 16;
+    /* 0x4 */ unsigned int addr;
+} Aadpcm;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int gain : 16;
+    /* 0x4 */ unsigned int addr;
+} Apolef;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int pad1 : 16;
+    /* 0x4 */ unsigned int addr;
+} Aenvelope;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 8;
+    /* 0x2 */ unsigned int dmem : 16;
+    /* 0x4 */ unsigned int pad2 : 16;
+    /* 0x6 */ unsigned int count : 16;
+} Aclearbuff;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 8;
+    /* 0x2 */ unsigned int pad2 : 16;
+    /* 0x4 */ unsigned int inL : 16;
+    /* 0x6 */ unsigned int inR : 16;
+} Ainterleave;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 24;
+    /* 0x4 */ unsigned int addr;
+} Aloadbuff;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int pad1 : 16;
+    /* 0x4 */ unsigned int addr;
+} Aenvmixer;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int gain : 16;
+    /* 0x4 */ unsigned int dmemi : 16;
+    /* 0x6 */ unsigned int dmemo : 16;
+} Amixer;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int dmem2 : 16;
+    /* 0x4 */ unsigned int addr;
+} Apan;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int pitch : 16;
+    /* 0x4 */ unsigned int addr;
+} Aresample;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int pad1 : 16;
+    /* 0x4 */ unsigned int addr;
+} Areverb;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 24;
+    /* 0x4 */ unsigned int addr;
+} Asavebuff;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 24;
+    /* 0x4 */ unsigned int pad2 : 2;
+    /* 0x4 */ unsigned int number : 4;
+    /* 0x4 */ unsigned int base : 24;
+} Asegment;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int dmemin : 16;
+    /* 0x4 */ unsigned int dmemout : 16;
+    /* 0x6 */ unsigned int count : 16;
+} Asetbuff;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int flags : 8;
+    /* 0x2 */ unsigned int vol : 16;
+    /* 0x4 */ unsigned int voltgt : 16;
+    /* 0x6 */ unsigned int volrate : 16;
+} Asetvol;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 8;
+    /* 0x2 */ unsigned int dmemin : 16;
+    /* 0x4 */ unsigned int dmemout : 16;
+    /* 0x6 */ unsigned int count : 16;
+} Admemmove;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 8;
+    /* 0x2 */ unsigned int count : 16;
+    /* 0x4 */ unsigned int addr;
+} Aloadadpcm;
+
+typedef struct {
+    /* 0x0 */ unsigned int cmd : 8;
+    /* 0x1 */ unsigned int pad1 : 8;
+    /* 0x2 */ unsigned int pad2 : 16;
+    /* 0x4 */ unsigned int addr;
+} Asetloop;
+
+typedef struct {
+    /* 0x0 */ unsigned int w0;
+    /* 0x4 */ unsigned int w1;
+} Awords;
+
+typedef union {
+    /* 0x0 */ Awords words;
+    /* 0x0 */ Aadpcm adpcm;
+    /* 0x0 */ Apolef polef;
+    /* 0x0 */ Aclearbuff clearbuff;
+    /* 0x0 */ Aenvelope envelope;
+    /* 0x0 */ Ainterleave interleave;
+    /* 0x0 */ Aloadbuff loadbuff;
+    /* 0x0 */ Aenvmixer envmixer;
+    /* 0x0 */ Aresample resample;
+    /* 0x0 */ Areverb reverb;
+    /* 0x0 */ Asavebuff savebuff;
+    /* 0x0 */ Asegment segment;
+    /* 0x0 */ Asetbuff setbuff;
+    /* 0x0 */ Asetvol setvol;
+    /* 0x0 */ Admemmove dmemmove;
+    /* 0x0 */ Aloadadpcm loadadpcm;
+    /* 0x0 */ Amixer mixer;
+    /* 0x0 */ Asetloop setloop;
+    /* 0x0 */ long long force_union_align;
+} Acmd;
+
+typedef short ADPCM_STATE[16];
+
+typedef short POLEF_STATE[4];
+
+typedef short RESAMPLE_STATE[16];
+
+typedef short ENVMIX_STATE[40];
+
+// end file /usr/include/PR/abi.h
+FileDescriptor(adr=4270256, rss=1, issBase=26944, cbSs=133, isymBase=3103, csym=12, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=44, cpd=0, iauxBase=6051, caux=52, rfdBase=2101, crfd=32, XXX_bitfield=83886080, cbLineOffset=1941, cbLine=0)
+    name:/usr/include/stdio.h
+    pretty print:
+// begin file /usr/include/stdio.h
+
+typedef long fpos_t;
+
+typedef __int64_t fpos64_t;
+
+typedef struct __file_s {
+    /* 0x0 */ int _cnt;
+    /* 0x4 */ unsigned char* _ptr;
+    /* 0x8 */ unsigned char* _base;
+    /* 0xC */ unsigned char _flag;
+    /* 0xD */ unsigned char _file;
+} FILE;
+
+// end file /usr/include/stdio.h
+FileDescriptor(adr=4270256, rss=1, issBase=27077, cbSs=572, isymBase=3115, csym=97, ilineBase=9302, cline=1798, ioptBase=0, copt=0, ipdFirst=44, cpd=4, iauxBase=6103, caux=201, rfdBase=2133, crfd=32, XXX_bitfield=16777216, cbLineOffset=1941, cbLine=453)
+    name:specgram.y
+    pretty print:
+// begin file specgram.y
+
+static Segment* previousSegment;
+
+static Segment* currentSegment;
+
+static Wave* previousWave;
+
+static Wave* currentWave;
+
+static SegmentChain* previousSegmentChain;
+
+static Path* lastPath;
+
+static int entryFlag;
+
+static int stackFlag;
+
+typedef union {
+    /* 0x0 */ int integer;
+    /* 0x0 */ unsigned char* string;
+} YYSTYPE;
+
+typedef int yytabelem;
+
+static int yymaxdepth;
+
+void yyerror(unsigned char* s);
+//{
+//}
+
+void printError(unsigned char* fmt, void* ...);
+//{
+//    va_list ap;
+//}
+
+void expandPath(unsigned char* in, unsigned char* out);
+//{
+//    unsigned char* rightparen;
+//    unsigned char* var;
+//}
+
+typedef struct {
+    /* 0x0 */ unsigned char* t_name;
+    /* 0x4 */ int t_val;
+} yytoktype;
+
+int yyparse();
+//{
+//    register YYSTYPE* yypvt;
+//    {
+//        register YYSTYPE* yy_pv;
+//        register int* yy_ps;
+//        register int yy_state;
+//        register int yy_n;
+//        Label: yynewstate @ 4271016;
+//        Label: yystack @ 4271048;
+//        Label: yy_stack @ 4271072;
+//        {
+//            int yynewmax;
+//            ptrdiff_t yys_off;
+//            ptrdiff_t yypvt_off;
+//            ptrdiff_t yy_pv_off;
+//            ptrdiff_t yypv_off;
+//            int* yys_base;
+//            {
+//                void* newyys;
+//                void* newyyv;
+//            }
+//        }
+//        Label: yy_newstate @ 4271752;
+//        Label: yydefault @ 4272024;
+//        {
+//            register int* yyxi;
+//        }
+//        Label: yyerrlab @ 4272400;
+//        Label: skip_init @ 4272444;
+//        {
+//            register int yy_len;
+//        }
+//    }
+//    {
+//        unsigned int address;
+//    }
+//    {
+//        Path* p;
+//        unsigned char pathname[255];
+//    }
+//    {
+//        Segment* s;
+//        SegmentChain* segmentChain;
+//    }
+//    {
+//        Segment* s;
+//        SegmentChain* segmentChain;
+//    }
+//    {
+//        Segment* s;
+//        SegmentChain* segmentChain;
+//    }
+//}
+
+// end file specgram.y
+FileDescriptor(adr=4270256, rss=1, issBase=27649, cbSs=162, isymBase=3212, csym=14, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=48, cpd=0, iauxBase=6304, caux=45, rfdBase=2165, crfd=32, XXX_bitfield=83886080, cbLineOffset=2394, cbLine=0)
+    name:/usr/include/malloc.h
+    pretty print:
+// begin file /usr/include/malloc.h
+
+struct mallinfo {
+    /* 0x0 */ __scint_t arena;
+    /* 0x4 */ __scint_t ordblks;
+    /* 0x8 */ __scint_t smblks;
+    /* 0xC */ __scint_t hblks;
+    /* 0x10 */ __scint_t hblkhd;
+    /* 0x14 */ __scint_t usmblks;
+    /* 0x18 */ __scint_t fsmblks;
+    /* 0x1C */ __scint_t uordblks;
+    /* 0x20 */ __scint_t fordblks;
+    /* 0x24 */ __scint_t keepcost;
+};
+
+// end file /usr/include/malloc.h
+FileDescriptor(adr=4270256, rss=1, issBase=27811, cbSs=528, isymBase=3226, csym=57, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=48, cpd=0, iauxBase=6349, caux=89, rfdBase=2197, crfd=32, XXX_bitfield=83886080, cbLineOffset=2394, cbLine=0)
+    name:/usr/include/ulocks.h
+    pretty print:
+// begin file /usr/include/ulocks.h
+
+typedef void usptr_t;
+
+typedef struct lockmeter_s {
+    /* 0x0 */ int lm_spins;
+    /* 0x4 */ int lm_tries;
+    /* 0x8 */ int lm_hits;
+} lockmeter_t;
+
+typedef struct lockdebug_s {
+    /* 0x0 */ pid_t ld_owner_pid;
+} lockdebug_t;
+
+typedef void* ulock_t;
+
+typedef void usema_t;
+
+typedef struct hist_s {
+    /* 0x0 */ usema_t* h_sem;
+    /* 0x4 */ int h_op;
+    /* 0x8 */ pid_t h_pid;
+    /* 0xC */ int h_scnt;
+    /* 0x10 */ pid_t h_wpid;
+    /* 0x14 */ unsigned char* h_cpc;
+    /* 0x18 */ hist_t* h_next;
+    /* 0x1C */ hist_t* h_last;
+} hist_t;
+
+typedef struct histptr_s {
+    /* 0x0 */ hist_t* hp_current;
+    /* 0x4 */ int hp_entries;
+    /* 0x8 */ int hp_errors;
+} histptr_t;
+
+typedef struct semameter_s {
+    /* 0x0 */ int sm_phits;
+    /* 0x4 */ int sm_psemas;
+    /* 0x8 */ int sm_vsemas;
+    /* 0xC */ int sm_vnowait;
+    /* 0x10 */ int sm_nwait;
+    /* 0x14 */ int sm_maxnwait;
+} semameter_t;
+
+typedef struct semadebug_s {
+    /* 0x0 */ pid_t sd_owner_pid;
+    /* 0x4 */ unsigned char* sd_owner_pc;
+    /* 0x8 */ pid_t sd_last_pid;
+    /* 0xC */ unsigned char* sd_last_pc;
+} semadebug_t;
+
+typedef struct barrier {
+    /* 0x0 */ volatile unsigned char b_inuse;
+    /* 0x1 */ unsigned char b_count;
+    /* 0x2 */ unsigned char b_waitcnt;
+    /* 0x3 */ volatile unsigned char b_spin;
+    /* 0x4 */ ulock_t b_plock;
+    /* 0x8 */ usptr_t* b_usptr;
+} barrier_t;
+
+// end file /usr/include/ulocks.h
+FileDescriptor(adr=4270256, rss=1, issBase=28339, cbSs=419, isymBase=3283, csym=58, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=48, cpd=0, iauxBase=6438, caux=154, rfdBase=2229, crfd=32, XXX_bitfield=83886080, cbLineOffset=2394, cbLine=0)
+    name:/usr/include/sys/prctl.h
+    pretty print:
+// begin file /usr/include/sys/prctl.h
+
+struct prda_sys {
+    /* 0x0 */ pid_t t_pid;
+    /* 0x4 */ __uint32_t t_hint;
+    /* 0x8 */ __uint32_t t_dlactseq;
+    /* 0xC */ __uint32_t t_fpflags;
+    /* 0x10 */ __uint32_t t_prid;
+    /* 0x14 */ __uint32_t t_dlendseq;
+    /* 0x18 */ __uint64_t t_pancake[5];
+    /* 0x40 */ pid_t t_rpid;
+    /* 0x44 */ __int32_t t_resched;
+    /* 0x48 */ __uint32_t t_unused[8];
+    /* 0x68 */ __uint32_t t_cpu;
+    /* 0x6C */ __uint32_t t_flags;
+    /* 0x70 */ k_sigset_t t_hold;
+};
+
+struct prda {
+    /* 0x0 */ unsigned char unused[2048];
+    /* 0x800 */ union {
+        /* 0x0 */ unsigned char fill[512];
+    } sys2_prda;
+    /* 0xA00 */ union {
+        /* 0x0 */ unsigned char fill[512];
+    } lib2_prda;
+    /* 0xC00 */ union {
+        /* 0x0 */ unsigned char fill[512];
+    } usr2_prda;
+    /* 0xE00 */ union {
+        /* 0x0 */ unsigned char fill[128];
+        /* 0x0 */ prda_sys prda_sys;
+    } sys_prda;
+    /* 0xE80 */ union {
+        /* 0x0 */ unsigned char fill[256];
+    } lib_prda;
+    /* 0xF80 */ union {
+        /* 0x0 */ unsigned char fill[128];
+    } usr_prda;
+};
+
+struct prattach_args_t {
+    /* 0x0 */ __int64_t local_vaddr;
+    /* 0x8 */ __int64_t vaddr;
+    /* 0x10 */ pid_t pid;
+    /* 0x14 */ __uint32_t prots;
+    /* 0x18 */ __uint32_t flags;
+};
+
+struct prattach_results_t {
+    /* 0x0 */ __int64_t local_vaddr;
+    /* 0x8 */ __int64_t region_base;
+    /* 0x10 */ __int64_t region_size;
+    /* 0x18 */ __uint32_t prots;
+};
+
+// end file /usr/include/sys/prctl.h
+FileDescriptor(adr=4270256, rss=1, issBase=28758, cbSs=456, isymBase=3341, csym=46, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=48, cpd=0, iauxBase=6592, caux=106, rfdBase=2261, crfd=32, XXX_bitfield=83886080, cbLineOffset=2394, cbLine=0)
+    name:/usr/include/task.h
+    pretty print:
+// begin file /usr/include/task.h
+
+typedef int tid_t;
+
+struct prda_lib {
+    /* 0x0 */ tid_t t_tid;
+    /* 0x4 */ int t_errno;
+    /* 0x8 */ int auto_mp_id;
+    /* 0xC */ unsigned char* fpe_data_ptr;
+    /* 0x10 */ unsigned char* pixie_data_ptr;
+    /* 0x14 */ int compiler_extra[1];
+    /* 0x18 */ void* glx_client;
+    /* 0x1C */ void* ogl_context;
+    /* 0x20 */ void* ogl_dispatch[7];
+    /* 0x3C */ void* speedshop_data_ptr[5];
+    /* 0x50 */ int pthread_id;
+    /* 0x54 */ int pthread_cancel;
+    /* 0x58 */ void* pthread_data[6];
+};
+
+typedef volatile struct tskblk {
+    /* 0x0 */ void (*t_entry)(/* ECOFF does not store param types */);
+    /* 0x4 */ void* t_arg;
+    /* 0x8 */ tid_t t_tid;
+    /* 0xC */ pid_t t_pid;
+    /* 0x10 */ unsigned int t_options;
+    /* 0x14 */ unsigned int t_flags;
+    /* 0x18 */ unsigned char* t_name;
+    /* 0x1C */ tskblk_t* t_link;
+} tskblk_t;
+
+typedef struct tskhdr {
+    /* 0x0 */ usptr_t* t_usptr;
+    /* 0x4 */ ulock_t t_listlock;
+    /* 0x8 */ volatile tskblk_t* t_list;
+} tskhdr_t;
+
+typedef struct mlibhdr {
+    /* 0x0 */ ulock_t* m_listlock;
+    /* 0x4 */ tid_t m_list[256];
+    /* 0x404 */ barrier_t* m_sbar;
+    /* 0x408 */ volatile unsigned short m_lcount;
+    /* 0x40A */ unsigned short m_pcount;
+    /* 0x40C */ ulock_t m_glock;
+    /* 0x410 */ unsigned int m_gcount;
+    /* 0x414 */ ulock_t m_gcountlock;
+} mlibhdr_t;
+
+// end file /usr/include/task.h
+FileDescriptor(adr=4270256, rss=1, issBase=29214, cbSs=76, isymBase=3387, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=48, cpd=0, iauxBase=6698, caux=15, rfdBase=2293, crfd=32, XXX_bitfield=83886080, cbLineOffset=2394, cbLine=0)
+    name:/usr/include/memory.h
+    pretty print:
+// begin file /usr/include/memory.h
+
+// end file /usr/include/memory.h
+FileDescriptor(adr=4277456, rss=1, issBase=29290, cbSs=867, isymBase=3389, csym=135, ilineBase=11100, cline=13798, ioptBase=0, copt=0, ipdFirst=48, cpd=65, iauxBase=6713, caux=145, rfdBase=2325, crfd=3, XXX_bitfield=25165824, cbLineOffset=2394, cbLine=3393)
+    name:xlate64.c
+    pretty print:
+// begin file xlate64.c
+
+static x64;
+
+static fmsize;
+
+static mtype;
+
+int _elf64_entsz();
+
+int _elf64_fsize();
+
+int _elf64_msize();
+
+int _elf64_mtype();
+
+int _elf_version();
+
+int xlate();
+
+int _elf64_xlatetof();
+
+int _elf64_xlatetom();
+
+int addr_2L_tof();
+
+int addr_2M_tof();
+
+int byte_to();
+
+int dyn_2L11_tof();
+
+int dyn_2M11_tof();
+
+int ehdr_2L11_tof();
+
+int ehdr_2M11_tof();
+
+int half_2L_tof();
+
+int half_2M_tof();
+
+int off_2L_tof();
+
+int off_2M_tof();
+
+int phdr_2L11_tof();
+
+int phdr_2M11_tof();
+
+int rel_2L11_tof();
+
+int rel_2M11_tof();
+
+int rela_2L11_tof();
+
+int rela_2M11_tof();
+
+int shdr_2L11_tof();
+
+int shdr_2M11_tof();
+
+int sword_2L_tof();
+
+int sword_2M_tof();
+
+int sxword_2L_tof();
+
+int sxword_2M_tof();
+
+int sym_2L11_tof();
+
+int sym_2M11_tof();
+
+int word_2L_tof();
+
+int word_2M_tof();
+
+int xword_2L_tof();
+
+int xword_2M_tof();
+
+int addr_2L_tom();
+
+int addr_2M_tom();
+
+int dyn_2L11_tom();
+
+int dyn_2M11_tom();
+
+int ehdr_2L11_tom();
+
+int ehdr_2M11_tom();
+
+int half_2L_tom();
+
+int half_2M_tom();
+
+int off_2L_tom();
+
+int off_2M_tom();
+
+int phdr_2L11_tom();
+
+int phdr_2M11_tom();
+
+int rel_2L11_tom();
+
+int rel_2M11_tom();
+
+int rela_2L11_tom();
+
+int rela_2M11_tom();
+
+int shdr_2L11_tom();
+
+int shdr_2M11_tom();
+
+int sword_2L_tom();
+
+int sword_2M_tom();
+
+int sxword_2L_tom();
+
+int sxword_2M_tom();
+
+int sym_2L11_tom();
+
+int sym_2M11_tom();
+
+int word_2L_tom();
+
+int word_2M_tom();
+
+int xword_2L_tom();
+
+int xword_2M_tom();
+
+// end file xlate64.c
+FileDescriptor(adr=4277456, rss=1, issBase=30157, cbSs=28, isymBase=3524, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=113, cpd=0, iauxBase=6858, caux=15, rfdBase=2328, crfd=3, XXX_bitfield=92274688, cbLineOffset=5787, cbLine=0)
+    name:../../libelf/common/decl.h
+    pretty print:
+// begin file ../../libelf/common/decl.h
+
+// end file ../../libelf/common/decl.h
+FileDescriptor(adr=4277456, rss=1, issBase=30185, cbSs=54, isymBase=3526, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=113, cpd=0, iauxBase=6873, caux=15, rfdBase=2331, crfd=3, XXX_bitfield=92274688, cbLineOffset=5787, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/string.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/string.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/string.h
+FileDescriptor(adr=4332656, rss=1, issBase=30239, cbSs=60, isymBase=3528, csym=6, ilineBase=24898, cline=280, ioptBase=0, copt=0, ipdFirst=113, cpd=1, iauxBase=6888, caux=17, rfdBase=2334, crfd=4, XXX_bitfield=25165824, cbLineOffset=5787, cbLine=127)
+    name:../../libelf/common/getdata.c
+    pretty print:
+// begin file ../../libelf/common/getdata.c
+
+static align32;
+
+static align64;
+
+int _elf_getdata();
+
+// end file ../../libelf/common/getdata.c
+FileDescriptor(adr=4332656, rss=1, issBase=30299, cbSs=54, isymBase=3534, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=114, cpd=0, iauxBase=6905, caux=15, rfdBase=2338, crfd=4, XXX_bitfield=92274688, cbLineOffset=5914, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/libelf.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/libelf.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/libelf.h
+FileDescriptor(adr=4332656, rss=1, issBase=30353, cbSs=54, isymBase=3536, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=114, cpd=0, iauxBase=6920, caux=15, rfdBase=2342, crfd=4, XXX_bitfield=92274688, cbLineOffset=5914, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/stdlib.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/stdlib.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/stdlib.h
+FileDescriptor(adr=4333776, rss=1, issBase=30407, cbSs=42, isymBase=3538, csym=4, ilineBase=25178, cline=187, ioptBase=0, copt=0, ipdFirst=114, cpd=1, iauxBase=6935, caux=17, rfdBase=2346, crfd=3, XXX_bitfield=25165824, cbLineOffset=5914, cbLine=73)
+    name:../../libelf/common/strptr.c
+    pretty print:
+// begin file ../../libelf/common/strptr.c
+
+int _elf_strptr();
+
+// end file ../../libelf/common/strptr.c
+FileDescriptor(adr=4334528, rss=1, issBase=30449, cbSs=96, isymBase=3542, csym=13, ilineBase=25365, cline=640, ioptBase=0, copt=0, ipdFirst=115, cpd=4, iauxBase=6952, caux=23, rfdBase=2349, crfd=7, XXX_bitfield=25165824, cbLineOffset=5987, cbLine=228)
+    name:../../libelf/common/begin.c
+    pretty print:
+// begin file ../../libelf/common/begin.c
+
+static elf_init;
+
+static armag;
+
+int disallow_mmap_read();
+
+int _elf_begin();
+//Label: isread @ 4334528;
+
+int member();
+
+int regular();
+
+// end file ../../libelf/common/begin.c
+FileDescriptor(adr=4334528, rss=1, issBase=30545, cbSs=54, isymBase=3555, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=119, cpd=0, iauxBase=6975, caux=15, rfdBase=2356, crfd=7, XXX_bitfield=92274688, cbLineOffset=6215, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/unistd.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/unistd.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/unistd.h
+FileDescriptor(adr=4334528, rss=1, issBase=30599, cbSs=31, isymBase=3557, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=119, cpd=0, iauxBase=6990, caux=15, rfdBase=2363, crfd=7, XXX_bitfield=92274688, cbLineOffset=6215, cbLine=0)
+    name:../../libelf/common/foreign.h
+    pretty print:
+// begin file ../../libelf/common/foreign.h
+
+// end file ../../libelf/common/foreign.h
+FileDescriptor(adr=4337104, rss=1, issBase=30630, cbSs=41, isymBase=3559, csym=5, ilineBase=26005, cline=231, ioptBase=0, copt=0, ipdFirst=119, cpd=1, iauxBase=7005, caux=17, rfdBase=2370, crfd=3, XXX_bitfield=25165824, cbLineOffset=6215, cbLine=81)
+    name:../../libelf/common/end.c
+    pretty print:
+// begin file ../../libelf/common/end.c
+
+int _elf_end();
+//Label: loop @ 4337104;
+
+// end file ../../libelf/common/end.c
+FileDescriptor(adr=4337104, rss=1, issBase=30671, cbSs=54, isymBase=3564, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=120, cpd=0, iauxBase=7022, caux=15, rfdBase=2373, crfd=3, XXX_bitfield=92274688, cbLineOffset=6296, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/malloc.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/malloc.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/malloc.h
+FileDescriptor(adr=4338032, rss=1, issBase=30725, cbSs=744, isymBase=3566, csym=117, ilineBase=26236, cline=3141, ioptBase=0, copt=0, ipdFirst=120, cpd=56, iauxBase=7037, caux=127, rfdBase=2376, crfd=3, XXX_bitfield=25165824, cbLineOffset=6296, cbLine=1212)
+    name:xlate.c
+    pretty print:
+// begin file xlate.c
+
+static x32;
+
+static fmsize;
+
+static mtype;
+
+int _elf32_entsz();
+
+int _elf32_fsize();
+
+int _elf32_msize();
+
+int _elf32_mtype();
+
+int xlate();
+
+int _elf32_xlatetof();
+
+int _elf32_xlatetom();
+
+int addr_2L_tof();
+
+int addr_2M_tof();
+
+int byte_to();
+
+int dyn_2L11_tof();
+
+int dyn_2M11_tof();
+
+int ehdr_2L11_tof();
+
+int ehdr_2M11_tof();
+
+int half_2L_tof();
+
+int half_2M_tof();
+
+int off_2L_tof();
+
+int off_2M_tof();
+
+int phdr_2L11_tof();
+
+int phdr_2M11_tof();
+
+int rel_2L11_tof();
+
+int rel_2M11_tof();
+
+int rela_2L11_tof();
+
+int rela_2M11_tof();
+
+int shdr_2L11_tof();
+
+int shdr_2M11_tof();
+
+int sword_2L_tof();
+
+int sword_2M_tof();
+
+int sym_2L11_tof();
+
+int sym_2M11_tof();
+
+int word_2L_tof();
+
+int word_2M_tof();
+
+int addr_2L_tom();
+
+int addr_2M_tom();
+
+int dyn_2L11_tom();
+
+int dyn_2M11_tom();
+
+int ehdr_2L11_tom();
+
+int ehdr_2M11_tom();
+
+int half_2L_tom();
+
+int half_2M_tom();
+
+int off_2L_tom();
+
+int off_2M_tom();
+
+int phdr_2L11_tom();
+
+int phdr_2M11_tom();
+
+int rel_2L11_tom();
+
+int rel_2M11_tom();
+
+int rela_2L11_tom();
+
+int rela_2M11_tom();
+
+int shdr_2L11_tom();
+
+int shdr_2M11_tom();
+
+int sword_2L_tom();
+
+int sword_2M_tom();
+
+int sym_2L11_tom();
+
+int sym_2M11_tom();
+
+int word_2L_tom();
+
+int word_2M_tom();
+
+// end file xlate.c
+FileDescriptor(adr=4350608, rss=1, issBase=31469, cbSs=61, isymBase=3683, csym=6, ilineBase=29377, cline=84, ioptBase=0, copt=0, ipdFirst=176, cpd=2, iauxBase=7164, caux=19, rfdBase=2379, crfd=2, XXX_bitfield=25165824, cbLineOffset=7508, cbLine=28)
+    name:../../libelf/common/getehdr.c
+    pretty print:
+// begin file ../../libelf/common/getehdr.c
+
+int _elf32_getehdr();
+
+int _elf64_getehdr();
+
+// end file ../../libelf/common/getehdr.c
+FileDescriptor(adr=4350944, rss=1, issBase=31530, cbSs=146, isymBase=3689, csym=29, ilineBase=29461, cline=1531, ioptBase=0, copt=0, ipdFirst=178, cpd=11, iauxBase=7183, caux=37, rfdBase=2381, crfd=4, XXX_bitfield=25165824, cbLineOffset=7536, cbLine=567)
+    name:../../libelf/common/cook.c
+    pretty print:
+// begin file ../../libelf/common/cook.c
+
+int _elf_cook();
+//Label: xphdr @ 4350944;
+//Label: xehdr @ 4350944;
+
+int _elf_cookscn();
+
+int _elf_dnode();
+
+int _elf_snode();
+
+int ehdr32();
+//Label: bad @ 4350944;
+
+int ehdr64();
+//Label: bad @ 4350944;
+
+int phdr32();
+
+int phdr64();
+
+int shdr32();
+
+int shdr64();
+
+int slide();
+//Label: loop @ 4350944;
+
+// end file ../../libelf/common/cook.c
+FileDescriptor(adr=4357072, rss=1, issBase=31676, cbSs=61, isymBase=3718, csym=6, ilineBase=30992, cline=62, ioptBase=0, copt=0, ipdFirst=189, cpd=2, iauxBase=7220, caux=19, rfdBase=2385, crfd=2, XXX_bitfield=25165824, cbLineOffset=8103, cbLine=20)
+    name:../../libelf/common/getshdr.c
+    pretty print:
+// begin file ../../libelf/common/getshdr.c
+
+int _elf32_getshdr();
+
+int _elf64_getshdr();
+
+// end file ../../libelf/common/getshdr.c
+FileDescriptor(adr=4357328, rss=1, issBase=31737, cbSs=38, isymBase=3724, csym=4, ilineBase=31054, cline=10, ioptBase=0, copt=0, ipdFirst=191, cpd=1, iauxBase=7239, caux=17, rfdBase=2387, crfd=1, XXX_bitfield=25165824, cbLineOffset=8123, cbLine=4)
+    name:../../libelf/common/kind.c
+    pretty print:
+// begin file ../../libelf/common/kind.c
+
+int _elf_kind();
+
+// end file ../../libelf/common/kind.c
+FileDescriptor(adr=4357376, rss=1, issBase=31775, cbSs=59, isymBase=3728, csym=8, ilineBase=31064, cline=515, ioptBase=0, copt=0, ipdFirst=192, cpd=3, iauxBase=7256, caux=21, rfdBase=2388, crfd=6, XXX_bitfield=25165824, cbLineOffset=8127, cbLine=188)
+    name:../../libelf/common/input.c
+    pretty print:
+// begin file ../../libelf/common/input.c
+
+int _elf_vm();
+
+int _elf_inmap();
+
+int _elf_unmap();
+
+// end file ../../libelf/common/input.c
+FileDescriptor(adr=4357376, rss=1, issBase=31834, cbSs=56, isymBase=3736, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=195, cpd=0, iauxBase=7277, caux=15, rfdBase=2394, crfd=6, XXX_bitfield=92274688, cbLineOffset=8315, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/sys/mman.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/sys/mman.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/sys/mman.h
+FileDescriptor(adr=4357376, rss=1, issBase=31890, cbSs=28, isymBase=3738, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=195, cpd=0, iauxBase=7292, caux=15, rfdBase=2400, crfd=2, XXX_bitfield=92274688, cbLineOffset=8315, cbLine=0)
+    name:../../libelf/common/data.c
+    pretty print:
+// begin file ../../libelf/common/data.c
+
+// end file ../../libelf/common/data.c
+FileDescriptor(adr=4359440, rss=1, issBase=31918, cbSs=42, isymBase=3740, csym=4, ilineBase=31579, cline=57, ioptBase=0, copt=0, ipdFirst=195, cpd=1, iauxBase=7307, caux=17, rfdBase=2402, crfd=2, XXX_bitfield=25165824, cbLineOffset=8315, cbLine=29)
+    name:../../libelf/common/getscn.c
+    pretty print:
+// begin file ../../libelf/common/getscn.c
+
+int _elf_getscn();
+
+// end file ../../libelf/common/getscn.c
+FileDescriptor(adr=4359440, rss=1, issBase=31960, cbSs=31, isymBase=3744, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=196, cpd=0, iauxBase=7324, caux=15, rfdBase=2404, crfd=2, XXX_bitfield=92274688, cbLineOffset=8344, cbLine=0)
+    name:../../libelf/common/foreign.c
+    pretty print:
+// begin file ../../libelf/common/foreign.c
+
+// end file ../../libelf/common/foreign.c
+FileDescriptor(adr=4359680, rss=1, issBase=31991, cbSs=81, isymBase=3746, csym=13, ilineBase=31636, cline=711, ioptBase=0, copt=0, ipdFirst=196, cpd=5, iauxBase=7339, caux=25, rfdBase=2406, crfd=4, XXX_bitfield=25165824, cbLineOffset=8344, cbLine=272)
+    name:../../libelf/common/ar.c
+    pretty print:
+// begin file ../../libelf/common/ar.c
+
+static fmag;
+
+int ck_mangle();
+
+int do_mangle();
+
+int number();
+
+int _elf_armem();
+
+int _elf_arinit();
+
+// end file ../../libelf/common/ar.c
+FileDescriptor(adr=4362528, rss=1, issBase=32072, cbSs=17, isymBase=3759, csym=4, ilineBase=32347, cline=2, ioptBase=0, copt=0, ipdFirst=201, cpd=1, iauxBase=7364, caux=17, rfdBase=2410, crfd=1, XXX_bitfield=25165824, cbLineOffset=8616, cbLine=1)
+    name:yywrap.c
+    pretty print:
+// begin file yywrap.c
+
+int yywrap();
+
+// end file yywrap.c
+FileDescriptor(adr=4362544, rss=1, issBase=32089, cbSs=18, isymBase=3763, csym=4, ilineBase=32349, cline=12, ioptBase=0, copt=0, ipdFirst=202, cpd=1, iauxBase=7381, caux=17, rfdBase=2411, crfd=1, XXX_bitfield=25165824, cbLineOffset=8617, cbLine=7)
+    name:sex.c
+    pretty print:
+// begin file sex.c
+
+int gethostsex();
+
+// end file sex.c
+FileDescriptor(adr=4362592, rss=1, issBase=32107, cbSs=481, isymBase=3767, csym=82, ilineBase=32361, cline=2014, ioptBase=0, copt=0, ipdFirst=203, cpd=38, iauxBase=7398, caux=91, rfdBase=2412, crfd=8, XXX_bitfield=25165824, cbLineOffset=8624, cbLine=579)
+    name:ldfcn.c
+    pretty print:
+// begin file ldfcn.c
+
+static elf_ar_strtab;
+
+static elf_ar_strtab_size;
+
+int ar_strtab_insert_nulls();
+
+int elf_get_ar_filename();
+//static namebuf; // no type symbol
+
+int allocldptr();
+//static count; // no type symbol
+
+int ldopen();
+
+int __sgi_init_ldfile();
+
+int nextfile();
+
+int init_ldfile();
+
+int ldclose();
+
+int nyi();
+
+int nop();
+
+int ldinitheaders();
+
+int ldfhread();
+
+int ldshread();
+
+int vldldptr();
+
+int freeldptr();
+
+int __sgi_dbx_freeldptr();
+
+int __sgi_ldftell();
+
+int __sgi_ldmemseek();
+
+int ldfseek();
+
+int ldfread();
+
+int ldlseek();
+
+int ldnlseek();
+
+int ldnrseek();
+
+int ldnsseek();
+
+int ldohseek();
+
+int ldrseek();
+
+int ldsseek();
+
+int ldtbseek();
+
+int ldnreloc();
+
+int hdrassign();
+
+int ldaopen();
+
+int ldaclose();
+
+int ldahread();
+
+int ldohread();
+
+int ldarsymread();
+
+int ldnshread();
+
+int _ld_get_procedure_table();
+
+int _ld_init_rt_proc_table();
+
+// end file ldfcn.c
+FileDescriptor(adr=4362592, rss=1, issBase=32588, cbSs=54, isymBase=3849, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=241, cpd=0, iauxBase=7489, caux=15, rfdBase=2420, crfd=8, XXX_bitfield=92274688, cbLineOffset=9203, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/assert.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/assert.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/assert.h
+FileDescriptor(adr=4362592, rss=1, issBase=32642, cbSs=53, isymBase=3851, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=241, cpd=0, iauxBase=7504, caux=15, rfdBase=2428, crfd=8, XXX_bitfield=92274688, cbLineOffset=9203, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/ldfcn.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/ldfcn.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/ldfcn.h
+FileDescriptor(adr=4362592, rss=1, issBase=32695, cbSs=53, isymBase=3853, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=241, cpd=0, iauxBase=7519, caux=15, rfdBase=2436, crfd=8, XXX_bitfield=92274688, cbLineOffset=9203, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/fcntl.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/fcntl.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/fcntl.h
+FileDescriptor(adr=4362592, rss=1, issBase=32748, cbSs=55, isymBase=3855, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=241, cpd=0, iauxBase=7534, caux=15, rfdBase=2444, crfd=8, XXX_bitfield=92274688, cbLineOffset=9203, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/obj_ext.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/obj_ext.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/obj_ext.h
+FileDescriptor(adr=4362592, rss=1, issBase=32803, cbSs=51, isymBase=3857, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=241, cpd=0, iauxBase=7549, caux=15, rfdBase=2452, crfd=8, XXX_bitfield=92274688, cbLineOffset=9203, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/sex.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/sex.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/sex.h
+FileDescriptor(adr=4362592, rss=1, issBase=32854, cbSs=53, isymBase=3859, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=241, cpd=0, iauxBase=7564, caux=15, rfdBase=2460, crfd=8, XXX_bitfield=92274688, cbLineOffset=9203, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/stdio.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/stdio.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/stdio.h
+FileDescriptor(adr=4370656, rss=1, issBase=32907, cbSs=863, isymBase=3861, csym=105, ilineBase=34375, cline=4230, ioptBase=0, copt=0, ipdFirst=241, cpd=45, iauxBase=7579, caux=105, rfdBase=2468, crfd=11, XXX_bitfield=25165824, cbLineOffset=9203, cbLine=1492)
+    name:obj.c
+    pretty print:
+// begin file obj.c
+
+static objIsMmaped;
+
+int save_str();
+
+int dbx_cmp_proctbl();
+
+int dbx_build_proctbl();
+
+int change_fortran_names();
+
+int __sgi_dbx_obj_close();
+
+int __sgi_fobj_open();
+
+int obj_open();
+
+int dbx_obj_open();
+
+int obj_init();
+
+int check_obj_name();
+
+int add_obj();
+
+int dbx_add_obj();
+
+int dbx_insert_obj();
+
+int check_symbol_range();
+
+int symbol_to_obj();
+//static lastsymbol; // no type symbol
+//static lastobj; // no type symbol
+
+int check_procedure_range();
+
+int procedure_to_obj();
+//static lastprocedure; // no type symbol
+//static lastobj; // no type symbol
+
+int check_file_range();
+
+int file_to_obj();
+//static lastfile; // no type symbol
+//static lastobj; // no type symbol
+
+int check_address_range();
+
+int address_to_obj();
+//static lastaddr; // no type symbol
+//static lastobj; // no type symbol
+
+int obj_read_from_fd();
+//Label: do_malloc @ 4370656;
+//Label: skip_malloc @ 4370656;
+
+int obj_close();
+
+int dbx_obj_close();
+
+int obj_nsections();
+
+int get_dynamic_offset();
+
+int obj_dynamic();
+
+int obj_get_dynamic_info();
+
+int elfhash();
+
+int obj_shared();
+
+int obj_call_shared();
+
+int obj_newstr();
+
+int split();
+
+int match_string_ignore_comment_and_whitespace();
+
+int match_string_ignore_minor();
+
+int match_string();
+
+int get_dynsym_hash_value();
+
+int obj_get_magic();
+
+int obj_text_offset();
+
+int dumpobj_struct();
+
+int elf_get_pt_interp();
+//static buf; // no type symbol
+
+int search_symbol_using_hash();
+//Label: found @ 4370656;
+
+int obj_find_symbol_value();
+
+int obj_find_procedure_table();
+
+int _create_rt_proc_table();
+
+// end file obj.c
+FileDescriptor(adr=4370656, rss=1, issBase=33770, cbSs=56, isymBase=3966, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=286, cpd=0, iauxBase=7684, caux=15, rfdBase=2479, crfd=11, XXX_bitfield=92274688, cbLineOffset=10695, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/sys/stat.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/sys/stat.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/sys/stat.h
+FileDescriptor(adr=4370656, rss=1, issBase=33826, cbSs=53, isymBase=3968, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=286, cpd=0, iauxBase=7699, caux=15, rfdBase=2490, crfd=11, XXX_bitfield=92274688, cbLineOffset=10695, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/errno.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/errno.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/errno.h
+FileDescriptor(adr=4387600, rss=1, issBase=33879, cbSs=3534, isymBase=3970, csym=416, ilineBase=38605, cline=1158, ioptBase=0, copt=0, ipdFirst=286, cpd=207, iauxBase=7714, caux=429, rfdBase=2501, crfd=2, XXX_bitfield=25165824, cbLineOffset=10695, cbLine=445)
+    name:objfcn.c
+    pretty print:
+// begin file objfcn.c
+
+int obj_otype();
+
+int obj_pfilehdr();
+
+int obj_paouthdr();
+
+int obj_pscnhdr();
+
+int obj_phdrr();
+
+int obj_psymr();
+
+int obj_pextr();
+
+int obj_symbol_base();
+
+int obj_file_base();
+
+int obj_procedure_base();
+
+int obj_type_base();
+
+int obj_base_address();
+
+int obj_set_base_address();
+
+int obj_map_address();
+
+int obj_set_map_address();
+
+int obj_map_diff();
+
+int obj_map_diff_dbx();
+
+int obj_hash();
+
+int obj_set_hash_address();
+
+int obj_dynstr();
+
+int obj_set_dynstr_address();
+
+int obj_dynsym();
+
+int obj_set_dynsym_address();
+
+int obj_msym();
+
+int obj_set_msym_address();
+
+int obj_got();
+
+int obj_set_got_address();
+
+int obj_dynrel();
+
+int obj_set_dynrel_address();
+
+int obj_liblist();
+
+int obj_create_liblist_entry();
+
+int obj_set_liblist_address();
+
+int obj_conflict();
+
+int obj_set_conflict_address();
+
+int obj_locgotcount();
+
+int obj_set_locgotcount();
+
+int obj_unrefextno();
+
+int obj_set_unrefextno();
+
+int obj_gotsym();
+
+int obj_set_gotsym();
+
+int obj_timestamp();
+
+int obj_set_timestamp();
+
+int obj_ichecksum();
+
+int obj_set_ichecksum();
+
+int obj_iversion();
+
+int obj_set_iversion();
+
+int obj_dynflags();
+
+int obj_set_dynflags();
+
+int obj_dynrelsz();
+
+int obj_set_dynrelsz();
+
+int obj_dynrelent();
+
+int obj_set_dynrelent();
+
+int obj_dynsymcount();
+
+int obj_set_dynsymcount();
+
+int obj_dynsyment();
+
+int obj_set_dynsyment();
+
+int obj_dynstrsz();
+
+int obj_set_dynstrsz();
+
+int obj_liblistcount();
+
+int obj_set_liblistcount();
+
+int obj_conflictcount();
+
+int obj_set_conflictcount();
+
+int obj_extgot();
+
+int obj_set_extgot();
+
+int obj_rpath();
+
+int obj_set_rpath();
+
+int obj_soname();
+
+int obj_set_soname();
+
+int obj_rldversion();
+
+int obj_rldversion_string();
+
+int obj_set_rldversion();
+
+int obj_text_start();
+
+int obj_set_text_start();
+
+int obj_text_size();
+
+int obj_set_text_size();
+
+int obj_data_start();
+
+int obj_set_data_start();
+
+int obj_bss_start();
+
+int obj_set_bss_start();
+
+int obj_data_size();
+
+int obj_bss_size();
+
+int obj_set_bss_size();
+
+int obj_name();
+
+int obj_set_name();
+
+int obj_path();
+
+int obj_set_path();
+
+int obj_init_address();
+
+int obj_set_init_address();
+
+int obj_pixie_init_address();
+
+int obj_set_pixie_init_address();
+
+int obj_fini_address();
+
+int obj_set_fini_address();
+
+int obj_entry_address();
+
+int obj_set_entry_address();
+
+int obj_rldflags();
+
+int obj_set_rldflag();
+
+int obj_unset_rldflag();
+
+int obj_is_mapped();
+
+int obj_was_modified();
+
+int obj_chksum_changed();
+
+int obj_was_moved();
+
+int obj_followed_csc();
+
+int obj_is_symbolic();
+
+int obj_committed();
+
+int obj_set_cxx_flags();
+
+int obj_unset_cxx_flags();
+
+int obj_cxx_flags();
+
+int obj_is_delta_object();
+
+int obj_delta_fixup();
+
+int obj_delta_read_defns();
+
+int obj_get_delta_version();
+
+int obj_start_init();
+
+int obj_init_done();
+
+int obj_pixie_init_done();
+
+int obj_set_pixie_init_done();
+
+int obj_set_start_init();
+
+int obj_set_init_done();
+
+int obj_dynstrtab();
+
+int obj_dynstring();
+
+int obj_set_dynstrtab();
+
+int obj_conflict_foreign();
+
+int obj_liblist_foreign();
+
+int obj_dynsym_value();
+
+int obj_set_dynsym_value();
+
+int obj_sym_other();
+
+int obj_dynsym_size();
+
+int obj_set_dynsym_size();
+
+int obj_sym_shndx();
+
+int obj_dynsym_name();
+
+int obj_sym_info();
+
+int obj_msym_exists();
+
+int obj_msym_not_exists();
+
+int obj_dynsym_hash_value();
+
+int obj_nbucket();
+
+int obj_nchain();
+
+int obj_hash_bucket();
+
+int obj_hash_chain();
+
+int obj_dynsym_got();
+
+int obj_set_dynsym_got();
+
+int obj_locgot();
+
+int obj_set_local_got();
+
+int obj_dynsym_rel_index();
+
+int obj_msym_ms_info();
+
+int obj_set_msym_ms_info();
+
+int obj_msym_ms_hash_value();
+
+int obj_set_msym_ms_hash_value();
+
+int obj_rel_off();
+
+int obj_rel_info();
+
+int obj_conflict_symbol();
+
+int obj_liblist_name();
+
+int obj_liblist_tstamp();
+
+int obj_liblist_csum();
+
+int obj_liblist_version_str();
+
+int obj_liblist_version();
+
+int obj_liblist_flags();
+
+int obj_interface_version();
+
+int obj_interface_not_match();
+
+int obj_checksum_not_match();
+
+int obj_name_not_match();
+
+int obj_tstamp_not_match();
+
+int obj_different_name();
+
+int obj_pelfhdr();
+
+int obj_pproghdr();
+
+int obj_psecthdr();
+
+int obj_section();
+
+int obj_shstrndx();
+
+int obj_section_index_name();
+
+int obj_section_bits();
+
+int obj_section_index_bits();
+
+int obj_section_vaddr();
+
+int obj_section_size();
+
+int obj_section_offset();
+
+int obj_section_name();
+
+int obj_rld_map();
+
+int obj_set_rld_map();
+
+int obj_fd();
+
+int obj_set_fd();
+
+int hdr_symptr();
+
+int procedure_lnlow();
+
+int procedure_lnhigh();
+
+int obj_arch();
+
+int obj_delta_class();
+
+int obj_set_delta_class();
+
+int obj_delta_class_no();
+
+int obj_set_delta_class_no();
+
+int obj_delta_instance();
+
+int obj_set_delta_instance();
+
+int obj_delta_instance_no();
+
+int obj_set_delta_instance_no();
+
+int obj_delta_reloc();
+
+int obj_set_delta_reloc();
+
+int obj_delta_reloc_no();
+
+int obj_set_delta_reloc_no();
+
+int obj_delta_rel_off();
+
+int obj_delta_rel_info();
+
+int obj_delta_sym();
+
+int obj_set_delta_sym();
+
+int obj_delta_sym_no();
+
+int obj_set_delta_sym_no();
+
+int obj_delta_classsym();
+
+int obj_set_delta_classsym();
+
+int obj_delta_classsym_no();
+
+int obj_set_delta_classsym_no();
+
+int obj_set_symlib();
+
+int obj_symlib_num();
+
+int obj_rld_text_resolve_addr();
+
+int obj_set_rld_text_resolve_addr();
+
+// end file objfcn.c
+FileDescriptor(adr=4392240, rss=1, issBase=37413, cbSs=24, isymBase=4386, csym=4, ilineBase=39763, cline=31, ioptBase=0, copt=0, ipdFirst=493, cpd=1, iauxBase=8143, caux=17, rfdBase=2503, crfd=2, XXX_bitfield=25165824, cbLineOffset=11140, cbLine=10)
+    name:misc_warning.c
+    pretty print:
+// begin file misc_warning.c
+
+int warning();
+
+// end file misc_warning.c
+FileDescriptor(adr=4392368, rss=1, issBase=37437, cbSs=303, isymBase=4390, csym=58, ilineBase=39794, cline=2975, ioptBase=0, copt=0, ipdFirst=494, cpd=28, iauxBase=8160, caux=71, rfdBase=2505, crfd=3, XXX_bitfield=25165824, cbLineOffset=11150, cbLine=1270)
+    name:swap.c
+    pretty print:
+// begin file swap.c
+
+int swap_filehdr();
+
+int swap_aouthdr();
+
+int swap_scnhdr();
+
+int swap_libscn();
+
+int swap_hdr();
+
+int swap_fd();
+
+int swap_fi();
+
+int swap_sym();
+
+int swap_ext();
+
+int swap_pd();
+
+int swap_dn();
+
+int swap_rpd();
+
+int swap_opt();
+
+int swap_aux();
+
+int swap_reloc();
+
+int swap_ranlib();
+
+int swap_gpt();
+
+int swap_dynamic();
+
+int swap_rel_dyn();
+
+int swap_reginfo();
+
+int swap_dynsym();
+
+int swap_conflict();
+
+int swap_got();
+
+int swap_liblist();
+
+int swap_msym();
+
+int swap_ehdr();
+
+int swap_phdr();
+
+int swap_shdr();
+
+// end file swap.c
+FileDescriptor(adr=4404272, rss=1, issBase=37740, cbSs=227, isymBase=4448, csym=26, ilineBase=42769, cline=730, ioptBase=0, copt=0, ipdFirst=522, cpd=11, iauxBase=8231, caux=37, rfdBase=2508, crfd=2, XXX_bitfield=25165824, cbLineOffset=12420, cbLine=265)
+    name:procedure.c
+    pretty print:
+// begin file procedure.c
+
+static userprocedure;
+
+static pinx;
+
+int procedure_symbol();
+
+int procedure_ppd();
+
+int procedure_address();
+
+int procedure_iline();
+
+int procedure_lnLow();
+
+int procedure_lnHigh();
+
+int procedure_cbLineOffset();
+
+int address_to_procedure();
+
+int foreach_obj_procedure();
+
+int foreach_procedure();
+
+int newprocedure();
+
+// end file procedure.c
+FileDescriptor(adr=4407200, rss=1, issBase=37967, cbSs=247, isymBase=4474, csym=37, ilineBase=43499, cline=526, ioptBase=0, copt=0, ipdFirst=533, cpd=16, iauxBase=8268, caux=47, rfdBase=2510, crfd=2, XXX_bitfield=25165824, cbLineOffset=12685, cbLine=129)
+    name:file.c
+    pretty print:
+// begin file file.c
+
+int symbol_to_file();
+//static file; // no type symbol
+
+int type_to_file();
+//static file; // no type symbol
+
+int procedure_to_file();
+//static file; // no type symbol
+
+int file_pfd();
+
+int file_symbol();
+
+int file_lineindex();
+
+int file_cline();
+
+int file_cbLineOffset();
+
+int file_lang();
+
+int file_glevel();
+
+int file_symbol_count();
+
+int file_type_base();
+
+int file_string_base();
+
+int foreach_rfd();
+
+int st_file_name();
+
+int address_to_file();
+
+// end file file.c
+FileDescriptor(adr=4409312, rss=1, issBase=38214, cbSs=94, isymBase=4511, csym=14, ilineBase=44025, cline=342, ioptBase=0, copt=0, ipdFirst=549, cpd=6, iauxBase=8315, caux=27, rfdBase=2512, crfd=1, XXX_bitfield=25165824, cbLineOffset=12814, cbLine=147)
+    name:list.c
+    pretty print:
+// begin file list.c
+
+int objList_add();
+
+int objList_change();
+
+int foreach_obj();
+
+int forall_previous_objs();
+
+int list_last();
+
+int foreach_sublist();
+
+// end file list.c
+FileDescriptor(adr=4410704, rss=1, issBase=38308, cbSs=183, isymBase=4525, csym=24, ilineBase=44367, cline=582, ioptBase=0, copt=0, ipdFirst=555, cpd=11, iauxBase=8342, caux=37, rfdBase=2513, crfd=4, XXX_bitfield=25165824, cbLineOffset=12961, cbLine=175)
+    name:section.c
+    pretty print:
+// begin file section.c
+
+int foreach_section();
+
+int match_addr();
+
+int address_to_section();
+
+int section_type();
+
+int section_raw();
+
+int section_nrel();
+
+int section_rel();
+
+int find_section_byname();
+
+int find_section_bytype();
+
+int check_obj_sections();
+
+int obj_section_type();
+
+// end file section.c
+FileDescriptor(adr=4413040, rss=1, issBase=38491, cbSs=20, isymBase=4549, csym=4, ilineBase=44949, cline=47, ioptBase=0, copt=0, ipdFirst=566, cpd=1, iauxBase=8379, caux=17, rfdBase=2517, crfd=2, XXX_bitfield=25165824, cbLineOffset=13136, cbLine=13)
+    name:sterror.c
+    pretty print:
+// begin file sterror.c
+
+int st_error();
+
+// end file sterror.c
+FileDescriptor(adr=4413232, rss=1, issBase=38511, cbSs=210, isymBase=4553, csym=28, ilineBase=44996, cline=1965, ioptBase=0, copt=0, ipdFirst=567, cpd=6, iauxBase=8396, caux=27, rfdBase=2519, crfd=4, XXX_bitfield=25165824, cbLineOffset=13149, cbLine=410)
+    name:obj_elf.c
+    pretty print:
+// begin file obj_elf.c
+
+int spoof_section();
+//static i_ndx; // no type symbol
+//static t_ndx; // no type symbol
+//static rd_ndx; // no type symbol
+//static d_ndx; // no type symbol
+//static sd_ndx; // no type symbol
+//static b_ndx; // no type symbol
+//static sb_ndx; // no type symbol
+//static l4_ndx; // no type symbol
+//static l8_ndx; // no type symbol
+//static dci_ndx; // no type symbol
+//static dsym_ndx; // no type symbol
+//static dinst_ndx; // no type symbol
+//static dcs_ndx; // no type symbol
+//static drel_ndx; // no type symbol
+
+int elf_spoof_coffhdrs();
+
+int elf_nreloc();
+
+int obj_raw_bits();
+
+int obj_section_reloc_type();
+
+int get_section_num();
+
+// end file obj_elf.c
+FileDescriptor(adr=4421136, rss=1, issBase=38721, cbSs=289, isymBase=4581, csym=36, ilineBase=46961, cline=3588, ioptBase=0, copt=0, ipdFirst=573, cpd=17, iauxBase=8423, caux=49, rfdBase=2523, crfd=4, XXX_bitfield=25165824, cbLineOffset=13559, cbLine=914)
+    name:obj_rewrite.c
+    pretty print:
+// begin file obj_rewrite.c
+
+int ldroundup();
+
+int obj_update_dynamic();
+
+int write_section();
+
+int obj_vtofo();
+
+int obj_vtop();
+
+int obj_rewrite();
+
+int update_addresses();
+
+int compare_coff_sections();
+
+int compare_elf_sections();
+
+int obj_write();
+
+int obj_extend_text_segment();
+
+int obj_extend_bss_segment();
+
+int obj_set_section_size();
+
+int obj_map_dynamic();
+
+int obj_gpvalue();
+
+int obj_add_global_abs_symbol();
+
+int obj_end();
+
+// end file obj_rewrite.c
+FileDescriptor(adr=4435488, rss=1, issBase=39010, cbSs=25, isymBase=4617, csym=5, ilineBase=50549, cline=38, ioptBase=0, copt=0, ipdFirst=590, cpd=1, iauxBase=8472, caux=17, rfdBase=2527, crfd=2, XXX_bitfield=25165824, cbLineOffset=14473, cbLine=12)
+    name:misc_error.c
+    pretty print:
+// begin file misc_error.c
+
+int error();
+//static zero; // no type symbol
+
+// end file misc_error.c
+FileDescriptor(adr=4435648, rss=1, issBase=39035, cbSs=409, isymBase=4622, csym=50, ilineBase=50587, cline=1513, ioptBase=0, copt=0, ipdFirst=591, cpd=23, iauxBase=8489, caux=61, rfdBase=2529, crfd=4, XXX_bitfield=25165824, cbLineOffset=14485, cbLine=489)
+    name:symbol.c
+    pretty print:
+// begin file symbol.c
+
+int symbol_class();
+
+int symbol_type();
+
+int symbol_value();
+
+int symbol_iaux();
+
+int file_symbol_iaux();
+
+int symbol_isym();
+
+int file_symbol_isym();
+
+int symbol_value_isym();
+
+int symbol_value_iaux();
+
+int end_symbol();
+
+int file_end_symbol();
+
+int procedure_end_symbol();
+
+int file_procedure_end_symbol();
+
+int real_address_to_symbol();
+
+int address_to_symbol();
+
+int symbol_to_outer_scope_symbol();
+//static recursing; // no type symbol
+
+int symbol_name();
+//static out; // no type symbol
+
+int user_symbol_alloc();
+
+int user_symbol_free();
+
+int user_type_alloc();
+
+int newsymbol();
+
+int modify_user_symbol();
+
+int find_user_symbol();
+
+// end file symbol.c
+FileDescriptor(adr=4435648, rss=1, issBase=39444, cbSs=56, isymBase=4672, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=614, cpd=0, iauxBase=8550, caux=15, rfdBase=2533, crfd=4, XXX_bitfield=92274688, cbLineOffset=14974, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/obj_type.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/obj_type.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/obj_type.h
+FileDescriptor(adr=4441712, rss=1, issBase=39500, cbSs=257, isymBase=4674, csym=33, ilineBase=52100, cline=1357, ioptBase=0, copt=0, ipdFirst=614, cpd=13, iauxBase=8565, caux=41, rfdBase=2537, crfd=4, XXX_bitfield=25165824, cbLineOffset=14974, cbLine=376)
+    name:search.c
+    pretty print:
+// begin file search.c
+
+int file_symbol_name();
+//static out; // no type symbol
+
+int symbol_check_enum();
+
+int scope_name_search();
+//static recursing; // no type symbol
+
+int scope_name_to_sym();
+//static recursing; // no type symbol
+
+int file_scope_name_search();
+
+int search_cobol_main();
+
+int search_procedures();
+
+int search_files();
+
+int st_find_symbol();
+
+int case_strcmp();
+
+int case_streq();
+
+static exttab;
+
+static extobj;
+
+int obj_lookup();
+
+int search_externals();
+
+// end file search.c
+FileDescriptor(adr=4441712, rss=1, issBase=39757, cbSs=53, isymBase=4707, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=627, cpd=0, iauxBase=8606, caux=15, rfdBase=2541, crfd=4, XXX_bitfield=92274688, cbLineOffset=15350, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/ctype.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/ctype.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/ctype.h
+FileDescriptor(adr=4447152, rss=1, issBase=39810, cbSs=110, isymBase=4709, csym=24, ilineBase=53457, cline=849, ioptBase=0, copt=0, ipdFirst=627, cpd=10, iauxBase=8621, caux=35, rfdBase=2545, crfd=4, XXX_bitfield=25165824, cbLineOffset=15350, cbLine=314)
+    name:type.c
+    pretty print:
+// begin file type.c
+
+int set_paux();
+
+int aux_isym();
+
+int file_aux_isym();
+
+int AUX();
+//static hostsex; // no type symbol
+//static init; // no type symbol
+
+int get_rndx();
+
+int get_aux();
+
+int get_range();
+
+int set_bt();
+
+int next_tq();
+
+int type_deref();
+
+// end file type.c
+FileDescriptor(adr=4450560, rss=1, issBase=39920, cbSs=20, isymBase=4733, csym=4, ilineBase=54306, cline=36, ioptBase=0, copt=0, ipdFirst=637, cpd=1, iauxBase=8656, caux=17, rfdBase=2549, crfd=2, XXX_bitfield=25165824, cbLineOffset=15664, cbLine=12)
+    name:misc_panic.c
+    pretty print:
+// begin file misc_panic.c
+
+int panic();
+
+// end file misc_panic.c
+FileDescriptor(adr=4450704, rss=1, issBase=39940, cbSs=150, isymBase=4737, csym=26, ilineBase=54342, cline=628, ioptBase=0, copt=0, ipdFirst=638, cpd=12, iauxBase=8673, caux=39, rfdBase=2551, crfd=4, XXX_bitfield=25165824, cbLineOffset=15676, cbLine=194)
+    name:stcu.c
+    pretty print:
+// begin file stcu.c
+
+int st_setchdr();
+
+int st_currentpchdr();
+
+int st_free();
+
+int st_extstradd();
+
+int st_str_extiss();
+
+int st_idn_dn();
+
+int st_idn_rndx();
+
+int st_rndx_idn();
+
+int st_setidn();
+
+int st_pext_dn();
+
+int st_iextmax();
+
+int st_setmsgname();
+
+// end file stcu.c
+FileDescriptor(adr=4450704, rss=1, issBase=40090, cbSs=60, isymBase=4763, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=650, cpd=0, iauxBase=8712, caux=15, rfdBase=2555, crfd=4, XXX_bitfield=92274688, cbLineOffset=15870, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/cmplrs/stext.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/cmplrs/stext.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/cmplrs/stext.h
+FileDescriptor(adr=4453216, rss=1, issBase=40150, cbSs=317, isymBase=4765, csym=44, ilineBase=54970, cline=1083, ioptBase=0, copt=0, ipdFirst=650, cpd=14, iauxBase=8727, caux=43, rfdBase=2559, crfd=10, XXX_bitfield=25165824, cbLineOffset=15870, cbLine=336)
+    name:stfd.c
+    pretty print:
+// begin file stfd.c
+
+static messg_checkinit;
+
+static messg_checkinit2;
+
+static messg_checkadd;
+
+int st_currentifd();
+
+int st_ifdmax();
+
+int st_setfd();
+
+int st_fdadd();
+//static fdZero; // no type symbol
+//static cfdZero; // no type symbol
+//static myhostname; // no type symbol
+//static hostnameset; // no type symbol
+//static host_and_file; // no type symbol
+//static pathp; // no type symbol
+//static cwdname; // no type symbol
+//static time_buf; // no type symbol
+//static mytime; // no type symbol
+//static time_set; // no type symbol
+
+int st_auxadd();
+
+int st_pdadd();
+//static pdzero; // no type symbol
+
+int st_lineadd();
+
+int st_stradd();
+
+int st_non_gp();
+
+int st_set_non_gp();
+
+int st_paux_ifd_iaux();
+
+int st_pline_ifd_iline();
+
+int st_str_iss();
+
+int st_malloc();
+
+// end file stfd.c
+FileDescriptor(adr=4453216, rss=1, issBase=40467, cbSs=52, isymBase=4809, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=664, cpd=0, iauxBase=8770, caux=15, rfdBase=2569, crfd=10, XXX_bitfield=92274688, cbLineOffset=16206, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/time.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/time.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/time.h
+FileDescriptor(adr=4457552, rss=1, issBase=40519, cbSs=154, isymBase=4811, csym=19, ilineBase=56053, cline=472, ioptBase=0, copt=0, ipdFirst=664, cpd=7, iauxBase=8785, caux=29, rfdBase=2579, crfd=3, XXX_bitfield=25165824, cbLineOffset=16206, cbLine=151)
+    name:md_stfd.c
+    pretty print:
+// begin file md_stfd.c
+
+static messg_checkinit;
+
+static messg_checkinit2;
+
+static messg_checkadd;
+
+int st_symadd();
+
+int st_ifd_pcfd();
+
+int st_pcfd_ifd();
+
+int st_psym_ifd_isym();
+
+int st_paux_iaux();
+
+int st_str_ifd_iss();
+
+int st_ppd_ifd_isym();
+
+// end file md_stfd.c
+FileDescriptor(adr=4459440, rss=1, issBase=40673, cbSs=183, isymBase=4830, csym=22, ilineBase=56525, cline=299, ioptBase=0, copt=0, ipdFirst=671, cpd=9, iauxBase=8814, caux=33, rfdBase=2582, crfd=2, XXX_bitfield=25165824, cbLineOffset=16357, cbLine=99)
+    name:md_mldfunc.c
+    pretty print:
+// begin file md_mldfunc.c
+
+static messg_checkinit;
+
+static messg_checkinit2;
+
+int _md_st_internal();
+
+int _md_st_error();
+
+int _md_st_str_extiss();
+
+int _md_st_str_iss();
+
+int _md_st_iextmax();
+
+int _md_st_currentifd();
+
+int _md_st_malloc();
+
+int _md_st_ifdmax();
+
+int _md_st_setfd();
+
+// end file md_mldfunc.c
+FileDescriptor(adr=4460640, rss=1, issBase=40856, cbSs=73, isymBase=4852, csym=12, ilineBase=56824, cline=291, ioptBase=0, copt=0, ipdFirst=680, cpd=5, iauxBase=8847, caux=25, rfdBase=2584, crfd=2, XXX_bitfield=25165824, cbLineOffset=16456, cbLine=112)
+    name:md_stcu.c
+    pretty print:
+// begin file md_stcu.c
+
+int st_cuinit();
+
+int st_extadd();
+
+int st_pext_iext();
+
+int st_idn_index_fext();
+
+int st_pdn_idn();
+
+// end file md_stcu.c
+FileDescriptor(adr=4461808, rss=1, issBase=40929, cbSs=20, isymBase=4864, csym=4, ilineBase=57115, cline=36, ioptBase=0, copt=0, ipdFirst=685, cpd=1, iauxBase=8872, caux=17, rfdBase=2586, crfd=2, XXX_bitfield=25165824, cbLineOffset=16568, cbLine=12)
+    name:misc_fatal.c
+    pretty print:
+// begin file misc_fatal.c
+
+int fatal();
+
+// end file misc_fatal.c
+FileDescriptor(adr=4461952, rss=1, issBase=40949, cbSs=26, isymBase=4868, csym=4, ilineBase=57151, cline=47, ioptBase=0, copt=0, ipdFirst=686, cpd=1, iauxBase=8889, caux=17, rfdBase=2588, crfd=2, XXX_bitfield=25165824, cbLineOffset=16580, cbLine=13)
+    name:stinternal.c
+    pretty print:
+// begin file stinternal.c
+
+int st_internal();
+
+// end file stinternal.c
+FileDescriptor(adr=4462144, rss=1, issBase=40975, cbSs=379, isymBase=4872, csym=51, ilineBase=57198, cline=1578, ioptBase=0, copt=0, ipdFirst=687, cpd=21, iauxBase=8906, caux=57, rfdBase=2590, crfd=3, XXX_bitfield=25165824, cbLineOffset=16593, cbLine=586)
+    name:stfe.c
+    pretty print:
+// begin file stfe.c
+
+static adn_stack;
+
+static idn_stack;
+
+static dn_stackmax;
+
+static filestack;
+
+static ifilestack;
+
+static filestackmax;
+
+int __sgi_mld_st_commonbegin();
+
+int st_filebegin();
+
+int st_endallfiles();
+
+int st_fileend();
+
+static st_fblockpending;
+
+int st_textblock();
+
+int _sgi_st_blockbegin();
+
+int st_blockbegin();
+
+int st_blockend();
+
+int st_blockpop();
+
+int st_procend();
+
+int st_procbegin();
+
+int st_sym_idn();
+
+int st_str_idn();
+
+int st_fglobal_idn();
+
+int st_psym_idn_offset();
+
+int st_fixextindex();
+
+int st_fixextsc();
+
+int st_pdadd_idn();
+
+int st_fixiss();
+
+int st_changedn();
+
+int st_file_idn();
+
+// end file stfe.c
+FileDescriptor(adr=4462144, rss=1, issBase=41354, cbSs=60, isymBase=4923, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=708, cpd=0, iauxBase=8963, caux=15, rfdBase=2593, crfd=3, XXX_bitfield=92274688, cbLineOffset=17179, cbLine=0)
+    name:/slayer_xlv0/ficussg-nov05/root/usr/include/cmplrs/ucode.h
+    pretty print:
+// begin file /slayer_xlv0/ficussg-nov05/root/usr/include/cmplrs/ucode.h
+
+// end file /slayer_xlv0/ficussg-nov05/root/usr/include/cmplrs/ucode.h
+FileDescriptor(adr=4468464, rss=1, issBase=41414, cbSs=176, isymBase=4925, csym=26, ilineBase=58776, cline=594, ioptBase=0, copt=0, ipdFirst=708, cpd=12, iauxBase=8978, caux=39, rfdBase=2596, crfd=2, XXX_bitfield=25165824, cbLineOffset=17179, cbLine=247)
+    name:staux.c
+    pretty print:
+// begin file staux.c
+
+int st_tqhigh_iaux();
+
+int st_shifttq();
+
+int st_iaux_copyty();
+
+int st_changeaux();
+
+int st_addtq();
+
+int st_changeauxrndx();
+
+int st_auxbtadd();
+
+int st_auxisymadd();
+
+int st_auxrndxadd();
+
+int st_auxbtsize();
+
+int st_auxrndxadd_idn();
+
+int st_addcontinued();
+
+// end file staux.c
+FileDescriptor(adr=4470848, rss=1, issBase=41590, cbSs=23, isymBase=4951, csym=4, ilineBase=59370, cline=2, ioptBase=0, copt=0, ipdFirst=720, cpd=1, iauxBase=9017, caux=17, rfdBase=2598, crfd=1, XXX_bitfield=25165824, cbLineOffset=17426, cbLine=1)
+    name:st_feinit.c
+    pretty print:
+// begin file st_feinit.c
+
+int st_feinit();
+
+// end file st_feinit.c
+FileDescriptor(adr=4470880, rss=1, issBase=41613, cbSs=12, isymBase=4955, csym=2, ilineBase=0, cline=0, ioptBase=0, copt=0, ipdFirst=721, cpd=0, iauxBase=9034, caux=0, rfdBase=2599, crfd=1, XXX_bitfield=494927872, cbLineOffset=17427, cbLine=0)
+    name:crtninit.s
+    pretty print:
+// begin file crtninit.s
+
+// end file crtninit.s

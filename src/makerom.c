@@ -25,8 +25,22 @@ const char *sys_errlist[];
 extern s32 func_0040FDE0(struct Segment* segment);
 extern s32 func_0040F214(void);
 
+//SGI
+int gethostsex(void) {
+    union {
+        int word;
+        signed char byte;
+    } sex;
+
+    sex.word = 1;
+    if (sex.byte == 1) {
+        return 1;
+    }
+    return 0;
+}
+
 void printVersion(void) {
-    if (irixVersion == 0) {
+    if (irixVersion == IRIX_VERSION_53) {
         printf("Nintendo64 Makerom v2.2 for IRIX.\n");
     } else {
         printf("Nintendo64 Makerom v2.2 -BETA- for IRIX.\n");
@@ -158,7 +172,7 @@ void getPif2BootFile(char* pif2bootFileName) {
 }
 
 #ifdef __sgi
-s32 checkIdoVersion(const char* arg0) {
+s32 checkIdoVersion(const char* rootName) {
     s32 u64CheckFound;
     s32 v70Found;
     char cmd[0x100];
@@ -166,7 +180,7 @@ s32 checkIdoVersion(const char* arg0) {
     struct stat statBuffer;
     FILE* procPtr;
 
-    sprintf(buffer, "%s/usr/sbin/u64check", arg0);
+    sprintf(buffer, "%s/usr/sbin/u64check", rootName);
     u64CheckFound = (stat(buffer, &statBuffer) != 0) ? 0 : 1;
 
     //ah
@@ -245,9 +259,8 @@ void getRomheaderFile(unsigned char *headerFileName) {
     int i;
     int readPtr;
     int retval;
-    // s32 temp_t8;
-    // u8 *temp_t6_2;
-    
+
+
     if ((headerFileName == NULL) && (gloadFindFile(scratchFileName, "/usr/lib/PR", "romheader") != 0)) {
         headerFileName = scratchFileName;
     }
@@ -323,7 +336,7 @@ void nameTempFiles(void) {
         tmpdir = "/tmp";
     }
 
-    for (wave = waveList  ; wave != NULL; wave=wave->next) {
+    for (wave = waveList ; wave != NULL; wave = wave->next) {
 
         sprintf(wave->elspecFile, "%s/%sElspecXXXXXX", tmpdir, wave->name);
         mktemp(wave->elspecFile);
@@ -359,7 +372,6 @@ void unlinkTempFiles(void) {
         unlink(&B_10016720);
         unlink(&B_10016820);
         unlink(&B_10016920);
-
     }
     }
 
@@ -471,7 +483,7 @@ int main(int argc, char** argv) {
     char* rootName;
     int quietMode = 0;
 
-    B_1000BA40 = argv[0];
+    progName = argv[0]; //Program name
 
     if ((cppCmdCount = sysconf(1)) == -1) {
         fprintf(stderr, "makerom: sysconf(_SC_ARG_MAX): %s\n", sys_errlist[errno]);
@@ -529,11 +541,11 @@ int main(int argc, char** argv) {
                 continue;
 
             case 'o':
-                D_10009224 = 0;
+                checkOverlap = 0;
                 continue;
 
             case 'r':
-                D_10009220 = optarg;
+                romFile = optarg;
                 continue;
 
             case 'b':
@@ -606,8 +618,8 @@ int main(int argc, char** argv) {
     getRomheaderFile(headerFileName);
     getFontDataFile(fontFileName);
 
-    if ((unlink(D_10009220) == -1) && (errno != 2)) {
-        fprintf(stderr, "makerom: %s: %s\n", D_10009220, sys_errlist[errno]);
+    if ((unlink(romFile) == -1) && (errno != 2)) {
+        fprintf(stderr, "makerom: %s: %s\n", romFile, sys_errlist[errno]);
         exit(1);
     }
 
@@ -646,20 +658,20 @@ int main(int argc, char** argv) {
         createRom = 0;
     }
 
-    if (D_10009224 && checkOverlaps()) {
+    if (checkOverlap && checkOverlaps()) {
         createRom = 0;
     }
 
     nameTempFiles();
-    sigaction(1, &D_10009200, NULL);
-    sigaction(2, &D_10009200, NULL);
-    sigaction(15, &D_10009200, NULL);
+    sigaction(1, &act, NULL);
+    sigaction(2, &act, NULL);
+    sigaction(15, &act, NULL);
 
     if (debug) {
-        printf("Creating segment symbol source file in %s\n", B_1000B540);
+        printf("Creating segment symbol source file in %s\n", segmentSymbolSource);
     }
 
-    if (createSegmentSymbols(B_1000B540, B_1000B640) == -1) {
+    if (createSegmentSymbols(segmentSymbolSource, segmentSymbolObject) == -1) {
         unlinkTempFiles();
         exit(1);
     }
@@ -718,9 +730,9 @@ int main(int argc, char** argv) {
     }
 
     if (debug) {
-        printf("Creating entry source file in %s\n", B_1000B740);
+        printf("Creating entry source file in %s\n", entrySource);
     }
-    if (createEntryFile(B_1000B740, B_1000B840) == -1) {
+    if (createEntryFile(entrySource, entryObject) == -1) {
         unlinkTempFiles();
         exit(1);
     }
@@ -728,9 +740,9 @@ int main(int argc, char** argv) {
     if (createRom) {
         if (debug) {
             printf("Extracting sections from ELF wave files");
-            printf(" to create ROM image in %s\n", D_10009220);
+            printf(" to create ROM image in %s\n", romFile);
         }
-        if (createRomImage(D_10009220, B_1000B840) == -1) {
+        if (createRomImage(romFile, entryObject) == -1) {
             unlinkTempFiles();
             exit(1);
         }

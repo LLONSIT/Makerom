@@ -10,8 +10,6 @@
 #include "makerom.h"
 
 const char *sys_errlist[];
-
-extern Wave* waveList;
 extern Segment* SegmentList;
 
 #define SECTION_TEXT (1 << 0)
@@ -332,41 +330,83 @@ int sizeObject(Segment* segment) {
 }
 
 
-#if 0 //non_matching
 Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
     Elf_Scn* scn;
     Elf32_Shdr* shdr;
-    u32 index;
-    s8* sectName;
+    size_t index;
+    unsigned char* sectName;
 
-
-    index = 1;
-    if ((u16) wave->ehdr->e_shnum >= 2U) {
-loop_1:
-        scn = _elf_getscn(wave->elf, index);
-        if ((scn == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+  for(index = 1 ; index < wave->ehdr->e_shnum; index++) {
+        if (((scn = elf_getscn(wave->elf, index)) == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
             fprintf(stderr, "makerom: %s: can't get section index %d\n", wave->name, index);
             return NULL;
         }
-        sectName = elf_strptr(wave->elf, (u32) wave->ehdr->e_shstrndx, shdr->sh_name);
+        sectName = elf_strptr(wave->elf, wave->ehdr->e_shstrndx, shdr->sh_name);
         if (strcmp(sectName, segSectName) == 0) {
-            goto block_7;
+            break;
         }
-       // temp_t8 = index + 1;
-        //index = temp_t8;
-        if (index >= (u16) wave->ehdr->e_shnum) {
-            goto block_7;
-        }
-        goto loop_1;
+
     }
-block_7:
-    if (index >= (u16) wave->ehdr->e_shnum) {
+      if (index >= wave->ehdr->e_shnum) {
         fprintf(stderr, "makerom: %s: cannot find %s section\n", wave->name, segSectName);
         return NULL;
     }
     return shdr;
 }
+
+#ifdef NON_MATCHING
+s32 func_0040F3DC(Wave* wave, s8* name) {
+    s32 scn;
+    Elf32_Shdr* shdr;
+    Elf_Data* data;
+    Elf32_Sym* sym;
+    u32 index;
+    s32 i;
+    u32 count;
+
+    for (index = 1; index < wave->ehdr->e_shnum; index++) {
+        if (((scn = _elf_getscn(wave->elf, index)) == 0) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+            return 0;
+        }
+        if (shdr->sh_type != 2) {
+              break;
+        }
+
+        data = NULL;
+
+        if ((data = elf_getdata(scn, data))== NULL) {
+            return 0;
+        }
+
+
+        count =  data->d_size >> 4;
+        sym = data->d_buf;
+        sym += 0x10;
+        i = 1;
+
+        if ((s32) count >= 2) {
+
+            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
+                return sym->st_value;
+            }
+            sym += 0x10;
+
+            if (i >= (s32) count) {
+
+            }
+
+        }
+
+        if (index >= (u16) wave->ehdr->e_shnum) {
+
+        }
+
+    }
+
+    return 0;
+}
 #endif
+
 
 #define TO_PHYSICAL(addr) ((u32)(addr) & 0x1FFFFFFF)
 
@@ -400,64 +440,8 @@ int checkOverlaps(void) {
     return isOverlap;
 }
 
-#define 0 //asm_nonmatchings
-s32 lookupSymbol(Wave* wave, unsigned char* name) {
-    Elf_Scn* scn;
-    Elf32_Shdr* shdr;
-    Elf_Data* data;
-    Elf32_Sym* sym;
-    size_t index;
-    int i;
-    int count;
-    s32 temp_t2;
-    u32 temp_t5;
 
-    index = 1;
-    if ((u16) wave->ehdr->e_shnum >= 2U) {
-loop_1:
-        scn = _elf_getscn(wave->elf, index);
-        if ((scn == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
-            return 0;
-        }
-        if (shdr->sh_type != 2) {
-            goto block_12;
-        }
-        data = NULL;
-        data = elf_getdata(scn, data);
-        if (data == NULL) {
-            return 0;
-        }
-        count = (u32) data->d_size >> 4;
-        sym = data->d_buf;
-        sym += 0x10;
-        i = 1;
-        if ((s32) count >= 2) {
-loop_9:
-            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
-                return sym->unk4;
-            }
-            sym += 0x10;
-            temp_t2 = i + 1;
-            i = temp_t2;
-            if (temp_t2 >= (s32) count) {
-                goto block_12;
-            }
-            goto loop_9;
-        }
-block_12:
-        temp_t5 = index + 1;
-        index = temp_t5;
-        if (temp_t5 >= (u16) wave->ehdr->e_shnum) {
-            goto block_13;
-        }
-        goto loop_1;
-    }
-block_13:
-    return 0;
-}
-#endif
-
-s32 readObject(Segment* seg) {    
+int readObject(Segment* seg) {
     unsigned char* segSectName;
     Elf32_Shdr* shdr;
 
@@ -550,7 +534,7 @@ int createEntryFile(char* entryFilename, char* outFile) {
         return -1;
     }
 
-    for (curSeg = segmentList; curSeg != NULL; curSeg = curSeg->next) {
+    for (curSeg = SegmentList; curSeg != NULL; curSeg = curSeg->next) {
         if (curSeg->flags & 1) { // BOOT flag?
             wave = curSeg->w;
             if ((wave->fd = open(wave->name, 0)) == -1) {
@@ -790,3 +774,4 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
 
     return 0;
 }
+

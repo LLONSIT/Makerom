@@ -37,6 +37,7 @@
 #define LITTLEENDIAN	1
 #define UNKNOWNENDIAN	2
 
+
 s32 readCoff(unsigned char *fname, unsigned int *buf) {
      int textSize;
      int dataSize;
@@ -54,6 +55,7 @@ s32 readCoff(unsigned char *fname, unsigned int *buf) {
     return textSize;
 }
 
+//TODO: is ldclose and others the same as dlclose?
 s32 Extract(u8** buff) {
 
         int bytesRead; //UNUSED
@@ -91,13 +93,13 @@ s32 Extract(u8** buff) {
                     Data1 = swap_word(Data1);
                 }
                 if (Swap) {
-                    buff[0] = Data1; 
+                    buff[0] = Data1;
                     buff[1] = Data0;
                 } else {
                     buff[0] = Data0;
                     buff[1] = Data1;
                 }
-                buff += 2;
+                buff += 2; //?
 
         }
     }

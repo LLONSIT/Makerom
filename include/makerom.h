@@ -74,3 +74,5 @@ typedef struct Wave_s {
     /* 0x118 */ size_t searchIndex;
 } Wave;
 
+Wave* waveList;
+
