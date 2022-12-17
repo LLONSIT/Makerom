@@ -23,22 +23,6 @@ s32 yytchar;
 extern char yysbuf[0x800];
 extern s32 yyout;
 
-//maybe
-void func_004127B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    const char* sp24;
-
-    fprintf(stderr, "makerom: error at line %d: ", lineNumber);
-    sp24 = &arg0 + 1;
-    vfprintf(stderr, arg0, sp24);
-    fprintf(stderr, "\n");
-}
-
-void yyerror(char *arg0) {
-    fprintf(stderr, "makerom: %s at line %d [%s]\n", arg0, lineNumber, &yytext);
-}
-
-
-
 void yyunput(s32 arg0) {
     yytchar = arg0;
     if (yytchar == '\n') {
