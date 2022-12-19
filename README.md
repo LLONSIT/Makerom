@@ -8,8 +8,10 @@
         <img src="https://img.shields.io/badge/Elspec.c%20Functions-2%2F2-green" /></a>
     <a href="" alt="Main Makerom core">
         <img src="https://img.shields.io/badge/Makerom.c%20Functions-13%2F13-green" /></a>
-    <a href="Segment Core">
+    <a href="Makerom Segment Core">
         <img src="https://img.shields.io/badge/Segment.c%20Functions-9%2F10-green" alt="build status"></a>
+     <a href="UNUSED">
+        <img src="https://img.shields.io/badge/Unused%20Functions-1%2F2-green" alt="build status"></a>
 
 </p>
 
