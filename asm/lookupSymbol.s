@@ -1,4 +1,4 @@
-glabel func_0040F3DC # 27
+glabel lookupSymbol # 27
 # _gp_disp: 0xFC0E964
 .set noreorder; .cpload $t9; # .set reorder
 /* 00F3E8 0040F3E8 27BDFFC0 */  addiu       $sp, $sp, -0x40
