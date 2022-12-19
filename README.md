@@ -1,9 +1,18 @@
+
+<p align="center">
+    <a href="" alt="yacc">
+        <img src="https://img.shields.io/badge/Yacc%20Functions-6%2F10-green" /></a>
+    <a href="" alt="coff">
+        <img src="https://img.shields.io/badge/Coff.c%20Functions-2%2F2-green" /></a>
+    <a href="" alt="elspec">
+        <img src="https://img.shields.io/badge/Elspec.c%20Functions-2%2F2-green" /></a>
+    <a href="" alt="Main Makerom core">
+        <img src="https://img.shields.io/badge/Makerom.c%20Functions-13%2F13-green" /></a>
+    <a href="Segment Core">
+        <img src="https://img.shields.io/badge/Segment.c%20Functions-9%2F10-green" alt="build status"></a>
+
 </p>
-<p align="left">
-    <a href="https://img.shields.io/badge/Remaining%20functions-32%2F36-green" alt="Contributors">
-        <img src="https://img.shields.io/badge/Remaining%20functions-32%2F36-green" /></a>
-  
-</p>
+
 
 # Makerom
 The goal of this is to decompile makerom using the irix binary.
