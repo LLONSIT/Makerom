@@ -1,3 +1,10 @@
+</p>
+<p align="left">
+    <a href="https://github.com/LLONSIT/Makerom" alt="Contributors">
+        <img src="https://img.shields.io/badge/Remaining%20functions-32%2F34-green" /></a>
+  
+</p>
+
 # Makerom
 The goal of this is to decompile makerom using the irix binary.
 
