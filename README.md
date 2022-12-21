@@ -47,7 +47,17 @@ Not for now, but I will soon devise a build system in which you can create a mak
 
 - Makefile only to check the gcc syntax
 
+# Contributors
 
+# Decomp.me anons
+
+- Fluffy Kouprey (segment.c and makerom.c)
+- Cold Wasp (segment.c, makerom.c and speclex.c)
+
+# In general
+
+- Someone2639 (The magic python script!)
+- Tcmg2 (Final segment.c functions!)
 
 
 
