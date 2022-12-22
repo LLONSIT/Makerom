@@ -51,12 +51,12 @@ Not for now, but I will soon devise a build system in which you can create a mak
 
 # Decomp.me anons
 
-- Fluffy Kouprey (segment.c and makerom.c)
+- Fluffy Kouprey (segment.c, makerom.c, speclex and libOBJ)
 - Cold Wasp (segment.c, makerom.c and speclex.c)
 
 # In general
 
-- Someone2639 (The magic python script!)
+- Someone2639 (The magic python script!, final segment.c function)
 - Tcmg2 (Final segment.c functions!)
 
 
