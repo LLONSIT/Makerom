@@ -59,5 +59,12 @@ Not for now, but I will soon devise a build system in which you can create a mak
 - Someone2639 (The magic python script!, final segment.c function)
 - Tcmg2 (Final segment.c functions!)
 
+# Special thanks
+
+- Someon2639 (Without that magic script, the project would not have taken a 360° turn)
+
+- Fluffy Kouprey (He was at the beginning of the project, he helped with all kinds of functions, without a doubt, without his help, the progress would not have been made.)
+
+
 
 
