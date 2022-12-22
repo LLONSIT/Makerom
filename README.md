@@ -51,7 +51,7 @@ Not for now, but I will soon devise a build system in which you can create a mak
 
 # Decomp.me anons
 
-- Fluffy Kouprey (segment.c, makerom.c, speclex and libOBJ)
+- Fluffy Kouprey (segment.c, makerom.c, elspec.c, coff.c, speclex and libOBJ)
 - Cold Wasp (segment.c, makerom.c and speclex.c)
 
 # In general
