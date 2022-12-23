@@ -395,59 +395,91 @@ Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
     return shdr;
 }
 
-#ifdef NON_MATCHING
-s32 lookUpSymbol(Wave* wave, s8* name) {
+s32 func_0040F3DC(Wave* wave, s8* name) {
     s32 scn;
     Elf32_Shdr* shdr;
     Elf_Data* data;
     Elf32_Sym* sym;
     u32 index;
     s32 i;
-    u32 count;
+    s32 count;
+
+
 
     for (index = 1; index < wave->ehdr->e_shnum; index++) {
+
+        
         if (((scn = _elf_getscn(wave->elf, index)) == 0) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
             return 0;
         }
         if (shdr->sh_type != 2) {
-              break;
+              continue;
         }
 
+    
         data = NULL;
-
+       
         if ((data = elf_getdata(scn, data))== NULL) {
             return 0;
         }
-
-
+        
+        
         count =  data->d_size >> 4;
         sym = data->d_buf;
-        sym += 0x10;
-        i = 1;
-
-        if ((s32) count >= 2) {
-
+        sym ++;
+        
+        
+        for (i = 1; i < count; i++) {
             if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
                 return sym->st_value;
             }
-            sym += 0x10;
-
-            if (i >= (s32) count) {
-
-            }
-
+            sym++;
         }
 
-        if (index >= (u16) wave->ehdr->e_shnum) {
-
-        }
+ 
+       
 
     }
 
     return 0;
 }
-#endif
 
+#ifdef NON_MATCHING
+int openAuots() {
+    Wave* wave;
+    unsigned char gcordFileBuf[252];
+   
+    //s32 ret; //TEMP
+
+
+   
+   for (wave = waveList ; wave != NULL; wave = wave->next) {
+//loop_1:
+        if (gcord != 0) {
+            strcat(strcpy(&gcordFileBuf, wave->name), ".cord");
+        } else {
+            strcpy(&gcordFileBuf, wave->name);
+        }
+        
+        if ((wave->fd =  open(wave->name, 0)) == -1) {
+            fprintf(stderr, "makerom: %s: %s\n", wave->name, sys_errlist[errno]);
+            return -1;
+        }
+        wave->elf = elf_begin(wave->fd, 1, 0);
+        if ((elf_kind(wave->elf) != 3) || (elf32_getehdr(wave->elf), wave->ehdr) == 0) {
+            fprintf(stderr, "makerom: %s: not a valid ELF object file\n", wave->name);
+            
+            return -1;
+        
+        }
+     
+
+          ;
+    }
+//block_10:
+    return 0;
+}
+#endif
 
 #define TO_PHYSICAL(addr) ((u32)(addr) & 0x1FFFFFFF)
 
@@ -701,7 +733,7 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
         fprintf(stderr, "makerom: read of entry section failed\n");
         return -1;
     }
-    if (lookupShdr() != 0) {
+    if (openAuots() != 0) {
         return -1;
     }
     
