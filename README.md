@@ -46,6 +46,8 @@ Not for now, but I will soon devise a build system in which you can create a mak
 
 - Makefile only to check the gcc syntax
 
+- There will be support for SGI! 
+
 # Contributors
 
 # Decomp.me anons
