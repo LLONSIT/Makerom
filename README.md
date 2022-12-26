@@ -35,11 +35,14 @@ Because the irix binary provides a mips assembler and being of this architecture
 
 Yes and no, on the one hand it could be that there are certain reimplementations in functions that only the IDO compiler can accept, and that therefore are ported to the gcc syntax, that is why there is a `NON_MATCHING` conditional
 
+
 # Info 
 
 - Makefile only to check the gcc syntax
 
 - There will be support for SGI! 
+
+- Recompilation soon!
 
 # Contributors
 
