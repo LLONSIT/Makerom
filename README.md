@@ -16,7 +16,7 @@
 
 
 # Makerom
-The goal of this is to decompile makerom using the irix binary.
+This project aims to decompile the debug and non-debug version of makerom and makedisk (soon)
 
 ```diff
 - WARNING! -
