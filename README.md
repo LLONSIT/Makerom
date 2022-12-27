@@ -58,7 +58,7 @@ Yes and no, on the one hand it could be that there are certain reimplementations
 
 # Special thanks
 
-- Someon2639 (Without that magic script, the project would not have taken a 360° turn)
+- Someone2639 (Without that magic script, the project would not have taken a 360° turn)
 
 - Fluffy Kouprey (He was at the beginning of the project, he helped with all kinds of functions, without a doubt, without his help, the progress would not have been made.)
 
