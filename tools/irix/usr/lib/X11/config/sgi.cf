@@ -1,0 +1,376 @@
+XCOMM platform:  $XConsortium: sgi.cf,v 1.43 94/06/03 21:38:45 matt Exp $
+
+#define OSName			IRIX
+XCOMM operating system:		OSName
+
+#ifndef UseInstalled
+/*
+ * All SGI internal rules are confined to this non-shipped .cf file.
+ */
+#include <sgiInternal.cf>
+#endif
+
+#ifndef OSMajorVersion
+#define OSMajorVersion	5
+#endif
+#ifndef OSMinorVersion
+#define OSMinorVersion	0
+#endif
+#define OSTeenyVersion	0
+
+/*
+ * Note:  Build64bit can be defined by xmkmf
+ */
+#if Build32bit
+#undef Build64bit
+#define Build64bit	NO
+#endif
+
+#ifndef SGICompilerMajorVersion
+#if Build64bit
+#define SGICompilerMajorVersion 4
+#else
+#define SGICompilerMajorVersion 3
+#endif
+#endif
+
+/*
+ * SgiISA is "Instruction Set Architecture."  ISA = 1 is mips1, etc.
+ */
+#ifndef SgiISA32
+#define SgiISA32 1
+#endif
+#ifndef SgiISA64
+#define SgiISA64 3
+#endif
+
+#ifndef SgiISA
+# if Build64bit
+# define SgiISA SgiISA64
+# else
+# define SgiISA	SgiISA32
+# endif
+#endif
+
+#if defined(SgiISA) && SgiISA >= 3
+#if SGICompilerMajorVersion < 4 || (SgiISA == 3 && Build64bit == NO)
+#undef SgiISA
+#define SgiISA 1
+#endif
+#endif
+
+/* DirFailPrefix necessary for smake parallelism */
+#define DirFailPrefix -
+
+#define CompressAllFonts		YES
+#define InstallXdmConfig		YES
+#define InstallFSConfig			YES
+#define HasPutenv			YES
+#define XdmDir				/var/X11/xdm
+#define DefaultFSConfigFile		/var/X11/fs/config
+#define ExecableScripts			YES
+#define SetTtyGroup			YES
+#define HasNdbm				YES
+#define HasVFork			NO
+#define Malloc0ReturnsNull		YES
+#define ExpandManNames			YES
+#define HasShm				YES
+#define HasSockets			YES /* Unix domain sockets */
+#define HasCplusplus			YES
+#define HasPoll				NO  /* Use select instead of poll */
+#define MotifBC                         YES /* Motif bug compatibility for R4 MIPS ABI compliance */
+#define GetValuesBC			YES /* allow illegal XtGetValues requests with NULL ArgVal to succeed, as was the case in R5 */
+#define DontDefineMAKE			YES /* make defines $(MAKE) */
+#ifndef BuildXKBlib
+#define BuildXKBlib			YES /* libX11 has XKB extension */
+#endif
+#define RenameXlibForXKB		NO  /* Don't use libX11kb for Xlib name */
+
+#define NeedVarargsPrototypes		YES
+#define NeedConstPrototypes		YES
+#define NeedWidePrototypes		NO
+
+#if defined(BuildMotif) && BuildMotif
+# ifndef LocalTmplFile
+# define LocalTmplFile <sgiIncludes.tmpl>
+# endif
+#endif
+
+#define OSDefines	-DSYSV -DSVR4
+#define SystemV		NO
+#define SystemV4	YES
+
+#define AllocateLocalDefines -DINCLUDE_ALLOCA_H
+
+#define StandardDefines OSDefines
+
+#if SgiISA >= 3
+#if SgiISA == 3
+#define sgiISAOpts	-mips3
+#else
+#define sgiISAOpts	-mips4
+#endif
+#else
+#define sgiISAOpts	/**/
+#endif
+
+#if Build64bit
+#define sgiABIopts	-64 sgiISAOpts
+#define sgiABIdefs	-DLONG64
+#ifndef ShLibDir
+#define ShLibDir	/usr/lib64
+#endif
+#else
+#define sgiABIopts	-32 sgiISAOpts
+#define sgiABIdefs	/**/
+#endif /* Build64bit */
+
+#ifndef sgiCCOptions
+#define sgiCCOptions -xansi sgiABIopts sgiABIdefs
+#endif
+
+#ifndef OptimizerLevel
+#define OptimizerLevel -O2
+#endif
+        OPTIMIZER = OptimizerLevel
+
+#if SGICompilerMajorVersion < 4
+#define SymbolTables -Wf,-XNh2000
+#define PexSymbolTables -Wf,-XNp15000,-XNd15000,-XNh2000
+#else
+#define SymbolTables /**/
+#define PexSymbolTables /**/
+#endif /* SGICompilerMajorVersion < 4 */
+#define ServerSymbolTables SymbolTables
+
+#define OptimizedCDebugFlags $(OPTIMIZER)
+#define BootstrapCFlags $(OPTIMIZER)
+#define DefaultCCOptions sgiCCOptions SymbolTables
+#define ServerCCOptions sgiCCOptions ServerSymbolTables
+#define PexCCOptions sgiCCOptions PexSymbolTables
+#define ConnectionFlags -DTCPCONN -DUNIXCONN -DSGI_SHM_TRANS
+
+/* For SGI C++ compiler, need to search extra dirs in make depend */
+#ifndef CplusplusDependIncludes
+#define CplusplusDependIncludes -I$(ROOT)/usr/include/CC
+#endif
+
+/*
+ * The following can go away when CXXINCLUDES (in Imake.tmpl) is
+ * defined to include StandardIncludes.
+ */
+#ifndef CplusplusStandardDefines
+#define CplusplusStandardDefines StandardDefines StandardIncludes
+#endif
+
+/*
+ * The following facilitate using an environment in which the
+ * compilers, linkers, etc are located in $(TOOLROOT) and may be
+ * different from what's in the root file system.
+ *
+ * NOTE:  CppCmd should NOT be redefined using TOOLROOT, since
+ * Imakefiles for various clients cause the "$(CPP)" string (which
+ * CppCmd goes into) to be built into client executables.
+ */
+#ifndef ArCmd
+#define ArCmd $(TOOLROOT)/usr/bin/ar cq
+#endif
+#define AsCmd $(TOOLROOT)/usr/bin/as
+#define CcCmd $(TOOLROOT)/usr/bin/cc
+#ifdef UseInstalled
+#define InstallCmd bsdinst
+#endif
+#ifndef LdCmd
+#define LdCmd $(TOOLROOT)/usr/bin/ld
+#endif
+#define LnCmd ln -s
+/*
+ * Actually, it doesn't matter what MakeCmd is, since we don't use it.
+ * We assume that $(MAKE) gets set for us by make.
+ */
+#define MakeCmd $(TOOLROOT)/bin/make
+#define TroffCmd psroff -t
+
+#define StandardIncludes -nostdinc -I$(ROOT)/usr/include
+
+#define ExtraLibraries /**/
+
+/*
+ * If we specify -nostdlib, we must supply the complete library
+ * search path via -L options.  Note that SHLIBDIR might be /usr/lib64.
+ */
+#ifndef LdPostLib
+#if SgiISA >= 3
+# if SgiISA == 3
+#  define sgiAuxLibDirOpt -L$(ROOT)$(SHLIBDIR)/mips3
+# else
+#  define sgiAuxLibDirOpt -L$(ROOT)$(SHLIBDIR)/mips4
+# endif
+#else
+# define sgiAuxLibDirOpt /**/
+#endif
+#define LdPostLib -nostdlib sgiAuxLibDirOpt -L$(ROOT)$(SHLIBDIR)
+#endif /* LdPostLib */
+
+/* Installation Build Parameters */
+#define InstKmemFlags -m 2755 -g sys
+
+/*
+ * The SGI (SYSV) make only sets $(MAKEFLAGS), while smake just sets
+ * $(MFLAGS). Setting ConstructMFLAGS = YES would botch things whenver
+ * smake is done.  In any case, executing make/smake with a $(MFLAGS) arg
+ * is never necessary, since $(MFLAGS) and $(MAKEFLAGS) are inherited.
+ */
+#define ConstructMFLAGS		NO	/* build MFLAGS from MAKEFLAGS */
+
+/* Used only for compressed fonts */
+#define UNCOMPRESSPATH /usr/bsd/uncompress
+
+/* Normally used only to conditionally chose the default font path order */
+#define PrimaryScreenResolution 96
+
+/*
+ * XXX MIT specifies misc,Speedo,Type1,NNNdpi,NNNdpi but SGI wants
+ * NNNdpi,NNNdpi,misc,Type1,Speedo because of the way the "fixed" font
+ * is in NNNdpi instead of being pulled from misc.  Also note that Xsgi
+ * reorders 100dpi and 75dpi automatically at run-time to best fit
+ * the resolution of the actual screen since it varies across monitors
+ * and graphics boards.
+ */
+#ifndef DefaultFontPath
+#if PrimaryScreenResolution < 88                /* (75 + 100) / 2 */
+#define DefaultFontPath $(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/,$(FONTDIR)/misc/,$(FONTDIR)/Type1/,$(FONTDIR)/Speedo/
+#else
+#define DefaultFontPath $(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/,$(FONTDIR)/misc/,$(FONTDIR)/Type1/,$(FONTDIR)/Speedo/
+#endif
+#endif
+
+/* for xdm or anyone else to use */
+#define DefaultUserPath :/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/usr/bin/X11
+#define DefaultSystemPath /usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/etc:/usr/etc:/usr/bin/X11
+
+#define ManSuffix	1
+#define LibManSuffix	3
+
+#undef ManDir
+#undef LibmanDir
+#define ManDir $(CATMAN1DIR)$(MANPACKAGE)
+#define LibmanDir $(CATMAN3DIR)$(MANPACKAGE)
+#define NroffManDir $(MAN1DIR)$(MANPACKAGE)
+#define NroffLibmanDir $(MAN3DIR)$(MANPACKAGE)
+
+#ifdef UseInstalled
+           MANUSR = /usr/share/local
+#else
+           MANUSR = /usr/share
+#endif
+
+       CATMAN1DIR = $(MANUSR)/catman/u_man/cat1
+       CATMAN3DIR = $(MANUSR)/catman/p_man/cat3
+          MAN1DIR = $(MANUSR)/man/u_man/man1
+          MAN3DIR = $(MANUSR)/man/p_man/man3
+
+/*
+ * MANPACKAGE is the directory inside of cat? or man? that man pages should
+ * be placed.  The prefixed / is important because of the way MANPACKAGE
+ * will be concatted with *MANDIR.
+ */
+       MANPACKAGE = /X11
+
+/*
+ * InstallManPageLong - misc changes for sgi.
+ */
+#define InstallManPageLong(file,destdir,dest)				@@\
+file.nr.z : file.man							@@\
+	@if [ -f file.man ]; then \					@@\
+		$(RM) file.nr file.nr.z && \				@@\
+		tbl file.man | eqn | nroff -man - > file.nr && \	@@\
+		pack -f file.nr; \					@@\
+	fi								@@\
+									@@\
+install.man:: file.nr.z							@@\
+	MakeDir($(DESTDIR)destdir); \					@@\
+	if [ -f file.man ]; then \					@@\
+		$(INSTALL) -c $(INSTMANFLAGS) \				@@\
+			file.nr.z $(DESTDIR)destdir/dest.z; \		@@\
+	fi								@@\
+									@@\
+clean::									@@\
+	$(RM) file.nr file.nr.z
+
+/*
+ * InstallManPageAliases - generate rules to install manual page aliases.
+ */
+#ifndef InstallManPageAliases
+#define InstallManPageAliases(file,destdir,aliases)			@@\
+install.man::								@@\
+	@case '$(MFLAGS) $(MAKEFLAGS)' in *[i]*) set +e;; esac && \	@@\
+	@echo cd $(DESTDIR)destdir && cd $(DESTDIR)destdir && \		@@\
+	for i in aliases; do \						@@\
+		(set -x && $(RM) $$i.z && $(LN) file.z $$i.z); \	@@\
+	done;
+#endif /* InstallManPageAliases */
+
+/*
+ * Define the following to use a single shell command.
+ * Doing so isn't required by sgi make or smake,
+ * but the speedup is very significant.
+ */
+
+/* ObjectCompile - used by NormalLibObjCompile */
+#ifndef ObjectCompile
+#define ObjectCompile(options) $(RM) $@ && \				@@\
+	$(CC) -c $(CFLAGS) options $*.c
+#endif
+
+/* LibObjCompile */
+#define	LibObjCompile(dir,options) $(RM) $@ dir/$@ \			@@\
+	&& $(CC) -c $(CCOPTIONS) $(ALLDEFINES) options $*.c \		@@\
+	&& $(MV) $@ dir/$@
+
+/* LinkSourceFile */
+#define LinkSourceFile(src,dir)						@@\
+src:  dir/src								@@\
+	$(RM) $@ && $(LN) $? $@						@@\
+									@@\
+includes:: src								@@\
+									@@\
+depend:: src								@@\
+									@@\
+clean::									@@\
+	$(RM) src
+
+/* LinkFile */
+#define LinkFile(tofile,fromfile)					@@\
+tofile:: fromfile							@@\
+	$(RM) $@ && $(LN) $? $@						@@\
+									@@\
+includes:: tofile							@@\
+									@@\
+depend:: tofile								@@\
+									@@\
+clean::									@@\
+	$(RM) tofile
+
+/* ObjectFromSpecialSource */
+#define ObjectFromSpecialSource(dst,src,flags)				@@\
+dst.c:  src.c								@@\
+	$(RM) $@ && $(LN) $? $@						@@\
+									@@\
+dst.o:  dst.c								@@\
+	ObjectCompile(flags)						@@\
+									@@\
+depend::  dst.c								@@\
+									@@\
+clean::									@@\
+	$(RM) dst.c
+
+/* LinkFileList */
+#define LinkFileList(step,list,dir,sub)					@@\
+step:: list								@@\
+	@case '$(MFLAGS) $(MAKEFLAGS)' in *[i]*) set +e;; esac && \	@@\
+	echo "	cd" dir && cd dir && \					@@\
+	for i in list; do \						@@\
+		(set -x && $(RM) $$i && $(LN) sub/$$i .); done
+
+#include <sgiLib.rules>

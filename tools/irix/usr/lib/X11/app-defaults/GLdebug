@@ -1,0 +1,356 @@
+!
+!  Application Resource for GLdebug
+!
+!
+*breakpointMessage.value:		Press Continue button to begin.
+
+!  Output and breakpoint windows
+*funcList.visibleItemCount:		25
+*onMenu.labelString:			Set
+*offMenu.labelString:			Unset
+*allGroupItem.labelString:		  All
+*swapbuffersGroupItem.labelString:	  Swapbuffers
+*geometryGroupItem.labelString:		  Geometry
+*transformsGroupItem.labelString:	  Transforms
+*dlObjectsGroupItem.labelString:	  Objects
+*lightingGroupItem.labelString:		  Lighting
+*textureGroupItem.labelString:		  Texturing
+*inputGroupItem.labelString:		  GL Input
+*textGroupItem.labelString:		  Text
+
+!  Stateview menus
+*optionsMenu.labelString:		Options
+*lightingItem.labelString:		  Lighting
+*devicesItem.labelString:		  Devices
+*attributesItem.labelString:		  Attributes
+*matrixItem.labelString:		  Matrix
+
+!  Controller menus
+*fileMenu.labelString:			File
+*quitItem.labelString:			  Quit
+*controlMenu.labelString:		Controls
+*breakpointItem.labelString:		  Breakpoints...
+*outputItem.labelString:		  Output...
+
+!  Pushbuttons
+*continueButton.labelString:		Continue
+*stepButton.labelString:		Step
+*skipButton.labelString:		Skip
+*stopButton.labelString:		Halt
+
+!  Output toggle buttons
+*outputGLButton.labelString:		Output GL Calls
+*outputWarningButton.labelString:	Output Warnings
+*outputErrorButton.labelString:		Output Errors
+*outputFatalButton.labelString:		Output Fatals
+
+!  Breakpoint toggle buttons
+*breakpointGLButton.labelString:	Break on GL Calls
+*breakpointWarningButton.labelString:	Break on Warnings
+*breakpointErrorButton.labelString:	Break on Errors
+*breakpointFatalButton.labelString:	Break on Fatals
+
+
+
+!!
+!! Fonts
+!!
+
+!! all labels should be bold
+*XmLabel*fontList:	-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmLabelGadget*fontList:  -*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmScale*fontList: 	-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmBulletinBoard*labelFontList: -*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+*optionMenu.XmLabelGadget*fontList: -*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+*ticMarks*fontList:	-*-helvetica-bold-r-normal-*-14-*-*-*-*-*-iso8859-1
+
+
+!! all buttons, toggles, and radio buttons should be plain
+*XmPushButton*fontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmPushButtonGadget*fontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmToggleButton*fontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmToggleButtonGadget*fontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+*optionMenu*fontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmIconGadget*fontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+*XmBulletinBoard*buttonFontList: -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+
+
+!! menuBar entries, panes, popups, and option menus should be oblique
+*menuBar*fontList:  	-*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+!! for entries in popup menus
+*XmMenuShell*XmPushButton*fontList:  -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*XmMenuShell*XmLabelGadget*fontList:	-*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*XmMenuShell*XmPushButtonGadget*fontList:  -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*XmMenuShell*XmCascadeButton*fontList: -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*XmMenuShell*XmCascadeButtonGadget*fontList: -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*XmMenuShell*XmToggleButton*fontList: -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*XmMenuShell*XmToggleButtonGadget*fontList: -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+*optionPane*fontList: -*-helvetica-bold-o-normal-*-14-*-*-*-*-*-iso8859-1
+
+
+*XmList*fontList:  -*-helvetica-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+
+!!
+!! Data Browser special fonts
+!!
+!! type name and popup menus
+DataBrowser*area*fontList:  -*-helvetica-bold-o-normal-*-12-*-*-*-*-*-iso8859-1
+DataBrowser*resultFormatMenuShell*fontList: -*-helvetica-bold-o-normal-*-12-*-*-*-*-*-iso8859-1
+DataBrowser*operationMenuShell*fontList: -*-helvetica-bold-o-normal-*-12-*-*-*-*-*-iso8859-1
+!! expression name
+DataBrowser*nameFont:    -*-helvetica-bold-r-normal-*-12-*-*-*-*-*-iso8859-1
+!! structure fields
+DataBrowser*area*dbStructure*fontList: -*-lucidatypewriter-medium-r-*-*-12-*-*-*-*-*-iso8859-1
+
+!!
+!! Static and Vista special fonts
+!!
+!! these need to be constant width because they form columns
+Static*text_view*XmList.fontList:  -*-lucidatypewriter-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+Static*text_view.label.fontList: -*-lucidatypewriter-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+Vista*topNlist.fontList:  -*-lucidatypewriter-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+Static*XmIconGadget.fontList: -*-helvetica-medium-r-normal-*-12-*-*-*-*-*-iso8859-1
+
+
+
+!!
+!! Text fonts  (important that at least the SourceView be constant width)
+!!
+*XmText.fontList: -*-lucidatypewriter-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+*XmTextField.fontList: -*-lucidatypewriter-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+
+
+!!
+!! Spacing stuff, probably belongs in master scheme file
+!!
+
+!! buttons shouldn't look "cramped"
+!! (24 pixels across face from top to bottom and 8 in margin on face)
+*XmPushButton*marginHeight: 	4
+*XmPushButton*marginWidth: 	7
+!! option menu buttons shouldn't look "cramped" either 
+!! but need to be a bit smaller than regular buttons and the
+!! same as the menu bar
+*optionMenu*marginHeight: 	0
+*optionMenu*marginTop: 	5
+*optionMenu*marginBottom: 	5
+*optionMenu*marginWidth: 	0
+!! option menu panes are more like pulldown menus than buttons
+*optionPane*XmPushButton*marginHeight:	1
+*optionPane*XmPushButton*marginWidth:	1
+*optionPane*XmPushButton*marginLeft:		3
+*optionPane*XmPushButton*marginRight:	3
+!! we don't really want fat buttons on control panel
+*ControlPanel*XmPushButton.marginHeight:	2
+*ControlPanel*XmPushButton.marginWidth: 	2
+
+!! move the text in lists slightly right to improve legibility
+*XmList*listMarginWidth:        3
+
+!! height of menuBar should be 22 pixels 
+*menuBar*marginHeight: 	1
+*menuBar.marginHeight: 	0
+*menuBar*marginLeft:  	1
+*menuBar.spacing:  		7
+*XmMenuShell*marginLeft:  	3
+*XmMenuShell*marginRight:  	4
+!! spacing between indicator and label should be only 6 in menus
+*XmMenuShell*XmToggleButtonGadget*spacing: 	 	2
+*XmMenuShell*XmToggleButtonGadget*marginHeight:  	0
+*XmMenuShell*XmToggleButtonGadget*indicatorSize: 	10
+
+*XmMenuShell*XmLabelGadget*marginHeight: 4
+
+!! spacing between indicator and label should be 8 outside of menus
+*XmToggleButtonGadget*spacing: 	4
+*XmToggleButton*spacing: 		4
+
+!! spacing between scrollbars and clients should be 2 pixels
+*XmScrolledWindow*spacing: 		0
+*CallStack*XmScrolledWindow*spacing: 		2
+*ExpressionView*XmScrolledWindow*spacing: 	-4
+
+!! for some bizarre reason, setting the SourceView scrollBar to 20
+!! yields 10 pixels across the top of the thumb where the
+!! ExpressionView and the CallStack need 18 to get the same thing
+*ExpressionView*XmScrollBar*width: 18
+*XmScrollBar*width:     18
+*SourceView*XmScrollBar*width: 	   20
+!! for the CallStack's horizontal scrollBar
+*XmScrollBar*height:    18
+
+!! sliders should be slightly narrower than scrollbars ->
+!! 12 pixels across the trough as opposed to 14
+*XmScale*scaleHeight:   20
+
+!! in a perfect world, text fields would be the same size as buttons
+!! (28 pixels including shadow) but since lucidatypwriter14 is really
+!! only 13 pixels, our text fields will be 27 pixels high
+*XmText*marginHeight:    4
+
+!!
+!! Color Mappings
+!!
+
+*foreground:			 	Black
+*background:			 	#c1c1c1
+*XmList*background:     	#999999
+*XmPushButton*background:	 	#adadad
+*XmText.background:		 	#c19797
+*XmTextField.background:	 	#c19797
+*troughColor: 		 	#848484
+
+!! color all dialogs, warnings, and errors the same
+*XmSelectionBox*background:	 	#c1c1c1
+*XmSelectionBox*XmText*background:	 	#c19797
+*XmMessageBox*background:	 	#c1c1c1
+
+!! color all radio and toggle buttons when they are selected
+*fillOnSelect:		True
+*visibleWhenOff:		True
+*selectColor:		#ffff00
+
+!! highlights for keyboard traversal
+*highlightColor:		 	Black
+*XmText*highlightThickness:		1
+*XmTextField*highlightThickness:	1
+*XmPushButton*highlightThickness:	1
+!! no need for anything else to highlight itself
+*highlightThickness:	0
+
+
+
+!! SourceView has it's own text background because the color selected
+!! for text fields in some schemes may to be too intense 
+!! for SourceView's larger area
+*SourceView*textEdit.background:	 	#b7b7b7
+
+
+!! all SourceView icon outlines should be the same as the text foreground
+*SourceView*pixmap*background:	 	Black
+
+*SourceView*textEdit.highlightColor1:		#ca8383
+*SourceView*stop*pixmap*foreground:		#ca8383
+*SourceView*stop*scrollBarColor:	#b61313
+
+*SourceView*textEdit.highlightColor6:		#c37f7f
+*SourceView*inactiveStop*pixmap*foreground:		#ca8383
+*SourceView*inactiveStop*scrollBarColor:	#ffaeae
+
+*SourceView*textEdit.highlightColor2:	#8a9f93
+*SourceView*pc*pixmap*foreground:	#8a9f93
+*SourceView*pc*scrollBarColor:		#12ff17
+
+*SourceView*textEdit.highlightColor3:		#ffff81
+*SourceView*search*pixmap*foreground:		#ffff81
+*SourceView*search*scrollBarColor:		#ffff81
+
+*SourceView*sample*pixmap*foreground:		#ca8383
+*SourceView*sample*scrollBarColor:	#b61313
+
+*SourceView*inactiveSample*pixmap*foreground:	#c37f7f
+*SourceView*inactiveSample*scrollBarColor:	#b61313
+
+*SourceView*textEdit.highlightColor5:	#79adad
+*SourceView*context*pixmap*foreground:	#79adad
+*SourceView*context*scrollBarColor:	#4bf7f9
+
+*SourceView*textEdit.highlightColor7:		blue
+*SourceView*target*pixmap*foreground:   	blue
+*SourceView*target*scrollBarColor:		blue
+
+*SourceView*textEdit.highlightColor8:		green
+*SourceView*result*pixmap*foreground:   	green
+*SourceView*result*scrollBarColor:		green
+
+!!
+!! Stripchart resources
+!!
+*charts.color0: #565597
+*charts.color1: #ad5f59
+*charts.color2: #ad8949
+*charts.color3: #4b754a
+
+*charts.gridColor:	 	Black
+ProcView*stripchart.background:	#90abb1
+
+
+!
+! nodes in vista's call graph presentation are by default
+! these two colors
+!
+*Vista*callGraphSW*XmPushButton.background: LightSlateGrey
+*Vista*callGraphSW*XmPushButton.foreground: black
+
+!
+! IMPORTANT nodes in vista's call graph presentation are by default
+! these two colors
+!
+*priority1.background: 	red
+*priority2.background: 	blue
+*priority3.background: 	green
+*priority4.background: 	purple
+*priority5.background:       	orange
+*priority6.background:       	cyan
+*priority7.background:       	magenta
+*priority8.background:       	yellow
+
+
+! Registration Point (Trap) Colors
+*registrationPoint1.foreground: 	red
+*registrationPoint2.foreground: 	blue
+*registrationPoint3.foreground: 	green
+*registrationPoint4.foreground: 	purple
+*registrationPoint5.foreground:       	orange
+*registrationPoint6.foreground:       	cyan
+*registrationPoint7.foreground:       	magenta
+*registrationPoint8.foreground:       	yellow
+
+
+!! TimeLine resources
+*LocalCaliperDrawingArea.background: 	#6f8a90
+*GlobalCaliperDrawingArea.background: 	#6f8a90
+*ScaleDrawingArea.background: 		#6f8a90
+*ticMarks.foreground: 			 	Black
+*arrowHighlight.foreground:		 	Black
+*newCaliper.foreground: 		 	Black
+*oldCaliper.foreground: 		 	#adadad
+
+
+!! Help colors
+!!
+*HelpServer*currentColor:				red
+*HelpServer*viewerColor:					blue
+*HelpServer*constraintColor:			purple
+*HelpServer*XmGraph*XmDrawingArea.background:    #999999
+*HelpServer*XmGraph*XmScrolledWindowClipWindow.background:    #999999
+
+DataBrowser*XmDrawingArea.background:	#90abb1
+!! covers the case where drawing area is smaller than the scrolled window
+DataBrowser*ScrolledWindowClipWindow.background:	#90abb1
+DataBrowser*highlightColor:		 	Black
+DataBrowser*typeColor1:				red
+DataBrowser*typeColor2:				blue
+DataBrowser*typeColor3:				green
+DataBrowser*typeColor4:				purple
+DataBrowser*typeColor5:			      	orange
+DataBrowser*typeColor6:			      	cyan
+DataBrowser*typeColor7:			      	magenta
+DataBrowser*typeColor8:			      	yellow
+
+
+*XmGraph*background:		#90abb1
+!! covers the case where drawing area is smaller than the scrolled window
+*XmGraph*ScrolledWindowClipWindow.background:		#90abb1
+!! outline when node or arc is selected
+*XmGraph*highlightColor:		red
+!! colors the arcs
+*XmGraph*overviewColor:	 	Black
+
+!! Static node colors
+*targetColor:			#a49fc4
+*resultColor:			#d3b8c2
+
+
+
+

@@ -1,0 +1,196 @@
+#		Icon - Closed
+		color(shadowcolor);
+		bgnpolygon();
+			vertex(50.00, 0.00);
+			vertex(0.00, 25.00);
+			vertex(50.00, 50.00);
+			vertex(100.00, 25.00);
+		endpolygon();
+
+#		Icon - Closed
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(50.00, 17.50);
+			vertex(0.50, 42.75);
+			vertex(50.00, 67.50);
+			vertex(99.50, 42.75);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_2
+		color(-251);
+		bgnoutlinepolygon();
+			vertex(50.00, 10.00);
+			vertex(0.50, 34.75);
+			vertex(0.50, 42.75);
+			vertex(50.00, 17.50);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_3
+		color(-184);
+		bgnoutlinepolygon();
+			vertex(50.00, 17.50);
+			vertex(50.00, 10.00);
+			vertex(99.50, 34.75);
+			vertex(99.50, 42.75);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_4
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(65.00, 90.00);
+			vertex(45.00, 80.00);
+			vertex(30.00, 87.50);
+			vertex(50.00, 97.50);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_5
+		color(-248);
+		bgnoutlinepolygon();
+			vertex(65.00, 60.00);
+			vertex(45.00, 50.00);
+			vertex(45.00, 80.00);
+			vertex(65.00, 90.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_6
+		color(-255);
+		bgnoutlinepolygon();
+			vertex(45.00, 50.00);
+			vertex(45.00, 80.00);
+			vertex(30.00, 87.50);
+			vertex(30.00, 57.50);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_7
+		color(-238);
+		bgnoutlinepolygon();
+			vertex(25.00, 35.00);
+			vertex(25.04, 55.02);
+			vertex(10.04, 62.52);
+			vertex(10.00, 42.50);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_8
+		color(-232);
+		bgnoutlinepolygon();
+			vertex(40.00, 42.50);
+			vertex(25.00, 35.00);
+			vertex(25.04, 55.02);
+			vertex(40.04, 62.52);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_9
+		color(-254);
+		bgnoutlinepolygon();
+			vertex(40.04, 62.52);
+			vertex(25.04, 55.02);
+			vertex(10.04, 62.52);
+			vertex(25.04, 70.02);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_10
+		color(-248);
+		bgnoutlinepolygon();
+			vertex(95.00, 45.00);
+			vertex(70.00, 32.50);
+			vertex(70.00, 57.50);
+			vertex(95.00, 70.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_11
+		color(-85);
+		bgnoutlinepolygon();
+			vertex(15.00, 45.00);
+			vertex(20.00, 42.50);
+			vertex(20.00, 52.50);
+			vertex(15.00, 55.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_13
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(50.00, 22.50);
+			vertex(50.00, 37.50);
+			vertex(30.00, 48.18);
+			vertex(30.00, 33.18);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_16
+		bgnoutlinepolygon();
+			vertex(95.00, 70.00);
+			vertex(70.00, 57.50);
+			vertex(50.00, 67.50);
+			vertex(75.00, 80.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_17
+		bgnoutlinepolygon();
+			vertex(70.00, 32.50);
+			vertex(70.00, 57.50);
+			vertex(50.00, 67.50);
+			vertex(50.00, 42.50);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_14
+		color(-238);
+		bgnoutlinepolygon();
+			vertex(61.94, 36.57);
+			vertex(61.94, 61.57);
+			vertex(56.94, 64.07);
+			vertex(56.94, 39.07);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_19
+		color(iconcolor);
+		bgnoutlinepolygon();
+			vertex(65.00, 45.00);
+			vertex(50.00, 37.50);
+			vertex(30.00, 48.18);
+			vertex(45.00, 55.68);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_18
+		color(-248);
+		bgnoutlinepolygon();
+			vertex(65.00, 30.00);
+			vertex(50.00, 22.50);
+			vertex(50.00, 37.50);
+			vertex(65.00, 45.00);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_14
+		color(-85);
+		bgnoutlinepolygon();
+			vertex(42.45, 26.74);
+			vertex(42.45, 41.66);
+			vertex(37.45, 44.16);
+			vertex(37.36, 29.46);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_12
+		color(-102);
+		bgnoutlinepolygon();
+			vertex(82.16, 76.42);
+			vertex(87.16, 73.92);
+			vertex(62.16, 61.42);
+			vertex(57.16, 63.92);
+		endoutlinepolygon(outlinecolor);
+
+#	Path_20
+		color(outlinecolor);
+		bgnline();
+			vertex(10.00, 30.00);
+			vertex(10.00, 35.00);
+		endline();
+
+#	Path_21
+		bgnline();
+			vertex(22.40, 26.02);
+			vertex(22.40, 31.02);
+		endline();
+
+#	Path_22
+		bgnline();
+			vertex(35.00, 17.50);
+			vertex(35.00, 22.50);
+		endline();

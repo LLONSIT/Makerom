@@ -1,0 +1,52 @@
+#!/bin/sh
+# 
+#	Copyright 1987 Silicon Graphics, Inc. - All Rights Reserved
+#
+
+
+#ident	"$Revision: 1.14 $"
+
+# Use $TMPDIR or /tmp for output files so this procedure can be run anywhere
+if test -z "$TMPDIR"; then
+	TMPDIR=/usr/tmp
+fi
+symdef=$TMPDIR/$$symdef
+symref=$TMPDIR/$$symref
+
+# remove temporary files on EXIT, HUP, INT, QUIT, PIPE, TERM
+trap "rm -f $symdef $symref; exit" 0 1 2 3 13 15
+
+case $# in
+0)	echo usage: lorder file ...
+	exit ;;
+1)	case $1 in
+	*.o)	set $1 $1
+	esac
+esac
+
+nm -Bg $* | sed '
+	/^$/d
+	/:$/{
+		/\.o:/!d
+		s/://
+		h
+		s/.*/& &/
+		p
+		d
+	}
+	/[TGBSD] /{
+		s/.* //
+		G
+		s/\n/ /
+		w '$symdef'
+		d
+	}
+	s/.* //
+	G
+	s/\n/ /
+	w '$symref'
+	d
+'
+sort $symdef -o $symdef
+sort $symref -o $symref
+join $symref $symdef | sed 's/[^ ]* *//'

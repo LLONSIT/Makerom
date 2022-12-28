@@ -1,0 +1,87 @@
+XCOMM site:  $XConsortium: site.sample,v 1.9 94/04/08 17:02:06 rws Exp $
+
+/*****************************************************************************
+ *                                                                           *
+ *			   SITE-SPECIFIC DEFINITIONS                         *
+ *                                                                           *
+ * This file contains two halves, one included before the vendor-specific    *
+ * configuration file (.cf file), and one included after the .cf file.       *
+ * The before-half should be protected by #ifdef BeforeVendorCF, and the     *
+ * after-half should be protected by #ifdef AfterVendorCF.                   *
+ *                                                                           *
+ * The before-half should only set things that the .cf file depends on.      *
+ * For the .cf files shipped in this release, the main variables in this     *
+ * category are HasGcc and HasGcc2.                                          *
+ *                                                                           *
+ * The after-half should contain all other definitions.  For example,        *
+ * place your ProjectRoot definition here.                                   *
+ *                                                                           *
+ * OS Major and Minor version numbers should be changed directly in the .cf  *
+ * file, not overridden in site.def.                                         *
+ *                                                                           *
+ *****************************************************************************/
+
+#ifndef SiteIConfigFiles
+#define SiteIConfigFiles $(IRULESRC)/host.def
+#define LocalConfigFiles host.def
+#endif
+
+#include <host.def>
+
+#ifdef BeforeVendorCF
+
+/*
+ * The following definitions should be temporary until development
+ * is completed.
+ */
+
+#ifndef BuildXDPS
+#define BuildXDPS		NO
+#endif
+#ifndef DynamicXDPS
+#define DynamicXDPS		NO
+#endif
+#ifndef SupportXDPS
+#define SupportXDPS		NO
+#endif
+
+#ifndef BuildPEX
+#define BuildPEX		NO
+#endif
+#ifndef SupportPEX
+#define SupportPEX		NO
+#endif
+
+#ifndef StaticGLX
+#define StaticGLX		NO
+#endif
+#ifndef BuildGLX
+#define BuildGLX		NO
+#endif
+#ifndef BuildGLXMT
+#define BuildGLXMT		NO
+#endif
+#ifndef SupportGLX
+#define SupportGLX		NO
+#endif
+
+#ifndef BuildFonts
+#define BuildFonts		NO
+#endif
+
+#ifndef BuildServer
+#define BuildServer		NO
+#endif
+#ifndef DebugServer
+#define DebugServer		NO
+#endif
+
+#endif /* BeforeVendorCF */
+
+#ifdef AfterVendorCF
+
+#endif /* AfterVendorCF */
+
+#if defined(BuildMotif) && BuildMotif
+#include <Motif.site.def>
+#endif

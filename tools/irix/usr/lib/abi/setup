@@ -1,0 +1,79 @@
+#! /bin/ksh
+
+# $Header: /proj/irix5.3/isms/cmplrs/abi/RCS/setup,v 1.1 1993/09/10 21:24:08 bettina Exp $
+# $Locker:  $
+
+#
+# Define some setup helper functions...
+#
+
+#
+# Determine which system we are on (if we can)...
+#
+
+systype() {
+	unameline=`uname -a`
+
+	case "$unameline" in
+	*[dD][cC][oO][sS][xX]*)
+		arch=ptc
+		;;
+
+	*[Ii][Rr][Ii][Xx]*)
+		arch=sgi		# not sure of this one
+		;;
+
+	*NEC*)
+		arch=nec		# not sure of this one
+		;;
+
+	*RISCos*)
+		arch=sgi
+		;;
+	esac
+
+	if [[ -z "$arch" ]]
+	then
+		if [[ -x /usr/necbin/uversion ]]
+		then
+			arch=nec
+		else
+			# ??
+			:
+		fi
+	fi
+}
+
+setup_environ() {
+
+	if [[ -r "$2" ]]
+	then
+		. $2
+	else
+		echo "Cannot setup environment for $1. File $2 not readable"
+		exit 1
+	fi
+}
+
+badopt()
+{
+
+	echo "Error: Unknown or unsupported option ($1)"
+	exit 2
+}
+
+
+#
+# Determine which architecture we are on and set up legal options.
+#
+
+systype
+case "$arch" in
+ptc)	setup_environ ptc $ABILIB/ptc$CMD.cfg ;;
+sgi)	setup_environ sgi $ABILIB/sgi$CMD.cfg ;;
+nec)	setup_environ nec $ABILIB/nec$CMD.cfg ;;
+*)	echo 'Cannot determine system type'
+	exit 3
+	;;
+esac
+

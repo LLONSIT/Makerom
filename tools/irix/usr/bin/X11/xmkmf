@@ -1,0 +1,70 @@
+#!/bin/sh
+
+#
+# make a Makefile from an Imakefile from inside or outside the sources
+# 
+# $XConsortium: xmkmf.cpp,v 1.20 94/03/28 16:08:04 gildea Exp $
+
+
+usage="usage:  $0 [-32|-64] [-mips3|mips4] [-a] [top_of_srcs_pathname [cur_directory]]"
+
+
+topdir=
+curdir=.
+do_all=
+
+sgi_abi=
+sgi_isa=
+
+while [ $# -gt 0 ] ; do
+    case "$1" in
+	-32) sgi_abi="-DBuild32bit=1"; shift;;
+	-64) sgi_abi="-DBuild64bit=1"; shift;;
+	-mips3) sgi_isa="-DSgiISA=3"; shift;;
+	-mips4) sgi_isa="-DSgiISA=4"; shift;;
+	-a) do_all="yes"; shift;;
+	*) break;;
+    esac
+done
+sgi_opts="$sgi_abi $sgi_isa"
+
+
+case $# in 
+    0) ;;
+    1) topdir=$1 ;;
+    2) topdir=$1  curdir=$2 ;;
+    *) echo "$usage" 1>&2; exit 1 ;;
+esac
+
+case "$topdir" in
+    -*) echo "$usage" 1>&2; exit 1 ;;
+esac
+
+if [ -f Makefile ]; then 
+    echo mv -f Makefile Makefile.bak
+    mv -f Makefile Makefile.bak
+fi
+
+
+if [ "$topdir" = "" ]; then
+    args="-DUseInstalled $sgi_opts "-I${ROOT}/usr/lib/X11/config
+else
+    args="-I$topdir/config/cf $sgi_opts -DTOPDIR=$topdir -DCURDIR=$curdir"
+fi
+
+
+echo imake $args
+case "$do_all" in
+yes)
+    imake $args && 
+    echo "make Makefiles" &&
+    make Makefiles &&
+    echo "make includes" &&
+    make includes &&
+    echo "make depend" &&
+    make depend
+    ;;
+*)
+    imake $args
+    ;;
+esac

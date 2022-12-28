@@ -1,0 +1,25 @@
+/*
+ * sgiIncludes.tmpl - this file is potentially defined as the
+ *   "LocalTmplFile" during imake, and will get included just BEFORE
+ *   the actual Imakefile.
+ */
+
+#if defined(BuildMotif) && BuildMotif
+#include <Motif.tmpl>
+#include <Motif.rules>
+#endif
+
+#ifndef UseInstalled
+
+#ifdef sgiBuildingClients
+IMAKE_DEFINES = -DsgiBuildingClients
+#if DontLinkWithDSOs
+#include <sgiDontLinkWithDSOs.tmpl>
+#endif
+#endif
+
+#ifdef sgiBuildingLib64
+IMAKE_DEFINES = -DsgiBuildingLib64
+#endif
+
+#endif /* !UseInstalled */

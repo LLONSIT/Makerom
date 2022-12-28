@@ -1,0 +1,1755 @@
+Copyright 1994 Silicon Graphics Computer Systems
+#most_used
+quit                           - quit dbx
+q                              - quit dbx
+run arg1 arg2 ...              - begin execution of the program
+r                              - rerun with same arguments as last "run"
+stop at <line>                 - suspend execution at the line
+stop in <proc>                 - suspend execution when <proc> called
+cont <signal>                  - continue with signal
+return                         - continue until the current procedure returns
+print <exp> ...                - print the value of the expressions
+printf "string", exp, ...      - print expressions using format string(C)
+where [n]                      - print currently active procedures (stack trace)status                         - print trace/stop/record's in effect
+func <proc>                    - move to activation level of <proc>
+<exp>[/ | ?]<count><format>    - display count number of formatted memory items
+file <file>                    - change current file to file
+list <exp1>,<exp2>             - list source lines from <exp1> to <exp2>
+list <exp>:<int>               - list source lines at <exp> for <int> lines
+whatis <variable>              - display the datatype of the named variable
+sh                             - enter sub-shell
+sh <shell command>             - perform shell command
+#.
+
+
+
+HISTORY, ALIAS, and INPUT/OUTPUT REDIRECTION
+#quit
+quit                           - quit dbx
+q                              - quit dbx
+#alias
+alias                          - print aliases. Escapes needed to create
+                                 the alias strings are not shown.
+alias name                     - print the alias value for this one name.
+                                 Printed with escapes as you would type it
+                                 to enter the alias.
+alias name "string"            - set name to alias "string"
+                                 The leading and trailing " are stripped off.
+                                 Escapes are used. See ``Strings'' in
+
+alias name name2               - set name to alias name2
+alias name(arg1, ...) "string" - set name to alias "string"
+                                 the arg1, ... are arguments that
+                                 are replaced in "string" with the actual
+                                 arguments you use when giving an alias
+                                 command. See the examples on list-following
+                                 in the examples section.
+                                 Escapes are used. See ``Strings'' in
+                                 the expressions section.
+unalias <name>                 - unset alias for name
+see also  hint_alias for some complex examples.
+
+#help
+help                           - shows the list of available  help sections.
+
+help section                   - shows this file using `more' by default.
+                                 If the environment variable PAGER is set, its
+                                 value is used as the name of a program to
+                                 display all or parts of this file
+                                 (/usr/lib/gnome.help).
+
+help all                       - shows the entire /usr/lib/gnome.help file
+
+If you first set $pager="vi" (perhaps in your .dbxinit file)
+(if you use some other editor, then set $pager to it),
+the displayed text  of "help all" will be in your editor
+where you can easily search for things of interest.
+
+#playback
+playback input <file>          - read debugger commands from file <file>
+                                 if no file specified, uses the file
+                                 named by $defaultin.
+                                 if $pimode is 1, commands read in are
+                                 displayed on the current output.
+                                 if $piaddtohist is 0, commands read in are
+                                 not added to history
+playback output <file>         - playback  file <file>
+                                 Equivalent to IRIX `cat <file>' command
+                                 If no file specified, uses the file
+                                 named by $defaultout.
+pi                             - alias of "playback input"
+
+See also "help record"
+#record
+record                         - print record's in effect
+record input <file>            - record input into file  <file>
+                                 If no file specified, uses the file
+                                 named by $defaultin
+record output <file>           - record command output into file <file>
+                                 If no file specified, uses the file
+                                 named by $defaultout.
+                                 If $rimode is 1, records the commands
+                                 causing the output.
+unrecord <int> , ...           - end record session with specified
+                                 history number(s).
+unrecord all                   - end all record sessions
+
+See also "help playback"
+#repeat_command:history
+#lineedit:history
+#hed:history
+#history
+history                        - display previous commands to debugger
+                                 the history is $lines long.
+hed                            - history editor
+                                 drop into editor with last line of history
+                                 in a temporary file.
+                                 Uses $editor editor. Lines left in file
+                                 when exitting editor are executed by dbx.
+                                 "set $pimode=1" to see the commands as they
+                                 are executed.
+hed <int>                      - edit line <int> of history
+hed <int>,<int>                - edit range of history lines
+hed all                        - edit all history lines
+!<int>                         - invoke <int>'th from beginning command
+!-<int>                        - invoke <int>'th from last command
+!<string>                      - invoke last command beginning with str
+!!                             - repeat last command
+
+command ; command ...          - multiple debugger commands per line.
+<newline>                      - repeat last command if $repeatmode != 0
+                               - do nothing if $repeatmode == 0
+
+setenv LINEEDIT                - set in C shell before invoking dbx.  Enables
+                                 emacs-like line editing capabilities.
+                                 setenv LINEEDIT ""
+                                 turns on line editting.
+
+   To help repetitive typing, dbx maintains a queue containing
+   lines recently keyed in by the user.  With appropriate
+   commands, the user can move a previous-line-keyed pointer
+   within one memory to retrieve lines recently typed.
+
+   The line editor maintains a repetition factor which is
+   initially 1.  You multiply it by 4 every time you type the ^U
+   command.  In the following description, (R) indicates that the
+   command pays attention to the repetition factor.  The
+   repetition factor returns to 1 after each command or error,
+   even if (the command does not pay attention to the repetition
+   factor.
+
+   Control-character commands:
+
+   ^@           Mark a line for use with the ^Y command
+   ^A           Move cursor to beginning of line
+   ^B           Move cursor backward (R)
+   ^C           Delete line and reprompt
+   ^D           Delete character above cursor (R); except if the line is
+                empty, we return EOF to the caller instead.
+   ^E           Move cursor to end of line
+   ^F           Move cursor forward (R)
+   ^H           Move cursor backward (R)
+   ^J           Activate line
+   ^K<char>     Delete characters until cursor is under <char>. if (<char>
+                is ^K, use the same char as the previous ^R, ^S, or ^K
+                command. To delete until ^K, say "^K^Q^K". To delete
+                until end of line, say "^K^M".
+   ^L           Redisplay line
+   ^M           Activate line
+   ^N           Move the previous-line-keyed pointer forward one line and
+                make that be the "line under construction".
+   ^P           Move the previous-line-keyed pointer backward one line and
+                make that be the "line under construction".
+   ^Q           Quote the following character and insert it before
+                cursor (R)
+   ^R<char>     Search backward for <char>. if (<char> is ^R, then it
+                searches instead for the same character as the previous
+                ^K, ^R or ^S command.  To search for ^R, type "^R^Q^R".
+   ^S<char>     Search forward for <char>. if (<char> is ^S, then it
+                searches instead for the same character as the previous
+                ^K, ^R or ^S command.  To search for ^S, type "^S^Q^S".
+   ^T           Interchange the two characters preceding the cursor.
+   ^U           Multiply the repetition count by 4. Does not take a numeric
+                argument.
+   ^W           Delete entire line
+   ^Y           Insert the marked line before the cursor
+   RUBOUT       Delete character preceding cursor (R)
+
+   Meta-character (prefixed by ascii escape) commands:
+
+   M-escape     Same as ^Z
+   M-B          Back one word (R)
+   M-F          Forward one word (R)
+   M-D          Delete next word (R)
+   M-H          Delete previous word (R)
+   M-RUBOUT     Delete previous word (R)
+
+   All other control characters insert themselves before the cursor (R).
+
+   Certain Unix environment variables control the editor's behavior:
+
+     LINEEDIT           When not set, disables the line editor. When set
+                        to an empty string, enables the line editor.
+
+     LINEEDITMIN        Set to an integer, arranges not to remember lines
+                        shorter than that number of characters
+                        Defaults to 2.
+#.
+
+EXECUTION CONTROL, BREAKPOINTS and TRACING
+
+--
+All this section's commands except run and rerun take an
+additional phrase   'pid <pid>'.  See the Multiple Process
+Debugging section below.
+--
+#rerun:run
+#run
+run   arg1 arg2 ...            - begin execution of the program
+rerun arg1 arg2 ...            - begin execution of the program
+rerun                          - restart execution of the program
+                                 with same arguments last used on run or rerun
+#step
+step                           - single step 1 time.
+step <int>                     - single step <int> times.
+                                 'step' steps over procedures compiled without
+                                 symbols by default.
+                                 Breakpoints in procedures stepped over
+                                 are honored.
+                                 Functions coded entirely on one line cause
+                                 step to act like stepi, since the actual
+                                 code is all assigned one source line.
+                                 Outstanding signals are ignored.
+
+
+#next
+next                           - single step 1 time.      steps over procedures
+next <int>                     - single step <int> times. steps over procedures
+                                 'next' honors breakpoints in procedures
+                                 stepped over.
+                                 A consequence of this is that
+                                 a ``stop if'' condition which is true will
+                                 continue to be true -- making dbx stop after
+                                 every statement in procedures one wanted to
+                                 step over. Delete the ``stop if''
+                                 which has already become true to avoid the
+                                 stops.
+                                 Outstanding signals are ignored.
+
+#delete
+delete all                     - remove all trace/when/stop's in effect
+delete <int> [, ...]           - remove trace/when/stop of specified number
+#whichobj:listobj
+#listobj
+listobj                         - list objects (dynamic shared objects)
+                                  being used. The base application is
+                                  first in the list.
+
+whichobj <name>                 - The objects (all of them) in which the
+                                  named variable is defined are listed.
+
+
+  see also "help hint_dso"
+#enable:disable
+#disable
+disable <int> [, ...]          - disable trace/when/stop without deleting
+enable <int> [, ...]           - enable disabled trace/when/stop
+#ignore:catch
+#catch
+catch                          - print all caught signals
+catch all                      - catch all signals
+catch <signal> ...             - stop when signal <signal> found
+                                 A process being debugged does not see this
+                                 signal directed at it until: 1) the signal
+                                 comes to dbx and the process is stopped;
+                                 2) the process is ``cont''inued.
+                                 If the process has not declared a signal
+                                 handler for an signal, the process does
+                                 not see the signal when it is continued.
+ignore                         - print all ignored signals
+ignore all                     - ignore all signals
+ignore <signal> ...            - ignore signal <signal>
+                                 A process being debugged sees this signal when
+                                 directed at it by itself or another process.
+                                 The process responds to the signal just as
+                                 if dbx were not present.
+                                 A SIGINT signal at the keyboard is
+                                 seen by dbx and it interrupts dbx as well
+                                 as being sent to the process being
+                                 debugged (if the process is in the same
+                                 IRIX process group (not related to dbx
+                                 process groups)).
+#cont
+cont                           - continue execution and wait until event
+                                 see $promptonfork $mp_program and
+                                 MULTIPLE PROCESS DEBUGGING for the
+                                 behavior of this command with fork/exec/sproc
+                                 If the program has a signal handler for
+                                 a signal and the program stopped last on
+                                 that signal, this passes the signal to
+                                 the process on continuing.
+cont <signal>                  - continue with signal and wait until event
+                                 You must use the signal number or name
+                                 unless the last stop for this process was
+                                 via the desired signal.  Since it is difficult
+                                 to be sure of this, it is simplest to
+                                 use the <signal> clause.
+cont at <line>                 - continue until <line> is reached
+                                  (temporary breakpoint)
+cont to <line>                 - same as 'continue at <line>'
+cont in <proc>                 - continue until <proc> is reached  (see above)
+cont <signal> at <line>        - continue with signal until <line> (see above)
+cont <signal> to <line>        - same as 'cont <signal> at <line>'
+cont <signal> in <proc>        - continue with signal until <proc> (see above)
+#suspend:resume
+#wait:resume
+#resume
+resume                         - continue execution but don't wait until event
+resume <signal>                - continue with signal but do not wait
+suspend                        - suspend running process
+wait                           - wait until event (breakpoint, signal) occurs
+                                 (this is most useful after a resume
+                                 in the form "wait pid <pid>")
+#return
+return                         - continue until the current procedure returns
+return <proc>                  - continue until return to <proc>
+#syscall
+syscall                        - print system calls caught/ignored at system
+                                 call call/return (in sections)
+                                 (a caught system call is a breakpointed
+                                 system call)
+                                 The systemcalls are named in
+                                 /usr/include/sys.s.
+                                 In all syscall commands, case is ignored
+                                 when checking system call names.
+
+  The return from execv, execve, fork, and sproc system calls are
+  controlled by $promptonfork and $mp_program, not by syscall. All 4 are
+  permanently marked as "syscall catch return".
+  Stops on return from execv and execve are automatic and cannot
+  be ignored.  Stop on return from fork and sproc by using the dbx command
+                set $promptonfork=2
+  See "help hint_dso" for more information on the return from execv, execve
+  where the exec'd program uses dynamic shared objects.
+
+syscall catch call             - print system calls caught when  call made
+syscall ignore call            - print system calls not caught when call made
+syscall catch return           - print system calls caught when they return
+syscall ignore return          - print system calls not caught when they return
+syscall catch call <syscall> ... - breakpoint on call of named system calls
+                                 Case is ignored when checking system
+                                 call names.  A particularly useful setting is
+                                 "syscall catch call exit" which will stop
+                                 your program just before it exits.
+syscall ignore call <syscall> ... - turn off breakpoint on systemcall call
+                                 Case is ignored when checking system
+                                 call names.
+syscall catch return <syscall> ... - breakpoint on return from named system
+                                 calls.
+                                 Case is ignored when checking system
+                                 call names.
+syscall ignore return <syscall> ... - turn off breakpoint of systemcall call
+                                 Case is ignored when checking system
+                                 call names.
+syscall catch call all         - breakpoint on call of any system call
+syscall ignore call all        - turn off call breakpoint of system calls
+syscall catch return all       - breakpoint on return from all system  calls
+syscall ignore return all      - turn off return breakpoint of system calls
+#kill
+kill                           - kill active process
+kill <pid> ...                 - kill process (list) specified
+#goto
+goto <line>                    - begin execution at <line>
+#.
+
+STOP TRACE WHEN (breakpointing, tracing)
+
+#intro_stop
+stop, trace, and when are variations on a theme.  They set up
+breakpoints/tracing, but do not begin or continue program execution.
+
+The optional <var> clause, where mentioned, means either a variable
+or an expression (<exp>).  It makes the command it appears in a
+conditional command.
+If a variable is given that variable is inspected at `appropriate' points.
+If an <exp> is given, that expression is assumed to be a pointer
+and the thing-pointed-at is inspected at the `appropriate' points.
+Where `appropriate' means one of:
+1) only at specific locations in the program. (if `at <line>')
+or 2) every instruction in a given function (if `in <proc>')
+or 3) every instruction.
+If <var> has changed, you are notified.
+If <var> has changed, the implicit test 'ifchanged <var>' evaluates
+to 'true'.
+
+The `if <exp>' clause, where mentioned, turns the command into a conditional
+command.  The command only takes visible effect when the expression evaluates
+to true.   The `expression' is evaluated at the same points as mentioned for
+`variable'.  The `expression' evaluates to 'true' or 'false'
+
+If both <var> and  'if <exp>' are specified, then the overall
+test is true only if both are true.
+
+If `in procedure1 is specified then when in that procedure all lower-level
+procedures are stepped over. So `nested' traces-in-procedures don't work.
+(Any breakpoints in the lower-level procedures will cause a break, however,
+since the lower-level procedures are executed).
+
+Context of evaluation:
+If the stop command gives a specific location (an ``at'' or ``in'') then
+the rest of the command is evaluated as if the $pc were at that location.
+This means you can use variables visible at that location in the normal
+way.  If there is no such location given, then variables should be globals,
+since evaluating the stop/trace/when expression may be done in various
+contexts.
+
+
+#stop
+A `stop' stops execution of the process when the `if' clause (if present )
+is true and the `variable' (if present) has changed.
+
+stop <var>              - sets up to stop execution when <var> changes.
+stop <proc>             - sets up to stop execution when <proc> is entered.
+stop at                 - sets a breakpoint at the current source line.
+stop [<var>] at <line>  - sets a breakpoint at the specified source line.
+stop [<var>] at <line> if <exp>  -
+                          sets a conditional breakpoint at the specified
+                          source line.
+stop [<var>] in <proc>  - sets a breakpoint in the specified procedure.
+stop [<var>] in <proc> if <exp>  -
+                          sets a conditional breakpoint in the specified
+                          procedure.
+stop if <exp>           - sets up program execution tracing, testing
+                          the expression at each program line, and
+                          stopping when it is true..
+
+
+#trace
+A `trace' prints information about the process when the trace conditions
+are satisfied, but program execution continues.
+
+trace <var>             - when the variable changes, print its old and
+                          new values.
+trace <proc>            - when the procedure is entered, print its arguments
+                          and its caller's name.
+trace <var> at <line>   - print the variable's old and new values when
+                          the source line is reached.
+trace <var> at <line> if <exp> -
+                          if the expression is true when the source line is
+                          reached, and the variable has changed value,
+                          print the old and new values.
+trace <var> in <proc>   - Prints <var> when it changes in <proc>.
+trace <var> in <proc> if <exp> -
+                          prints <var> when it changes in <proc> if
+                          <exp> is true
+
+#when
+'when' is just like `stop'  except that instead of  stopping when the
+conditions are met, the command_list (semicolon-separated dbx commands )
+is executed.  If one of the commands in the list is `stop' (with no operands)
+then the process will stop when the command_list is executed.
+
+when if <exp> {command_list} -
+                          execute command_list on every line executed for which
+                          <exp> is true.
+when  at <line> [if <exp>] {command_list} -
+                          execute the specified command list when the
+                          conditions are met at line <line>.
+when in <proc> [if <exp>] {command_list}  -
+                          execute the specified command list when the
+                          conditions are met in procedure <proc>.
+when <var> [at <line>] [if <exp>] {command_list} -
+                          execute the specified command list when the
+                          conditions are met.
+when <var> [in procedure] [if <exp>] {command_list} -
+                          execute the specified command list when the
+                          conditions are met.
+#.
+
+PRINT CURRENT STATE, SYMBOL TABLE INFORMATION and CHANGE STATE
+
+--
+All this section's commands take an
+additional phrase   'pid <pid>'.  See the Multiple Process
+Debugging section.
+--
+#clearcalls:ccall
+#ccall
+ccall <func>(<arg>,...)        - call a function in the program being
+                                 debugged with the given arguments.
+                                 C calling rules are used, so you must
+                                 provide special arguments, such as the
+                                 c++ 'this' pointer and Fortran array
+                                 length arguments explicitly. 
+                                 See EXPRESSIONS for further information.
+clearcalls                     - any stopped interactive calls (as reported
+                                 by the ``status'' command) are forgotten.
+                                 The interupted calls are abandoned.
+  Nested interactive calls, such as   "ccall  x(y())" do not work.
+  Instead, do
+        print y()
+        #note thevalue of y, say it is 4 (for example)
+        ccall x(4)
+  If you set a breakpoint in an interactive call and "cont" after
+  the breakpoint the function value and the rest of any expression
+  involved are ignored. For example "print y()" will not print a value
+  if a breakpoint is hit in y() or anything y() calls.
+
+  A stacktrace while in an interactive call will show a final entry of
+  something like:
+    _mcount(0x7fffaf34, 0x7fffaf3c, 0x0, 0x626c6168, 0x13) ["crt1text.s":145, 0x400840]
+  This is simply the base of the call stack in interactive calls. It is
+  not significant.
+
+#printf:print
+#print
+print <exp> , ...              - print the value of the expressions
+printd <exp> , ...             - print the value of the expressions using
+                                 decimal output.
+printo <exp> , ...             - print the value of the expressions using
+                                 octal output.
+printx <exp> , ...             - print the value of the expressions using
+                                 hexadecimal output.
+printf "string", <exp>, ...    - print expressions using format string(C)
+
+px                             - alias of printx
+pd                             - alias of printd
+po                             - alias of printo
+
+print and printf can evaluate most constant expressions even if there
+is no process being debugged.
+
+dbx variables affecting print (but not printo, printx, printd) are:
+$hexchars     - if != 0, output chars in hex, using the C format "%x "
+$hexints      - if != 0, output integers in hex and override $octints
+$octints      - if != 0, output integers in octal ($hexints=1 takes precedence)
+$hexdoubles   - if != 0, output floats and doubles in hex in addition
+                         to the normal float/double output
+The above do not affect the printing of pointer values:
+        $addrfmt and $addrfmt64 control the format of pointer value
+        printing.
+
+  printf("%d\n",$curline) 
+will not work because built-in integral dbx variables are 64-bits. Use
+  printf("%d\n",(int)$curline)
+or
+  printf("%lld\n",$curline)
+instead.   Always use casts on dbx variables in expressions that
+are sensitive to integer size (some printf formats are sensitive to size).
+
+If the <exp> involves an interactive call, see "help ccall" for further
+information on interactive calls.
+#printregs
+printregs                      - print all the register values
+#where
+where                          - print currently active procedures
+                                 (print stack trace)(see discussion below)
+                                 Also prints interactive call stack nesting
+                                 level if interactive calls are nested.
+                                 See interactive calls discussion
+                                 in the expressions section.
+t                              - an alias for "where"
+
+If you get output like the following, it means a signal has fired
+and the kernel has placed you  into _sigtramp which will call your
+signal handler.
+
+(dbx-example) n
+Process 25268 (alrm) stopped at [_sigtramp:48 +0x4,0xfb24de4]
+         Source (of sigtramp.s) not available for Process 25268
+(dbx-example) t
+Signal handler called due to signal.
+cannot seek to text segment address fffffffc: I/O error
+
+To get a true stack trace, use the "si" dbx alias several times
+(till a valid stack trace appears again with the where command).
+You will be in your signal-handler routine.
+
+#status
+status                         - print trace/stop's in effect
+#enable:disable
+#disable
+disable <int> [, ...]          - disable trace/when/stop without deleting
+enable <int> [, ...]           - enable disabled trace/when/stop
+#whereis:whatis
+#which:whatis
+#whatis
+whatis <name>                  - print the declaration of the name
+which <name>                   - print which version of name is being used
+whereis <name>                 - print all versions of name
+#assign
+assign <exp> = <exp>           - change program variable
+                                 If one has a pointer ``p'' on the left of
+                                 (as in ``char *p;'' in C for example)
+                                 then in ``assign p = 0'' dbx will complain
+                                 about incompatible types.
+                                 To set a pointer ``p''
+                                 to an integer value, 0 for example, do
+                                 ``assign *(int *)(&p) = 0''
+#down:up
+#up
+up                             - move up one activation level in the stack
+up <exp>                       - move up <exp> activation levels in the stack
+down                           - move down one activation level in stack
+down <exp>                     - move down <exp> activation levels in stack
+#func
+func                           - prints the current activation level
+func <exp>                     - move to <exp> activation level
+func <func>                    - move to activation level of function <func>
+                                 Move source focus to func <func> even if
+                                 <func> is not active.
+#dump
+dump                           - dump everything about current activation level
+dump .                         - dump everything about all activation levels
+dump <func>                    - dump everything about func
+#examine:display
+#display
+<exp>/<count><format>          - display <count> formatted memory items, in
+                                 increasing address (see ASSEMBLY DEBUGGING
+                                 below)(examine memory)
+<exp>?<count><format>          - display <count> formatted memory items, in
+                                 decreasing address (see ASSEMBLY DEBUGGING
+                                 below)(examine memory)
+
+For additional options and the format letters, try
+        help examineformat
+
+#mp
+MULTIPLE PROCESS DEBUGGING COMMANDS
+
+-- Ignore this section unless you are debugging a multiple-process
+-- application.  Programs calling winopen() are multiple-process applications.
+-- Examples of useful scripts are at the end of this file
+-- See also the ``pgrp'' clause, documented later under process_group
+
+-EXEC
+Whenever a process execv's or execve's it stops. You must continue it
+(or resume it) manually.
+
+-FORK
+Whenever a process forks, if $promptonfork is 0 the
+child is left to run freely and the parent is automatically
+continued.
+
+If $promptonfork is 2 both parent and child stop.
+
+If $promptonfork is 1, both parent and child stop and you are asked whether
+to add the child to the process pool. If you reply 'y', the child is added
+to the pool and left stopped. If you reply 'n', the child is let run
+free.  The parent is left stopped whether your reply is 'y' or 'n'.
+
+-SPROC
+Whenever a process sprocs, if $mp_program is 0 sproc is treated just like fork.
+If $mp_program is 1, the parent process continues while the child
+also continued (the child may or may not have been added to the process
+list and the pgrp (see PROCESS GROUP DEBUGGING) depending on $promptonfork).
+
+For mp FORTRAN programs, the standard settings you make should
+be "set $mp_program=1 " and "set $promptonfork=2" for simple source-level
+debugging.
+
+
+
+Whenever a numeric pid is required one can use a debugger
+variable instead. Example: 'kill pid $lastchild'.
+
+The commands addproc, delproc, active, showproc take a processid (pid).
+These 4 also allow a single 'pid <pid>'.
+
+addproc <pid> ...              - add process(es) <pid> to the process pool
+delproc <pid> ...              - delete process(es) <pid> from the process pool
+active                         - print the active process
+active <pid>                   - make process <pid> the active process
+showproc                       - show status of all processes in the pool
+showproc <pid>                 - show status of process <pid> if in the pool
+showproc all                   - show status of all processes able to trace
+
+Special debugger variables to help write multiple-process
+playback scripts which are independent of process id:
+$lastchild                     - always process id of the latest forked child
+$pid0                          - the process id of the 'Given' process
+Using variables fixed scripts can be used to control multiple
+processes (even though the pid's change from run to run).
+
+Many of the execution control commands (and assembly debugging commands)
+take a 'pid <pid>' clause which controls which process the command applies
+to but does not change the process considered 'current' (active).
+This makes the 'active <pid>' command unnecessary much of the time.
+
+Use of the 'active' command to make a process active when
+one is going to work exclusively with that process will save some typing.
+
+resume  pid <pid>               - resumes execution of the process <pid> but
+                                - does not wait for the process break
+                                - dbx reads the next command immediately.
+cont pid <pid>                  - continues the process and dbx waits for it
+                                - dbx reads no more commands until
+                                - the process stops or dbx is interrupted
+suspend pid <pid>               - suspends the process. The reverse of resume.
+waitall                         - waits for some process to breakpoint, finish,
+                                  or reach some other stopping point. Prints
+                                  its status and returns to the prompt.
+
+Caution is required when using interactive function calls of functions with
+breakpoints.  One should not run statements against a process other than
+the one in which the interactive call was breakpointed.  Ensure that
+interactive calls do not refer to functions with breakpoints when running
+multiple processes simultaneously.
+These restrictions are due to the fact that there is only one evaluation
+stack; that stack is used for evaluating dbx commands for all processes as
+well as for interactive function call nesting control.
+
+#pgrp:process_group
+#process_group
+PROCESS GROUP DEBUGGING FACILITIES
+
+
+-- This group of commands is primarily for programs using the sproc(2)
+-- system-call.  It can be used for normal multiple-processess programs
+-- also.
+
+The process group facility allows a group of processes to be operated
+on simultaneously by a single dbx command.  This is far more convenient
+to use (when dealing with sproced processes) than issuing individual
+resume, suspend, or breakpoint-setting commands.
+
+Whenever a process sproc()'s, if the child is added to the process pool
+the parent and child are added to group-list as well.  The group-list is
+a list of processes.
+
+If the ``pgrp'' clause  is added to the end of an applicable command, the
+command is applied to all the processes in the group.  This makes possible
+setting a breakpoint (for example) in several processes with one command.
+
+If $groupforktoo=1, then fork'd processes are added to the group automatically
+just as sproc'd processes are.
+
+The commands on which the ``pgrp'' clause can be applied are:
+
+stop[i] (stop operands)  pgrp    - set trace/breakpoint in all members
+next[i] (next operands)  pgrp    - single step all members
+trace[i](trace operands) pgrp    - set trace all members
+when    (when operands)  pgrp    - set trace all members
+list    (list operands)  pgrp    - show source all members
+resume           pgrp
+resume <signal>  pgrp
+suspend          pgrp
+status           pgrp
+delete  <number> pgrp            - <number> is taken as a group history No.
+
+The stop[i], next[i], trace[i], when commands set up a group history
+record and individual history traces/breakpoints in each group process.
+
+The following commands are only usable on the processes in the group-list
+
+addpgrp <pid> ...                - add the list of processes to the group
+delpgrp <pid> ...                - delete the list of processes from the group
+showpgrp                         - show the group process id's and the
+                                   group status (history events)
+
+
+The waitall command will wait for any child process to stop and will report
+its status.
+
+waitall                          - wait for some child to stop
+
+warnings:  If a command applying to  multiple processes errors-off
+the actions will be left partly done.
+
+It is ok to delete breakpoints individually -- even if they appear
+in the group-list.
+#delpgrp:addpgrp
+#waitall:addpgrp
+#showpgrp:addpgrp
+#addpgrp
+The following commands are only usable on the processes in the group-list
+
+addpgrp <pid> ...                - add the list of processes to the group
+delpgrp <pid> ...                - delete the list of processes from the group
+showpgrp                         - show the group process id's and the
+                                   group status (history events)
+
+
+The waitall command will wait for any child process to stop and will report
+its status.
+
+waitall                          - wait for some child to stop
+
+warnings:  If a command applying to  multiple processes errors-off
+the actions will be left partly done.
+#.
+
+SOURCE FILE LISTING and CURRENT SOURCE
+
+The edit, file, list, use, and directory commands allow an
+optional 'pid <pid>'.
+#list
+list <exp1>:<exp2>             - list source lines at <exp1> for <exp2> lines
+list <exp1>,<exp2>             - list source lines at <exp1> thru line <exp2>
+list <exp>                     - list lines at <exp> for $listwindow lines
+list                           - list at $cursrcline for $listwindow lines
+/<string>                      - look for string in current file
+?<string>                      - look (backward) for string in current file
+#tag
+tag <name>                     - search tag file for tag (see ctags(1))
+                                 Can find C preprocessor macros if they
+                                 have arguments (`func <name>' cannot).
+#edit
+edit                           - invoke editor on current file
+edit <file>                    - invoke editor on file
+edit <func>                    - invoke editor on file <func> is in
+#file
+file                           - print current file
+file <file>                    - change current file to file
+#directory:use
+#dir:use
+#use
+use                            - print list of source directories
+use <dir> ...                  - replace directory list with list <dir>...
+directory                      - print list of source directories
+directory <dir> ...             - add <dir>... to the list of directories
+#.
+
+
+MISCELLANEOUS FUNCTIONS (DEBUGGER CONTROL)
+
+#unset:set
+#set
+set                            - display all set variables and their values
+set <name> = <exp>             - define and assign <exp> to debugger variable
+                                 <name> must begin with $, as in $myvar
+unset <name>                   - undefine debugger variable
+#sh
+sh                             - create sub-shell to dbx
+sh <shell command>             - execute shell command
+                                 ; is taken as the end of the command
+                                 Outer "" around the shell command are honored
+                                 and are stripped before being passed to the
+                                 shell. Inner "", if any, must be escaped
+                                 with \.
+#corefile:givenfile
+#givenfile
+givenfile                      - displays the name of the program being dbx'd
+givenfile <name>               - sets program to debug, like 'dbx name'.
+                                 Kills the current running processes and
+                                 reads in <name>'s symbol table.
+corefile                       - displays the name of the core file. Says
+                                 if the corefile is currently used by dbx
+                                 to display program data.
+corefile   <core>              - identifies corefile name, like
+                                 'dbx name core'. Makes dbx use that core file
+                                 for program data
+#.
+#unsetenv:setenv
+#printenv:setenv
+#setenv
+These are for modifying/seeing the environment variable list in dbx.
+They take effect on the givenfile when the victim program is
+run or rerun.     This way one can have a set of environment
+variable in effect in the program being debugged without changing
+the environment in the shell used to start dbx.
+These commands have no effect whatever on the shell which was used
+to start dbx.
+
+The general approach is like that in csh(1), as is the output format.
+
+printenv                       - print environment variable list.
+unsetenv   x                   - remove x from the environment
+setenv                         - like printenv
+setenv     x                   - set x to an empty value
+setenv     x y                 - set x to y  (y not a dbx variable)
+setenv     x $y                - set x to be the value of the dbx variable $y
+setenv     x "anything at all" - set x to be the string. The quotes are 
+                                 stripped off.
+
+If environment variables variables PAGER or EDITOR are changed the effect
+on the running dbx is undefined (in other words, the new values may
+or may not affect the running dbx).
+#.
+
+
+ASSEMBLY DEBUGGING FACILITIES
+
+--
+All this section's commands take an additional phrase  'pid <pid>'.
+See the Multiple Process Debugging section above.
+--
+
+#stopi
+stopi and tracei have the same <var> and if <exp> clauses as stop and
+trace. The only difference is that they step and check on a machine-instruction
+level rather than a source statement level.
+
+stopi at                       - set a breakpoint at the current source line
+stopi [<var>] at <address>     - set a breakpoint at the address
+stopi [<var>] in <proc>        - set a breakpoint at the first
+                                 machine instruction of <proc> (`where' will
+                                 normally give incorrect output at such
+                                 a location! See the `where' discussion.)
+stopi [<var>] if <exp>         - test the value of <exp> at each machine
+                                 instruction and break if it evaluates to true
+stopi [<var>] at <address> if <exp> -
+                                 set a conditional breakpoint at the address
+stopi [<var>] in <proc> if <exp>  - set a conditional breakpoint at the first
+                                 machine instruction of <proc>
+
+There are interactions with dynamic shared objects here.
+        see also "help hint_dso"
+#conti
+conti <signal>                 - continue with signal <signal>
+conti at <address>             - continue until <address> is reached
+                                  (temporary breakpoint)
+conti to <address>             - same as 'conti at <address>'
+conti in <proc>                - continue until <proc> is reached
+conti <signal> at <address>    - continue with signal until <address>
+conti <signal> to <address>    - same as 'conti <signal> at <address>'
+conti <signal> in <proc>       - continue with signal until <proc>
+
+
+There are interactions with dynamic shared objects here.
+        see also "help hint_dso"
+#stepb:nexti
+#stepj:nexti
+#stepi:nexti
+#nexti
+stepi                          - single step 1 assembly instruction
+stepi <exp>                    - single step <exp> assembly instructions.
+                                 See  $printwhilestep
+stepj                          - single step until the next jump or
+                                 jal assembly instruction
+stepj <int>                    - single step until the next jump or
+                                 jal assembly instruction (<int times>)
+stepb <int>                    - single step until the next jump,
+                                 jal, or conditional branch
+                                 assembly instruction (<int times>)
+        (stepj <int> and stebp <int> are exactly like repeating stepj/stepb
+        <int> times. Unless you know where the code is going, use stepj/stepb
+        without the <int> to avoid surprises.)
+nexti                          - like stepi, but step over subroutine calls
+nexti <exp>                    - like stepi <exp>, but step over
+                                 subroutine calls
+$printwhilestep - if != 0, acts as if 'step[i] n' was 'step[i]' n times
+#tracei
+tracei [<var>] <exp>           - print <exp> when it changes
+tracei [<var>] <exp> at <address>  -
+                                 print <exp> when <address> is reached
+tracei [<var>] <exp> in <proc> - print <exp> when call <proc>
+                                 procedures below <proc> are stepped over
+                                 trace local-var in <proc> works
+                                 trace argument-var in <proc> does not work
+tracei [<var>] <exp> at <address> if <exp> -
+                                 print <exp> when at <address> and <exp>
+tracei [<var>] <exp> in <proc> if <exp> -
+                                 print <exp> when call <proc> and <exp>
+                                 procedures below <proc> are stepped over
+                                 trace local-var in <proc> works
+                                 trace argument-var in <proc> does not work
+There are interactions with dynamic shared objects here.
+        see also "help hint_dso"
+#wheni
+'wheni' is just like `stopi'  except that instead of  stopping when the
+conditions are met, the command_list (semicolon-separated dbx commands )
+is executed.  If one of the commands in the list is `stop' (with no operands)
+then the process will stop when the command_list is executed.
+
+wheni if <exp> {command_list} -
+                          execute command_list on every instruction
+                          executed for which <exp> is true.
+wheni  at <address> [if <exp>] {command_list} -
+                          execute the specified command list when the
+                          conditions are met at address <address>.
+wheni in <proc> [if <exp>] {command_list}  -
+                          execute the specified command list when the
+                          conditions are met in procedure <proc>.
+wheni <var> [at <address>] [if <exp>] {command_list} -
+                          execute the specified command list when the
+                          conditions are met.
+wheni <var> [in procedure] [if <exp>] {command_list} -
+                          execute the specified command list when the
+                          conditions are met.
+There are interactions with dynamic shared objects here.
+        see also "help hint_dso"
+#.
+
+
+
+EXAMINE MEMORY - ASSEMBLER-LEVEL
+#examineformat:displayformat
+#displayformat
+<exp>/<count><format>          - display <count> formatted memory items, in
+                                 increasing address
+<exp>,<count>/<format>         - same as above
+<exp>/<count>L <val> <mask>    - display <count> X-formatted memory items, in
+                                 increasing address where <mask> or'd with
+                                 memory-data equals <val>
+<exp>,<count>/L <val> <mask>   - same as above
+./                             - repeat previous command, with increasing
+                                 address
+<exp>?<count><format>          - display <count> formatted memory items, in
+                                 decreasing address
+<exp>,<count>/<format>         - same as above
+<exp>,<count>/L <val> <mask>   - display <count> X-formatted memory items, in
+                                 decreasing address where <mask> or'd with
+                                 memory-data equals <val>
+<exp>,<count>/L <val> <mask>   - same as above
+.?                             - repeat previous command, with decreasing
+                                 address
+
+format characters available      meaning of the format character
+        d                      - print 16-bits in signed decimal
+        D                      - print 32-bits in signed decimal
+        dd                     - print 64-bits in signed decimal
+        v                      - print 16-bits in unsigned decimal
+        V                      - print 32-bits in unsigned decimal
+        vv                     - print 64-bits in unsigned decimal
+          (u,U,uu would have been better than v,V,vv, but dbx understands
+           12u to mean an ANSI C unsigned integer value 12. So, 'v' instead)
+        o                      - print 16-bits in octal
+        O                      - print 32-bits in octal
+        oo                     - print 64-bits in octal
+        x                      - print 16-bits in hexadecimal
+        X                      - print 32-bits in hexadecimal
+        xx                     - print 64-bits in hexadecimal
+        L                      - like X but use with <val> <mask>
+        b                      - print 8-bits in octal
+        c                      - print 8-bits as a character
+        s                      - print a string of characters that ends in
+                                 a null byte
+        f                      - print 32-bit floating point value.
+        g                      - print 64-bit floating point value
+        i                      - print machine instructions (disassemble)
+
+Examples:
+        $pc-20/20i             - prints 20 disassembled machine instructions
+                                 starting at the current pc - 20.
+        0x400200/100L 0xee 0xff
+                                 prints those 32-bit long-words starting at
+                                 0x400200 whose least significant byte is
+                                 hexadecimal ee. Examines 100 long-words.
+
+#.
+
+DEBUGGER VARIABLES
+#$variables
+
+In expressions, built-in integral debugger variables are 
+64-bit quantities, regardless of context. In expressions with dbx
+variables (built-in or not), use casts to ensure the value has
+the size you need (in contexts where this matters, such as printf).
+
+$addrfmt      - C format for address printing ( $pc, $pc of source line,
+                $pc offset of instruction in procedure). For 32bit programs.
+$addrfmt64    - C format for address printing ( $pc, $pc of source line,
+                $pc offset of instruction in procedure). For 64bit programs.
+$casesense    - if 1 case sensitive; 0 insensitive. if 2, depends on language
+$ctypenames   - 1 (default) means words ``unsigned short long int char
+                struct union enum'' are keywords usable only in type-casts.
+                if 0, struct union enum are ordinary words with no pre-defined
+                meaning (in C modules the others are still known
+                as C types)
+$curevent     - current event id for trace/stop/when. See also $newevent
+$curline      - is the current line number for execution
+$curpc        - current program counter
+$cursrcline   - current source listing line
+$defaultin    - default record input filename if none specified in
+                playback input or record input
+$defaultout   - default record output filename if none specified in playback
+                output or record output
+$editor       - the name of the editor to invoke (with 'edit' command)
+                defaults to value of EDITOR environment variable.
+                If EDITOR missing, defaults to "vi".
+$framereg     - if 1(the default) registers printed in disassemblies
+                and assigned-to in assign statements
+                are with respect to the current frame.
+                if 0, the hardware registers (the registers of
+                frame/activation level 0) are printed/assigned to.
+$groupforktoo - default 0, only sproc'd procs added to grouplist automatically
+                if 1 then fork'd & sproc'd procs added to grouplist
+$hexchars     - if != 0, output chars in hex, using the C format "%x "
+$hexin        - if != 0, input constants are assumed in hex
+                However aa is taken as a variable name, not a constant:
+                type hex constants beginning with a letter a-f with
+                a leading 0.  Example:  0aa
+                When $hexin is non-zero, 0aa is not taken as octal (and
+                there is no way to input octal with $hexin set non-zero).
+$hexints      - if != 0, output integers in hex and override $octints
+$hexstrings   - if != 0, output strings and arrays in hex.
+                Applies to C, C++ strings and character arrays only.
+                For char arrays if $hexstrings != 0
+                the null byte is not taken as a terminator.
+                Instead, the whole array (or $maxlen values, whichever
+                is less) is printed.
+                If $hexstrings is 0 then a null byte in an array is taken
+                as the end of the array (the length of the array and
+                $maxstrlen can terminate the array print before a null
+                byte is found).
+                if !=0 and you print a char pointer (as with a C pointer) then
+                only the pointer prints (not the character string).
+$historyevent - current history line number
+$lastchild    - is the process id of the last child forked/sproced
+$lines        - Number of lines in history list (initially 100)
+$listwindow   - list command size
+$maxstrlen    - maximum length printed for zero terminated char strings
+                and arrays.  Char arrays are printed for array-length or
+                $maxstrlen bytes or up to a null byte, whichever comes first.
+                But see also $hexstrings.
+                Applies to C, C++ strings and character arrays only.
+$mp_program   - if 0 (the default), sproc is treated like fork.
+                If 1, SPROC is treated specially.  The children are
+                allowed to run (they will block on multi-processor
+                synchronization code emitted by mp FORTRAN). Set this
+                to 1 only if the code being run is mp FORTRAN code.
+                Set at 1, mp FORTRAN code is easier to work with.
+                See MULTIPLE PROCESS DEBUGGING for more details (below)
+$newevent     - After every command creating an event (breakpoint etc)
+                this is set to the event's number.  This is primarily
+                useful in writing event-number-independent scripts.
+$newrecord     - After every command creating a record-file ( record input,
+                record output) this is set to the record number which
+                can be used in an unrecord command.  This is primarily
+                useful in writing record-number-independent scripts.
+$octin        - if != 0, input constants are assumed in octal
+                $hexin overrides $octin
+$octints      - if != 0, output integers in octal ($hexints=1 takes precedence)
+$page         - if != 0 then page screen output
+$pager        - The name of the program used to display help information.
+$pagewindow   - size (length in lines) of page for paging
+                This controls when the ``More or n?'' prompt is displayed.
+$pagewidth    - width of window in characters (assumes fixed width font).
+                Used by dbx to calculate how many screen lines are output.
+                dbx never inserts newlines. The window software wraps the
+                lines.
+$pid          - set current process for kernel debugging (-k)
+$pid0         - is the process id of the givenprocess
+$piaddtohist  - If 1 (the default) commands read in from files (as with
+                ``playback input'') are put in history.
+                If 0 the commands read in from files are not put in
+                history.
+$pimode       - if 1 'playback input' prints commands as they are played
+                back.
+$printdata    - if != 0, print register contents when disassembling
+$printwhilestep - if != 0, acts as if 'step[i] n' was 'step[i]' n times
+$printwide    - if != 0 print compactly (wide). If 0 print arrays one
+                element per line
+$procaddr     - Only applies to dbx -k on unix core dumps.
+                Whenever $pid is set, dbx sets $procaddr to the address of
+                the process table entry for that process.
+$proginstsread - The count of machine instructions which have been read so
+                far in disassembling function prologs to get a correct
+                stack traceback.  If $assumenormalframe is 1, $proginstsread
+                does not change because no disassembly of prologs ocurrs.
+$prologanalysis - If 0 (default) dbx is silent about what it finds in
+                function prologs.
+                If 1, when a function prolog is disassembled, various
+                notes are printed showing certain characteristics about
+                the function prolog.  Mainly of interest if dbx is
+                misunderstanding a function prolog.
+$prompt       - prompt string
+$promptonfork - if 1 prompt user to add child process to pool on fork;
+                The reply is taken from the current input file (which may be
+                the screen).
+                if 0, child not added to pool.  if 2, child added to pool.
+                If 0, the running process does not stop on a fork or sproc.
+                Exec always stops the running process.
+$regstyle     - if == 0 use hardware names for registers when disassembling
+                Defaults to 1, meaning use 'compiler names' when disassembling.
+$repeatmode   - if != 0 null line repeats last command
+
+$showbreakaddrs - If != 0 show the address of each breakpoint placed in
+                the code each time it is placed.  Removal of the breakpoints
+                is not shown.  If multiple breakpoints are placed at one
+                location only one of the placements is shown.
+                Since breakpoints are frequently placed and removed by
+                dbx, the volume of output can be annoying when tracing.
+                If > 1, dbx shows addresses where breakpoints are removed
+                too.
+$showfilename - If 0, step, next, other stops don't show the source file name
+                in the stopped message.
+                If 1, just the base file name shows.
+                If 2, the full path shows.
+$sourcepathrule - If 0 (default), use file path information from the debugging 
+                information to look for source file before applying dir/use.
+		If 1, apply dir/use remapping and directory searches before
+                using the file path from the debugging information.
+                1 is useful if the -g compilation was done on older source that
+                was moved while newer source has the full path name given
+                in the debug information. Use the dir/use : path remapping
+                facility to get the debugger to look at the right source.
+$tagfile      - string with name of file searched for tags. Defaults
+                to "tags". See ctags(1).
+
+#registers
+REGISTER ALIASES
+
+$pc    - current user pc
+$sp    - current value of stack pointer
+$rn    - register n
+$fn    - single precision floating point register
+$dn    - double precision floating point register
+$mmhi  - most significant multiply/divide result register
+$mmlo  - least significant multiply/device result register
+$fcsr  - floating point control and status register
+$feir  - floating point exception instruction register
+$cause - exception cause register
+
+(The following is correct for 32bit abi programs)
+                Alternate
+Alias           Alias         Description
+
+$r0             $zero         always 0
+$r1             $at           reserved for assembler
+$r2..$r3        $v0..$v1      expression evaluations, static links, returned
+                              values
+$r4..$r7        $a0..$a3      arguments
+$r8..$r15       $t0..$t7      temporaries
+$r16..$r23      $s0..$s7      saved across procedure calls
+$r24..$r25      $t8..$t9      temporaries
+$r26..$r27      $k0..$k1      reserved for kernel
+$r28            $gp           global pointer
+$r29            $sp           stack pointer
+$r30            $s8           saved across procedure calls
+$r31            $ra           return address
+
+BUILT-IN DATA TYPES AND CONSTANTS
+#builtin
+false = 0       false and true values
+true  = 1
+nil   = 0       Nil
+#.
+
+KEYWORDS USED BY DBX WHICH CONFLICT WITH VARIABLE NAMES
+#keywords
+The following are keywords to dbx which will cause a minor problem
+if they match a variable name in your program.
+
+  and at div if in mod not or pgrp pid sizeof to xor
+
+  signed unsigned short long int char struct union enum
+
+The second line of keywords is used for C casts and can be turned off
+with  set $ctypenames=0     See the "C type-casts"  section below.
+
+  Example showing how to avoid the problem:
+  print and            prints "syntax error"
+  print (and)          prints the value of the variable "and"
+#.
+SIGNALS  - catch and ignore
+#signals
+The signals have the names as listed on the signal(2) man page.
+They can be abbreviated by leaving off the "sig" portion and
+dbx ignores case on the signal names.  The signal numbers may also
+be used.
+        dbx itself obeys (does not catch)
+                SIGSTOP SIGTSTP SIGCONT SIGTTIN SIGTTOU
+        (they are used for ^Z handling in csh).
+
+        Using dbx to debug a program (such as a shell) that manipulates
+        signals can be difficult or impossible.
+
+Debugging a program that attempts to catch signals can be awkward if you
+catch the signal in dbx.  For example, if program P wants to catch SIGFPE's
+and you "catch sigfpe" in dbx, then you must, after dbx sees the signal
+"ignore sigfpe" to allow program P to see the signal when you "cont
+sigfpe".  Having ignored the signal, you have to get control in dbx again
+(the best way would be to set breakpoints *before* doing the "cont") to
+re-do the "catch sigfpe" if you wish catch floating-point exceptions.
+#.
+
+COMMENTS
+#comment
+In scripts, the # character introduces a comment.  The comment ends at the
+end of the current line of the script.   A comment may begin anywhere in
+a script.
+
+In interactive input, there is no comment character; one cannot type a
+comment interactively (with dbx -i script files input to dbx are treated
+as if they were interactive input).
+#.
+
+EXPRESSIONS
+#expressions
+Each of these returns the address of a source line:
+ "file" #exp          using the specified sourcefile
+ procedure #exp       using the procedure to specify the source file
+ #exp                   using the current source file
+ Example:        px #28              prints the address of line 28 in hex
+ In taking input from a script, the # is treated as the beginning of
+ a comment.  To use # to indicate a line number in a script, double up the #.
+ Example:       px ##28              like the above example, but from a script
+
+#cplusplus_names
+C++ 2.0 function names:
+One refers to functions with their source name
+        class::func
+and for globals:
+        ::func     (etc)
+and for special functions:
+        class::new
+        class::delete
+        class::class  (constructor)
+        class::~class (destructor)
+        class::+      (example of overloaded operator)
+No spaces are allowed in the name between the first: and the end of the
+name.  Any command in which one of these appears is replicated by the
+number of occurrences of the name.  If class::func has two versions, ``stop
+in class::func'' will be expanded into two ``stop'' commands, each
+referring to one of the functions.  ``status'' will show each generated
+command.
+
+
+#modules
+Module names:
+
+ One can have difficulty with some commands when trying to prefix with
+ the module name (which is created from the file name).
+        file main.c with function c which has variable i:
+        print main.c.i         # gets `"c" is not defined in main.main'
+        print .main.c.i        # gets the value of i or `i is not active'
+                               # (depending on whether function c is active)
+
+ The problem is that the name1.name2 syntax is heavily overloaded.
+ The initial part of the name can be any of:
+        function name
+        procedure name
+        global structure or pointer.
+ A subsequent part can be either:
+        a function name  (as in file.func)
+        a procedure name (as in Pascal nested procedures, where
+                proc1.proc2.proc3.var makes sense)
+        a struct/union/class member.
+        a local variable
+        a file-static (C, C++) variable
+
+ The solution for the example above is in the second `print' above:
+ prepend a `.', which informs dbx that the leading name is a `module'
+ name, not a function or variable.
+#interactive_call
+Interactive Function calls:
+ One can call functions in the process of interest interactively in
+ expressions.  If the function returns an integer or
+ floating-point-precision result, the returned value can be used in
+ computations. For example:
+             print  24 << myfunc(xp)
+ Procedures (ie functions returning void in C) should be executed with the
+ ccall command, which does not require a return-value.
+
+ String arguments may be used, as in
+        print strcmp("abcd",strp)
+ If there are breakpoints taken in a function called interactively, the
+ value returned by the function is lost and the computation following the
+ function-return is ignored.
+
+ Structure arguments and structure return values are not supported.
+ Function/procedure calls with arguments computed by nested function calls
+ are not supported in this version of dbx.
+
+ C calling rules are used, so you must provide special arguments, such as the
+ c++ 'this' pointer and Fortran array length arguments explicitly.
+
+ One can have breakpoints in a function called interactively. It is up to
+ you to eventually return.   Any stack trace (``where'' command) done
+ while stopped in a routine executed interactively shows functions up to
+ the interactive call with a line
+        <stopped in interactive call>
+ as the end marker of the local interactive call stack.
+
+ Interactive calls nest properly. This means that if one has one or more
+ breakpoints in a function and you call that function repeatedly, each
+ interactive call is `stacked' on top of the previous.
+ The ``where'' command reports on the
+ depth of nesting, if there is any nesting.
+ Unstack the calls by completing the call (``cont'', ``return'' ``next'' or
+ ``step'') as many times as necessary.
+ Or use the command ``clearcalls''.
+ Or ``rerun'' the program being debugged.
+
+
+ Your breakpoints in functions called interactively do not respect the nesting.
+ This can cause you confusion if you attempt to have various breakpoints at
+ different nesting levels since it does not work; breakpoints are all
+ effectively at one level and are all always active.
+
+ Only one level of activation stack is visible at a time; in an interactive
+ call the stack trace of the hidden levels is invisible to you and to
+ dbx.  This can provoke
+                  ``<variable> is not visible''
+ messages if one is actively tracing (example: you are in foo() and a
+ ``stop in foo if z == 5'' command is in effect) and one does an
+ interactive call.  Delete such a ``stop'' to stop the messages --
+ and re-enter the ``stop'' once out of the interactive call if you wish
+ to reactivate the ``stop''.
+
+ Since there is only one evaluation stack in dbx, one should not activate
+ another process while in a breakpointed interactive call.  Doing so may
+ confuse dbx and you and lead to the
+  ``internal error: stack_base_index -1. problem with interactive call in dbx''
+ message.
+
+
+#casts
+C type-casts:
+ The following words are keywords for type casts:
+  ``signed unsigned short long int char struct union enum float double''
+
+ Most C casts now work in the expected way. The only exceptions are casting
+ values to or from float or double, which do not work usefully.
+ Example: print *(struct mystruct *)(0x10000e70)
+
+ If you ``set $ctypenames=0'' the type cast keywords disappear (so the
+ keywords don't get in the way of debugging non-C programs) (Note that
+ ``unsigned long int short char'' are still types when debugging C modules
+ even if $ctypenames is 0).
+
+ Note also that by default, ``char'' types are unsigned, so a (char) cast is
+ to an unsigned type. set $charisunsigned=0 to change the type of (char)
+ casts to signed.
+
+C++ casts:
+ In c++, you must use C terminology for the moment.
+ That is, if base is a class, (base *) is not accepted while
+ (struct base *) is accepted.  Hopefully this can be fixed at some point.
+
+#pointers
+dbx uses C-like pointer arithmetic with pointers. For example, if
+Z is a pointer-to-long whose address is 0x1000,   Z+2 evaluates
+to 0x1000 + (2*sizeof(long)) or 0x1008.
+
+If the pointer in the expression is a pointer-to-function, there is
+no 'natural size'.  dbx interprets the 'sizeof' as 'size of an instruction'
+so that if foo is a function at address 0x2000, foo+2 evaluates
+to 0x2000+(2*4), or 0x2008. As if foo was 'pointer-to-instruction'
+though there is no such type, really.
+
+->, ^, and . can be used nearly interchangeably for structure data
+references and pointer dereferences.  In future this should be changed
+to refect language usage precisely, so that x^.b and x.b are
+different (similarly for C).  Write scripts with pointers and structure
+references as much like your language as dbx allows so that future changes
+don't break your scripts.
+
+#strings
+Strings:
+ In general, dbx recognizes  \\, \n, \r, \f, \b, \t, \', and \" escapes
+ in quoted strings as in standard C language usage.
+ The escapes (\) and the surrounding quotes are stripped
+ while creating the internal representation of the string.
+ The " character is normally used to quote strings. However dbx
+ recognizes ' as well.
+#.
+
+DEBUGGER OPERATORS
+#operators
+div:  a binary operator which coerces its operands to int before dividing.
+or:   a binary logical operator returning true if either operand non zero
+not:  a unary operator returning false if the operand is true
+xor:  a binary operator returning the exclusive OR of its operands
+mod:  a binary operator op1 modulo op2. The same as C  %
+^  :  the Pascal pointer operator, not C exclusive-or
+//:   divide (do not use /, / is not usable for divide).
+
+C LANGUAGE - UNARY     ! & + - * sizeof()
+C LANGUAGE - BINARY    % << >> == <= >= != < > & && | || + - * // [] -> .
+                       (xor instead of ^  is used for exclusive or)
+
+PASCAL - UNARY         not ^ + -
+PASCAL - BINARY        mod = <= >= <> < > and or + - * // div [] .
+
+FORTRAN - UNARY        + -
+FORTRAN - BINARY       + - * //
+                        (note FORTRAN array subscripting must use [] not ())
+
+  #<int>               The address of line <int> in interactive dbx use.
+  ##<int>              The address of line <int> in a dbx script.
+
+
+EXAMPLES (HINTS):
+#hints
+To have the script shown on the screen as it is executed
+        set $pimode = 1
+(which can be done in the script itself)
+
+---- Interactive function calls provide a powerful way to
+set breakpoints.
+
+Say function foo has an C string argument s and an integer
+argument i.  Then to stop when s is "abc" and i is 24, issue
+the commands:
+
+    stop in foo if i == 24 &&  strcmp("abc",s) == 0
+    r        # or continue (whatever is appropriate)
+
+Additional hints and examples are  hint_*. For example,
+        help hint_alias
+
+#hint_alias
+---- Aliases with internal quotes must use escapes
+
+    # printing a float/double with your own choice of size
+    alias mypflt(v)  "printf \"%6.18f\\n\",v"
+    mypflt(44.551234567)    # example using the alias
+
+---- Aliases and casts as a way to follow linked lists easily
+Say one has a linked list with ``next'' pointers and a pointer to
+contents of the linked list.
+        struct list { struct list *next; int *elt ; } *mylist;
+
+    set $pimode=1
+    #set up alias's for following the list
+    alias foll(p) "px ((struct list *) p)->next ; px ((struct list *)p)->elt"
+    alias show(t,p) "print *(t *) (p)"
+    # then , an initial list element is  pointed to by mylist:
+    # use the following to print the first  element and its contents
+    # where I assume one knows the contents somehow
+    foll(mylist)
+    #using the ``elt'' address printed (assume it is 0x123)
+    #and assuming I believe the element is a pointer to a ``struct something'':
+    show(struct something,0x123)
+    #using the ``next'' address printed (assume it was 0x345)
+    foll(0x345)
+    # which shows the next list structure.
+    # And so on.
+
+A similar scheme which has the alias remember what the last pointer is:
+
+    # Assume we know the address of an element of the list is at 0x1234
+    set $p = 0x1234
+    # Aliases, including ``folly'' below,  must be defined on one line;
+    # what looks like two lines is just one line wrapped around.
+    # The cast to int in the ``set $p = '' is essential! If left off
+    # dbx will leave the $p reference symbolic and dbx will get into
+    # an infinite loop (Use ^C (your interrupt key) to get out of trouble
+    # if you get into the infinite loop).
+    # Of course $p is an arbitrary choice. Use any name you choose.
+    # The name is not required to start with $, though starting with $ is
+    # a good idea since the name won't conflict with program variable names.
+    alias folly "print *(struct list *)$p ;  set $p =
+                  (int)((struct list *)($p))->next"
+    #
+    # then each time one types ``folly'' one sees the next element printed...
+    folly
+    folly
+    set $repeatmode=1
+    # now after the initial ``folly'' simply pressing return will print
+    # the next list entry
+    folly
+#.
+
+#hint_winopen_debug
+---- Window process debugging
+A process that calls winopen() forks unless foreground()is called.
+To debug such a process, the following script may be a useful starting point.
+
+    set $pimode = 1
+    #ensure child added to pool
+    set $promptonfork=2
+    #run up thru fork()
+    run
+    # assume we have stopped at the winopen() fork()
+    set $wpid = $lastchild
+    # set the interesting process as the one commands apply to
+    active $wpid
+    # now can "cont" the process, or set breakpoints, or ?
+    #
+    # A script is a good place to set breakpoints as breakpoints set in
+    # the child are forgotten when you re-run the givenprocess.
+    # remember that control-c
+    # affects only dbx, not the child process we are continuing.
+    # use "suspend" to halt the window process
+
+
+#hint_mp_debug
+---- Other complex multiple process debugging
+To debug such a processes, the following script may be a useful starting point.
+This script assumes we know ahead of time the sequence of operations of
+interest.  You might try using the record and unrecord commands to save
+an interactive session which "got to the right point" as the basis for
+a script such as the one that follows.
+
+You can "continue" only one process.
+You can "resume" several processes at a time.
+You can only see you are stopped at a breakpoint when you "wait" on a process
+There is currently no support for starting several processes and waiting
+for whatever happens next.
+
+Assume we want to control all children:
+
+    set $pimode = 1
+    #ensure child added to pool
+    set $promptonfork=2
+    #run up thru fork()
+    run
+    # assume we have stopped at the fork()
+    set $chld1 = $lastchild
+    # run to exec()
+    cont pid $chld1
+    # assume fork is next
+    cont pid $chld1
+    # on fork note process id
+    set $chld2 = $lastchild
+    # set breakpoints in the program
+    # and so on.
+    # now can "cont" the process, or set breakpoints, or ?
+    # remember that control-c
+    # affects only dbx, not the child process we are continuing.
+    # use "suspend pid <pid>" to halt process <pid>
+    # The script ends here. Begin interactive debugging.
+
+Assume we want to control only some children:
+
+    set $pimode = 1
+    #ensure child added to pool
+    set $promptonfork=1
+    #run up thru fork()
+    run
+    n
+    # n  answered "Add child to process pool (n if no)?"
+    # for example if this process is really a popen and not interesting.
+    #continue executing the active process:
+    # up through "interesting" fork
+    cont
+    y
+    #remember the pid
+    set $child1 = $lastchild
+    # run up to another fork()
+    cont pid $pid0
+    # remember another child
+    set $child2 = $lastchild
+    # set breakpoints in the various processes
+    # function names, variables, etc are evaluated in the context of
+    # the process named
+    stop at func7 pid $child1
+    stop at func8 pid $child2
+    # and so on.
+    # now can "cont" a process, or set breakpoints, or ?
+    # remember that control-c
+    # affects only dbx, not the child process we are continuing.
+    # use "suspend pic <pid>" to halt process <pid>
+    #
+    #
+    # The script ends here. Begin interactive debugging.
+
+#hint_dbx_bugs
+DBX BUGS
+The interaction of commands like ``stop in foo if x > 5'' with
+the next and step commands can be counterintuitive.  For example,
+if function foo2 was not compiled -g but has line numbers in the binary
+and foo calls foo2  then foo2 may stop with ``x not active''.
+This bug will be fixed in a future version of dbx.
+Compiling all your code with -g (while debugging) will eliminate
+most surprises.
+#.
+
+#hint_dso
+dso stands for Dynamic Shared Object and is the replacement for
+static shared libraries from previous releases.
+dbx automatically notices dso's in use in an application and
+picks up the relevant symbol table information.
+
+The command 'listobj' shows any dso's in a process.
+That command and the dbx variable $printobjname are documented on
+the  listobj help section.  Try "help listobj"
+
+When a program is run or rerun under dbx, dbx by default runs the
+application up to main (or MAIN__ if Fortran).  This is so rld(1) will
+have finished setting up the application and its dynamic shared objects
+(if any).
+
+If $debugrld is non-zero (it defaults to 0 unless
+the dbx -R option is on the dbx command line, in which case
+$debugrld defaults to 1) then dbx stops at mmap(2) syscall exit
+and allows effective setting of breakpoints in dso init code.
+In addition, the symbols in rld(1) are visible if $debugrld is non-zero.
+If $debugrld is 0, rld(1) symbols are invisible and it is
+impossible to set breakpoints in dso initialization procedures.
+
+When a running application exec(2)s to become a new application
+using dynamic shared objects,
+  dbx automatically also runs the application to main (or MAIN__
+  if Fortran).  The result is that the new application stops at
+  main (or MAIN__) rather than at the exit of the exec(2) system call.
+  This is to ensure that rld(1) has finished setting up the application
+  and its dynamic shared objects.
+
+When a running application exec(2)s to become a new application
+NOT using dynamic shared objects,
+  the application is stopped at the exit of the exec(2) system call.
+
+If the dbx variable $onexecruntomain is 0 when a dbx'd application
+exec's then the application stops at the exit of the system call
+regardless of whether it uses dynamic shared objects or not.
+
+The name "Main" is special and no dso may be so named because rld(1)
+uses that name where it does not know the name and dbx depends on
+knowing this to avoid an annoying warning.
+
+Assembly-level debugging is somewhat more difficult with programs using
+dso's.  Calls are turned into register relative jumps (so disassembly
+no longer shows name of the jump target.  If you do "stopi at foo" the
+breakpoint at foo will ONLY be hit if the "gp prolog" (special
+instructions at the beginning of the routine to implement dso's) are
+actually executed.   Within a particular 'object' they may NOT be
+executed.  So even if foo is called, "stopi at foo" may not be
+effective. Be sure to insert a "stop in foo" or disassemble function
+and put the breakpoint AFTER the gp_prolog.  This affects "stopi at",
+"tracei at", "wheni at" and "conti at".
+
+#.
+#interrupt
+If one presses the interrupt key (usually Control-C) while running
+a process under dbx what happens depends on various things.
+
+If the process is in the same IRIX process group, the SIGINT
+signal is sent to dbx and the process.
+    dbx stops and the running process stops. You
+    are left at the dbx command line.
+
+If the process is not in the same IRIX process group, the SIGINT
+signal is sent to dbx but NOT to the process.
+    dbx stops but the process does not.  'showproc'
+    will show the process as 'running'. Use
+    'suspend' to stop the process.  If you attempt
+    a traceback or any other command requiring that
+    the process be stopped it will be automatically
+    stopped by dbx.
+
+When is a process NOT in the same IRIX process group as dbx?
+
+   If the process was added via addproc, dbx -P or dbx -p
+   it is not in the same IRIX process group as dbx.
+
+   setpgrp() and fork(), in the 'appropriate' sequence will
+   switch a process  to an independent IRIX process group.
+
+
+#.
+
+THIS FILE:
+#hint_help_file
+This file is
+    /usr/lib/gnome.help
+and is a simple text file.
+
+When you do "help all" dbx uses the value of $pager as the name of a
+pager-program to control the output of /usr/lib/gnome.help.
+
+When you do some other help command, the dbx pager is used.
+
+"help help" for details on the help command.
+
+dbx looks for special tokens in this file to create the list of
+commands that the plain "help" command shows.
+
+  At the beginning of a line:
+    #a
+        a shows up in the list of help topics.
+        "help a" shows all lines following the #a up to the next
+        line beginning with a "#" character.
+
+    #.
+        Ends display line of the previous topic.
+
+    #a:b
+        Creates "a" as a synonym for "b". Both show as topics and
+        both topics show the same text.
+
+The above format may well change from release to release.

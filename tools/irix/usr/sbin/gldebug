@@ -1,0 +1,124 @@
+#!/bin/sh
+#
+#**************************************************************************
+#*                                                                        *
+#*               Copyright (C) 1990,1991 Silicon Graphics, Inc.           *
+#*                                                                        *
+#*  These coded instructions, statements, and computer programs  contain  *
+#*  unpublished  proprietary  information of Silicon Graphics, Inc., and  *
+#*  are protected by Federal copyright law.  They  may  not be disclosed  *
+#*  to  third  parties  or copied or duplicated in any form, in whole or  *
+#*  in part, without the prior written consent of Silicon Graphics, Inc.  *
+#*                                                                        *
+#**************************************************************************
+#
+#
+#	gldebug - runs a program with the gldebug shared library
+#
+#	Author: David Mott,Dave Immel
+#
+#
+
+usage()
+{
+	echo "  gldebug [-hwefcsFCO][-p wait][-i filename][-o filename] application [app-options]"
+	echo " "
+	echo "	    -h 		: no history output"
+	echo "	    -w 		: no warning output"
+	echo "	    -e 		: no error output"
+	echo "	    -f 		: no fatal error output"
+	echo "	    -c 		: don't run controller"
+	echo "	    -s 		: don't run state view"
+	echo "	    -F 		: flush output buffer to history after each gl call"
+	echo "	    -C 		: generate C code"
+	echo "	    -p wait	: profile (output # times each gl func is called)"
+	echo "			  wait is # of GL calls wait between each profile write to disk"
+	echo "	    -i filename : ignore debugging the routines listed in filename"
+	echo "	    -o filename : output history to filename"
+	echo "	    -O		: output history to stdout (this overrides the -o filename)"
+	echo " "
+	echo "  note that application options come at the end of the command line"
+}
+
+# if there are no remaining arguments, output the usage message
+if test $# = 0
+then
+    usage
+    exit 1
+fi
+
+
+# these are all exported below!
+# if you add one, make sure it gets exported!
+GLDEBUG_NOHISTORY=FALSE
+GLDEBUG_NOWARNING=FALSE
+GLDEBUG_NOERROR=FALSE
+GLDEBUG_NOFATAL=FALSE
+GLDEBUG_NOCONTROLLER=FALSE
+GLDEBUG_NOSTATEVIEW=FALSE
+GLDEBUG_FLUSHEVERYTHING=FALSE
+GLDEBUG_IGNOREFILE=""
+GLDEBUG_GENERATE_C=FALSE
+GLDEBUG_PROFILETIME=""
+GLDEBUG_OUTPUTFILE="GLdebug.history"
+GLDEUBG_USESTDOUT=FALSE
+GLDEBUG_PCS=FALSE
+
+#
+# -d is an undocumented way for 4Dbug to work with gldebug
+
+while getopts hwefcsFCdp:xi:o:O c
+do
+	case $c in
+	h)	GLDEBUG_NOHISTORY=TRUE;;
+	w)	GLDEBUG_NOWARNING=TRUE;;
+	e)	GLDEBUG_NOERROR=TRUE;;
+	f)	GLDEBUG_NOFATAL=TRUE;;
+	c)	GLDEBUG_NOCONTROLLER=TRUE;;
+	s)	GLDEBUG_NOSTATEVIEW=TRUE;;
+	F)	GLDEBUG_FLUSHEVERYTHING=TRUE;;
+	C)	GLDEBUG_GENERATE_C=TRUE;;
+	d)	GLDEBUG_PCS=TRUE;;
+	p)	GLDEBUG_PROFILETIME=$OPTARG;;
+	i)	GLDEBUG_IGNOREFILE=$OPTARG;;
+	o)	GLDEBUG_OUTPUTFILE=$OPTARG;;
+	O)	GLDEBUG_USESTDOUT=TRUE;;
+	esac
+done
+
+shift `expr $OPTIND - 1`
+
+#
+# convert to debug version
+#
+appname=$1
+fullpath=`which $appname` >/dev/null
+file $fullpath | grep "MIPSEB COFF" >/dev/null
+if [ $? = "0" ]
+then
+    echo "Error: The file \""$fullpath"\" is an IRIX 4.x executable (COFF)."
+    echo "Error: IRIX 5.x gldebug no longer supports IRIX 4.x executables."
+    echo "Error: See the gldebug(1) man page, NOTES section, for more information."
+    exit 255
+fi
+
+shift 1
+
+# export all the command line arguments to gldebug
+export GLDEBUG_NOHISTORY GLDEBUG_NOWARNING GLDEBUG_NOERROR GLDEBUG_NOFATAL
+export GLDEBUG_NOCONTROLLER GLDEBUG_NOSTATEVIEW
+export GLDEBUG_FLUSHEVERYTHING GLDEBUG_IGNOREFILE GLDEBUG_GENERATE_C
+export GLDEBUG_PROFILETIME GLDEBUG_OUTPUTFILE GLDEBUG_USESTDOUT GLDEBUG_PCS
+
+old_RLD_LIST=$_RLD_LIST
+_RLD_LIST="DEFAULT:/usr/lib/libgd.so:/usr/lib/libgl.so:$old_RLD_LIST"
+export _RLD_LIST
+
+$appname $*
+
+_RLD_LIST=$old_RLD_LIST
+export _RLD_LIST
+
+exit 0
+
+

@@ -342,7 +342,7 @@ int scanSegments() {
         return -1;
     }
     // s = segmentList;
-    for (seg = segmentList; seg != NULL; seg = seg->next) {
+    for (seg = SegmentList; seg != NULL; seg = seg->next) {
         if (seg->w == 0) { //???
             fprintf(stderr, "makerom: segment \"%s\": not found in any wave\n", seg->name);
             return -1;
@@ -591,6 +591,68 @@ int readObject(Segment* seg) {
     return 0;
 }
 
+s32 createSegmentSymbols(u8* source, u8* object) {
+    FILE* f;
+    Segment* seg;
+    s8* cmd;
+
+
+    if ((f = fopen(source, "w")) == NULL) {
+        fprintf(stderr, "makerom: %s: cannot create\n", source);
+        return -1;
+    }
+
+    for(seg = SegmentList ; seg != NULL ; seg = seg->next) {
+
+            fprintf(f, ".globl _%sSegmentRomStart; ", seg->name);
+            fprintf(f, "_%sSegmentRomStart = 0x%08x\n", seg->name, seg->romOffset + offset + 0x1000);
+            fprintf(f, ".globl _%sSegmentRomEnd; ", seg->name);
+            fprintf(f, "_%sSegmentRomEnd = 0x%08x\n", seg->name, seg->romOffset + offset + seg->textSize + seg->dataSize + seg->sdataSize + 0x1000);
+            if (seg->flags & 2) {
+                fprintf(f, ".globl _%sSegmentStart; ", seg->name);
+                fprintf(f, "_%sSegmentStart = 0x%08x\n", seg->name, seg->address);
+                if (seg->textSize != 0) {
+                    fprintf(f, ".globl _%sSegmentTextStart; ", seg->name);
+                    fprintf(f, "_%sSegmentTextStart = 0x%08x\n", seg->name, seg->textStart);
+                    fprintf(f, ".globl _%sSegmentTextEnd; ", seg->name);
+                    fprintf(f, "_%sSegmentTextEnd = 0x%08x\n", seg->name, seg->textStart + seg->textSize);
+                }
+                if ((seg->dataSize + seg->sdataSize) != 0) {
+                    fprintf(f, ".globl _%sSegmentDataStart; ", seg->name);
+                    fprintf(f, "_%sSegmentDataStart = 0x%08x\n", seg->name, seg->dataStart);
+                    fprintf(f, ".globl _%sSegmentDataEnd; ", seg->name);
+                    fprintf(f, "_%sSegmentDataEnd = 0x%08x\n", seg->name, seg->dataStart + seg->dataSize + seg->sdataSize);
+                }
+                if ((seg->bssSize + seg->sbssSize) != 0) {
+                    fprintf(f, ".globl _%sSegmentBssStart; ", seg->name);
+                    fprintf(f, "_%sSegmentBssStart = 0x%08x\n", seg->name, seg->sbssStart);
+                    fprintf(f, ".globl _%sSegmentBssEnd; ", seg->name);
+                    fprintf(f, "_%sSegmentBssEnd = 0x%08x\n", seg->name, seg->sbssStart + seg->sbssSize + seg->bssSize);
+                }
+                fprintf(f, ".globl _%sSegmentEnd; ", seg->name);
+                fprintf(f, "_%sSegmentEnd = 0x%08x\n", seg->name, seg->bssStart + seg->bssSize);
+            }
+
+        }
+
+    fclose(f);
+
+    if ((cmd = malloc(sysconf(1))) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+
+    strcpy(cmd, "$TOOLROOT/usr/bin/cc -c -non_shared -o ");
+    strcat(cmd, object);
+    strcat(cmd, " ");
+    strcat(cmd, source);
+    if (debug != 0) {
+        printf("  %s\n", cmd);
+    }
+    return execCommand(cmd);
+}
+
+
 int createEntryFile(char* entryFilename, char* outFile) {
     Segment* curSeg;
     FILE* entryFile; // 50
@@ -687,6 +749,54 @@ int createEntryFile(char* entryFilename, char* outFile) {
     return execCommand(compile_cmd);
 }
 
+
+
+s32 lookupSymbol(Wave* wave, s8* name) {
+    s32 scn;
+    Elf32_Shdr* shdr;
+    Elf_Data* data;
+    Elf32_Sym* sym;
+    u32 index;
+    s32 i;
+    s32 count;
+
+    for (index = 1; index < wave->ehdr->e_shnum; index++) {
+
+        
+        if (((scn = _elf_getscn(wave->elf, index)) == 0) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+            return 0;
+        }
+        if (shdr->sh_type != 2) {
+              continue;
+        }
+
+    
+        data = NULL;
+       
+        if ((data = elf_getdata(scn, data))== NULL) {
+            return 0;
+        }
+        
+        
+        count =  data->d_size >> 4;
+        sym = data->d_buf;
+        sym ++;
+        
+        
+        for (i = 1; i < count; i++) {
+            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
+                return sym->st_value;
+            }
+            sym++;
+        }
+
+           }
+
+    return 0;
+}
+
+
+#ifdef NON_MATCHING
 int createRomImage(unsigned char* romFile, unsigned char* object) {
     FILE* f;
     Segment* seg;
@@ -847,4 +957,4 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
 
     return 0;
 }
-
+#endif

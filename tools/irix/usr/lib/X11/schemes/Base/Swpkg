@@ -1,0 +1,19 @@
+!!
+!! In order to be a good scheme citizen, all menu bars should have the instance 
+!! names of menuBar.
+!!
+!! In order to be a good scheme citizen that option menus must have an
+!! instance name of optionMenu.
+!!
+
+#ifdef USE_COLORS
+!!
+!! Color Mappings
+!!
+!! Cannot set resources on VkTabPanel programmatically (after creation).
+!! This is the only way to "flow with schemes".  Selected tab comes out with
+!! BasicBackground, while others are symbolic ButtonBackground color.
+*tabPanel*tabArea*tabLabel*background: ButtonBackground
+#endif
+
+*hardWarnLabel.fontList: PlainLabelFont

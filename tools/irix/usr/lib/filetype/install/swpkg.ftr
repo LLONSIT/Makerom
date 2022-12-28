@@ -1,0 +1,13 @@
+TYPE SwpkgApp
+    MATCH       tag == 0x000101B0000;
+    LEGEND      Software Packager
+    SUPERTYPE   Executable
+    CMD OPEN    $LEADER $REST
+    ICON        {
+		if (opened) {
+			include("iconlib/swpkg.open.fti");
+                }
+		else {
+			include("iconlib/swpkg.closed.fti");
+		}
+    }

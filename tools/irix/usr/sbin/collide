@@ -1,0 +1,14 @@
+#!/bin/sh
+# collide
+if [ x$1 = "x" ]
+then
+	echo 'Usage: collide [-l] [-d] [-w]  file ...'
+	exit 0
+fi
+if [ $1 = "-l" ] 
+then
+  shift
+  /usr/lib/collide1 $* | sort | awk 'lastname == $1 {  print "Duplicate: ",$1," from ",$2, " in ", $3, "  and ",lastobj, " in ",lastarc  } lastname != $1 {  lastname = $1 ; lastobj = $2  ; lastarc = $3 } ' 
+else
+  /usr/lib/collide1 $* | sort | awk 'lastname == $1 {  print "Duplicate: ",$1," in ", $3, "  and ",lastarc  } lastname != $1 {  lastname = $1 ; lastobj = $2  ; lastarc = $3 } ' 
+fi

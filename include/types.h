@@ -1,11 +1,14 @@
 #include <sys/types.h>
 #include <signal.h>
 
-//types
+//types: TEMP
 typedef signed int s32;
 typedef unsigned int u32;
 typedef unsigned char u8;
 typedef signed char s8;
+typedef signed short s16;
+
+//Structs
 
 struct scnhdr
        {
@@ -37,7 +40,7 @@ static char B_10016720[1];
 static char B_10016820[1];
 */
 
-static const sigaction act;
+struct sigaction act;
 static unsigned char segmentSymbolSource[255];
 static unsigned char segmentSymbolObject[255];
 static unsigned char entrySource[255];
@@ -94,4 +97,7 @@ static u8 *bootEntryName;
 static u8 *bootStackName;
 static u8 *bootStackOffset;
 static int checkOverlap;
-
+u8 fileName;
+void *Allocate;
+static s32 lineNumber = 1;
+static s8 yytext[0x800];

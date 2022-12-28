@@ -5,7 +5,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <libelf.h>
-#include <fcntl.h>
+
+
+#ifdef __sgi
+#include <ldfcn.h>
+#else
+#include <dlfcn.h>
+#include <sgi_structs.h>
+#endif
 
 #include "types.h"
 #include "makerom.h"
@@ -38,6 +45,19 @@
 #define UNKNOWNENDIAN	2
 
 
+//Could not found a valid replacement for this
+//SGI
+int gethostsex(void) {
+    union {
+        int word;
+        char byte;
+    } sex;
+
+    sex.word = 1;
+    return sex.byte == 1 ? LITTLEENDIAN : BIGENDIAN;
+}
+
+
 s32 readCoff(unsigned char *fname, unsigned int *buf) {
      int textSize;
      int dataSize;
@@ -55,7 +75,8 @@ s32 readCoff(unsigned char *fname, unsigned int *buf) {
     return textSize;
 }
 
-//TODO: is ldclose and others the same as dlclose?
+
+
 s32 Extract(u8** buff) {
 
         int bytesRead; //UNUSED

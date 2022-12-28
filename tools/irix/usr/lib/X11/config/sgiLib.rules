@@ -1,0 +1,128 @@
+XCOMM $XConsortium: sgiLib.rules,v 1.8 93/09/11 17:59:30 rws Exp $
+
+#define ForceNormalLib	YES
+#define SharedOldX	NO
+#define SharedLibXau	NO
+#define SharedLibXdmcp	NO
+#define SharedLibXtst	NO
+#define SharedLibXTrap	NO
+#define SharedLibXie	NO
+#define SharedLibPex	NO
+#define SharedLibPhigs	NO
+#define SharedLibFS	NO
+
+#ifndef sgiDSOlib
+#define sgiDSOlib		YES
+#endif
+#ifndef HasSharedLibraries
+#define HasSharedLibraries	sgiDSOlib
+#endif
+
+#if HasSharedLibraries
+
+# define SharedLibX11		YES
+# define SharedLibXt		YES
+# define SharedLibXmu		YES
+# define SharedLibXaw		YES
+# define SharedLibICE		YES
+# define SharedLibSM		YES
+# define SharedLibXext		YES
+# define SharedLibXinput	YES
+
+# define SharedCodeDef		/**/
+# define SharedLibraryDef	/**/
+
+# ifndef SharedDataSeparation
+#  define SharedDataSeparation	YES
+# endif
+# ifndef ShLibIncludeFile
+#  define ShLibIncludeFile <sgiLib.tmpl>
+# endif
+
+#else /* !HasSharedLibraries */
+
+# define SharedDataSeparation	NO
+
+# define SharedLibX11		NO
+# define SharedLibXt		NO
+# define SharedLibXmu		NO
+# define SharedLibXaw		NO
+# define SharedLibICE		NO
+# define SharedLibSM		NO
+# define SharedLibXext		NO
+# define SharedLibXinput	NO
+
+#endif /* HasSharedLibraries */
+
+# define SeparateSharedCompile	NO
+
+#if sgiDSOlib
+
+#if defined(UseCord) && UseCord
+#define CordProcedure(libname,rev) $(TOOLROOT)/usr/bin/cord Concat4(lib,libname,.so,rev) \	@@\
+	&& mv Concat4(lib,libname,.so,rev) Concat4(lib,libname,.so,rev).orig \	@@\
+	&& mv Concat4(lib,libname,.so,rev).cord Concat4(lib,libname,.so,rev)
+#else
+#define CordProcedure(libname,rev) $(NOOP)
+#endif
+
+/*
+ * SharedLibraryTarget - generate rules to create a shared library.
+ */
+#define SharedLibraryTarget(libname,rev,solist,down,up)			@@\
+AllTarget(Concat4(lib,libname,.so,rev))					@@\
+									@@\
+Concat4(lib,libname,.so,rev): Concat3(lib,libname,.a) $(REQUIREDLIBS)	@@\
+	$(RM) $@ \							@@\
+	&& $(LD) $(LDDSOOPTS) Concat3(lib,libname,.a) -o $@ $(REQUIREDLIBS) @@\
+	_LinkBuildLibrary($@)						@@\
+	CordProcedure(libname,rev)					@@\
+	/* Below, must use shell variable $$STR - not $(STR) or $$(STR). */ \ @@\
+	STR=rev; if [ -n "$${STR}" ]; then \				@@\
+	    cd $(BUILDLIBDIR) && $(RM) Concat3(lib,libname,.so) && \	@@\
+	    $(LN) $@ Concat3(lib,libname,.so); \			@@\
+	fi								@@\
+									@@\
+clean::									@@\
+	$(RM) Concat4(lib,libname,.so,rev)
+
+#define SharedLibraryDataTarget(libname,rev,salist)
+
+/*
+ * InstallSharedLibrary - generate rules to install the shared library.
+ */
+#define	InstallSharedLibrary(libname,rev,dest)				@@\
+install:: Concat4(lib,libname,.so,rev)					@@\
+	MakeDir($(DESTDIR)dest)						@@\
+	$(INSTALL) -c $(INSTLIBFLAGS) Concat4(lib,libname,.so,rev) \	@@\
+		$(DESTDIR)dest ; \					@@\
+	STR=rev; if [ -n "$${STR}" ]; then \				@@\
+	    $(INSTALL) -c -l Concat4(lib,libname,.so,rev)  \		@@\
+		Concat3(lib,libname,.so) $(DESTDIR)dest ; \		@@\
+	fi
+
+/*
+ * InstallSharedLibraryData - generate rules to install the shared library data
+ */
+#define	InstallSharedLibraryData(libname,rev,dest)  /**/
+
+#if UseInstalled
+#define SharedDSLibDependencies(libname,libsource,revname) \
+Concat4($(ROOT)$(SHLIBDIR)/lib,libname,.so,$(revname))
+#else
+#define SharedDSLibDependencies(libname,libsource,revname) \
+Concat4($(BUILDLIBDIR)/lib,libname,.so,$(revname))
+#endif /* UseInstalled */
+
+#define SharedLibDependencies(libname,libsource,revname) \
+SharedDSLibDependencies(libname,libsource,revname)
+
+#define SharedLibReferences(varname,libname,libsource,revname,rev) \
+SharedDSLibReferences(varname,libname,libsource,revname,rev)
+
+#endif /* sgiDSOlib */
+
+#define UnsharedLibReferences(varname,libname,libsource)		@@\
+Concat3(DEP,varname,LIB) = _UseCat($(ROOT)$(SHLIBDIR)/lib,$(BUILDLIBDIR)/lib,libname.a) @@\
+Concat(varname,LIB) = LoaderLibPrefix Concat(-l,libname)		@@\
+LintLibReferences(varname,libname,libsource)

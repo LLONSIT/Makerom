@@ -15,7 +15,7 @@
 #define IRIX_VERSION_63 2
 #define IRIX_VERSION_64 3
 
-#ifdef REIMP
+#ifdef BROADON
 #define LINUX 4
 #else
 #define IRIX_VERSION_UNKNOWN 4
@@ -24,20 +24,6 @@
 const char *sys_errlist[];
 extern s32 func_0040FDE0(struct Segment* segment);
 extern s32 func_0040F214(void);
-
-//SGI
-int gethostsex(void) {
-    union {
-        int word;
-        signed char byte;
-    } sex;
-
-    sex.word = 1;
-    if (sex.byte == 1) {
-        return 1;
-    }
-    return 0;
-}
 
 void printVersion(void) {
     if (irixVersion == IRIX_VERSION_53) {
@@ -48,40 +34,44 @@ void printVersion(void) {
 }
 
 void getOsVersion(void) {
-
-    const char* cmd;
-    char buf[0x1000]; //string
-
-
-    FILE *procPtr; //file
-
-    #ifdef NON_MATCHING
-	 //checking if we have uname
-        if ((procPtr = popen("/sbin/uname -r", "r")) != 0) {
-        #else
-        cmd = "/sbin/uname -r";   
-        if ((procPtr = popen(cmd, "r")) != 0)
-        #endif        
-        
-        fgets(buf, 0x1000, procPtr);
-        pclose(procPtr);
-        if (strcmp(buf, "5.3\n") == 0) {
+    // s32 pad[0x13];
+    const char* sp1024; ///file?
+    char sp24[0x1000];
+    FILE *sp20;
+    
+    
+    sp1024 ="/sbin/uname -r"; //nice!!
+    // sp20 = popen(sp1024, "r"); //checking if we have uname
+    {
+    
+    } if ((sp20 = popen(sp1024, "r")) != 0) {
+        fgets(sp24, 0x1000, sp20);
+        pclose(sp20);
+        if (strcmp(sp24, "5.3\n") == 0) {
             irixVersion = IRIX_VERSION_53;
-        } else if (strcmp(buf, "6.2\n") == 0) {
+        } else if (strcmp(sp24, "6.2\n") == 0) {
             irixVersion = IRIX_VERSION_62;
-        } else if (strcmp(buf, "6.3\n") == 0) {
+        } else if (strcmp(sp24, "6.3\n") == 0) {
             irixVersion = IRIX_VERSION_63;
-        } else if (strcmp(buf, "6.4\n") == 0) {
+        } else if (strcmp(sp24, "6.4\n") == 0) {
             irixVersion = IRIX_VERSION_64;
         } else {
-            irixVersion = IRIX_VERSION_UNKNOWN; //Linux
+
+	    #ifdef BROADON
+            irixVersion = IRIX_VERSION_LINUX; 
             fprintf(stderr, "makerom: Operating system not recognized.  Trying 6.x ...\n");
+	    #else 
+	    irixVersion = IRIX_VERSION_UNKNOWN;
+            fprintf(stderr, "makerom: Operating system not recognized.  Trying 6.x ...\n");
+	    #endif
         }
-    } else {
+    } else {  
         fprintf(stderr, "makerom: Unable to find uname command!\n");
         exit(1);
     }
 }
+
+
 
 void usage(void) {
     fprintf(stderr, "usage: makerom [-D<define>] [-I<dir>] -[U<define>]\n");
@@ -249,7 +239,7 @@ void doWave(Wave* wave) {
     }
 }
 
-void getRomheaderFile(unsigned char *headerFileName) {
+int getRomheaderFile(unsigned char *headerFileName) {
     int headerFd;
     unsigned char scratchFileName[0x100];
     struct stat buf;
@@ -259,8 +249,9 @@ void getRomheaderFile(unsigned char *headerFileName) {
     int i;
     int readPtr;
     int retval;
-
-
+    // s32 temp_t8;
+    // u8 *temp_t6_2;
+    
     if ((headerFileName == NULL) && (gloadFindFile(scratchFileName, "/usr/lib/PR", "romheader") != 0)) {
         headerFileName = scratchFileName;
     }
@@ -296,7 +287,6 @@ void getRomheaderFile(unsigned char *headerFileName) {
                     close(headerFd);
                     exit(1);
                 }
-                
                 if (nibbleString[0] == 0xA) {
                     if (++readPtr < headerWordAlignedByteSize) {
                         retval = read(headerFd, &nibbleString, 1);
@@ -310,9 +300,9 @@ void getRomheaderFile(unsigned char *headerFileName) {
                 }
                 nibbleVal = strtol(nibbleString, 0, 16);
                 if (i % 2) {
-                    headerBuf[i >> 1] |= nibbleVal;
+        //            headerBuf[i >> 1] |= nibbleVal; incorrect expression?
                 } else {
-                    headerBuf[i >> 1] = nibbleVal << 4;
+          //          headerBuf[i >> 1] =  nibbleVal << 4;
                 }
         }
         

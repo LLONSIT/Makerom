@@ -1,0 +1,942 @@
+#! /bin/ksh
+
+# $Header: /proj/irix5.3/isms/cmplrs/abi/RCS/cc,v 1.6 1994/10/30 19:31:41 nlouie Exp $
+# $Locker:  $
+
+#
+# SVID compliant cc command parse.
+#
+
+ABIBIN=${ABIBIN-$ROOT/usr/bin}
+ABIDIR=${ABIDIR-$ROOT/usr/lib/abi}
+ABILIB=${ABIDIR}
+CMD=cc
+
+. $ABILIB/setup
+
+# *** SUPPORT for abicc -G ***
+# when a shared object is to be built (abicc -G) and source files are
+# specified on the command line, we must first generate .o files
+# by using abicc -c and then pass everything to abild -G for linking
+# (a source file is one that ends with .c, .i or .s)
+
+# locations of abicc (this command) and abild
+abicc=${ABIBIN}/abicc
+abild=${ABIBIN}/abild
+
+# We collect abicc and abild options separately in abiccopts and abildopts.
+# When an option takes an argument, the option and argument are concatenated;
+# thus each word in abiccopts and abildopts is either an option
+# (starting with -) or a file name (everything else).
+# This works because abicc and abild both expand concatenated option/argument
+# pairs when required before calling the real cc and/or ld.
+# Note that, at first, ALL file names are accumulated in BOTH variables;
+# these are sorted out later before abicc and/or abild are invoked.
+abiccopts=
+abildopts=
+
+# has -G been specified?
+Gflag=no
+
+
+# *** SUPPORT for abicc -Wl ***
+# procWl - map an abicc -Wl option to a real cc -Wl option
+procWl()
+{
+	# turn the option (and its args if any) into an abild optarg
+	# strip the initial "-Wl," and convert other commas to spaces
+	opts=`echo ${1:?} | sed 's/^-Wl,//; s/,/ /g'`
+
+	# convert options of the form -x Y to -xY
+	# (this assumes that a word following an option is always an optarg)
+	# collect the abild optarg in case we are processing -G
+	minusarg=no
+	for arg in $opts
+	do
+		case $arg in
+		-*)
+			abildopts="$abildopts $arg"
+			minusarg=yes
+			;;
+		*)
+			case $minusarg in
+			yes)
+				abildopts="$abildopts$arg"
+				;;
+			*)
+				abildopts="$abildopts $arg"
+				;;
+			esac
+			minusarg=no
+			;;
+		esac
+	done
+
+	# modify abild so that it just prints the mapped optarg rather
+	# than actually calling real ld
+	# pipe the modified abild to ksh -s with the abild optarg as argument
+	# put the "-Wl," bit back on the front of the mapped optarg
+	# replace other spaces with commas again
+	eval `
+		sed '/\${LD}/s/.*\(\$options\).*/echo newopts=\1/;
+			/\$ABILIB\/setup/a\\
+			options=' $abild | \
+		ksh -s -- $opts | \
+		sed 's/^\(newopts=\)[ 	]*\(.*\)/\1"-Wl,\2"/;
+			s/ /,/g'
+	` 
+
+	# finally, collect the mapped optarg for processing by real cc
+	options="$options $newopts"
+}
+
+
+#
+# Parse the command line. The options supported by the script are taken
+# from the Unix System V Release 4 Programmer's Reference Manual.
+#
+
+while [[ -n "$1" ]]
+do
+	case "$1" in
+	-A)
+		abiccopts="$abiccopts $1$2"
+		if [[ -n "$A_opt" ]]
+		then
+			options="$options $A_opt$2"
+		fi
+		shift
+		;;
+
+	-A*)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$A_opt" ]]
+		then
+			options="$options $A_opt${1#-A}"
+		fi
+		;;
+
+	-a)
+		abildopts="$abildopts $1"
+		if [[ -n "$a_opt" ]]
+		then
+			options="$options $a_opt"
+		fi
+		;;
+	-B)
+		abildopts="$abildopts $1$2"
+		case "$2" in
+		symbolic)
+			if [[ -n "$Bsymbolic_opt" ]]
+			then
+				options="$options $Bsymbolic_opt"
+			fi
+			;;
+
+		dynamic)
+			if [[ -n "$Bdynamic_opt" ]]
+			then
+				options="$options $Bdynamic_opt"
+			fi
+			;;
+
+		static)
+			if [[ -n "$Bstatic_opt" ]]
+			then
+				options="$options $Bstatic_opt"
+			fi
+			;;
+		*)
+			badopt "-B $2"
+			;;
+
+		esac
+		shift
+		;;
+
+	-Bsymbolic)
+		abildopts="$abildopts $1"
+		if [[ -n "$Bsymbolic_opt" ]]
+		then
+			options="$options $Bsymbolic_opt"
+		fi
+		;;
+
+	-Bdynamic)
+		abildopts="$abildopts $1"
+		if [[ -n "$Bdynamic_opt" ]]
+		then
+			options="$options $Bdynamic_opt"
+		fi
+		;;
+
+	-Bstatic)
+		abildopts="$abildopts $1"
+		if [[ -n "$Bstatic_opt" ]]
+		then
+			options="$options $Bstatic_opt"
+		fi
+		;;
+
+	-C)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$C_opt" ]]
+		then
+			options="$options $C_opt"
+		fi
+		;;
+
+	-c)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$c_opt" ]]
+		then
+			options="$options $c_opt"
+		fi
+		;;
+
+	-D)
+		abiccopts="$abiccopts $1$2"
+		if [[ -n "$D_opt" ]]
+		then
+			options="$options $D_opt$2"
+		fi
+		shift
+		;;
+
+	-D*)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$D_opt" ]]
+		then
+			options="$options $D_opt${1#-D}"
+		fi
+		;;
+
+	-d)
+		abildopts="$abildopts $1$2"
+		case "$2" in
+		y)
+			if [[ -n "$dy_opt" ]]
+			then
+				options="$options $dy_opt"
+			fi
+			;;
+
+		n)
+			if [[ -n "$dn_opt" ]]
+			then
+				options="$options $dn_opt"
+			fi
+			;;
+
+		*)
+			badopt "-d $2"
+			;;
+		esac
+		shift
+		;;
+
+	-d[yn])
+		abildopts="$abildopts $1"
+		case "${1#-d}" in
+		y)
+			if [[ -n "$dy_opt" ]]
+			then
+				options="$options $dy_opt"
+			fi
+			;;
+
+		n)
+			if [[ -n "$dn_opt" ]]
+			then
+				options="$options $dn_opt"
+			fi
+			;;
+		esac
+		;;
+
+	-E)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$E_opt" ]]
+		then
+			options="$options $E_opt"
+		fi
+		;;
+
+	-e)
+		abildopts="$abildopts $1$2"
+		if [[ -n "$e_opt" ]]
+		then
+			options="$options $e_opt$2"
+		fi
+		shift
+		;;
+
+	-e*)
+		abildopts="$abildopts $1"
+		if [[ -n "$e_opt" ]]
+		then
+			options="$options $e_opt${1#-e}"
+		fi
+		;;
+
+	-f)
+		# obsolete option, ignore it
+		;;
+
+	-G)
+		# this option must be handled specially on IRIX -
+		# just remember its occurrence for now and process it later
+		Gflag=yes
+		;;
+
+	-g)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$g_opt" ]]
+		then
+			options="$options $g_opt"
+		fi
+		;;
+
+	-H)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$H_opt" ]]
+		then
+			options="$options $H_opt"
+		fi
+		;;
+
+	-h)
+		abildopts="$abildopts $1$2"
+		if [[ -n "$h_opt" ]]
+		then
+			options="$options $h_opt$2"
+		fi
+		shift
+		;;
+
+	-h*)
+		abildopts="$abildopts $1"
+		if [[ -n "$h_opt" ]]
+		then
+			options="$options $h_opt${1#-h}"
+		fi
+		;;
+
+	-I)
+		abiccopts="$abiccopts $1$2"
+		if [[ -n "$I_opt" ]]
+		then
+			options="$options $I_opt$2"
+		fi
+		shift
+		;;
+
+	-I*)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$I_opt" ]]
+		then
+			options="$options $I_opt${1#-I}"
+		fi
+		;;
+
+	-J)
+		abiccopts="$abiccopts $1$2"
+		if [[ "$2" = "sfm" ]]
+		then
+			if [[ -n "$Jsfm_opt" ]]
+			then
+				options="$options $Jsfm_opt"
+			fi
+		else
+			badopt "$1 $2"
+		fi
+		shift
+		;;
+
+	-Jsfm)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Jsfm_opt" ]]
+		then
+			options="$options $Jsfm_opt"
+		fi
+		;;
+
+	-Kfpe)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Kfpe_opt" ]]
+		then
+			options="$options $Kfpe_opt"
+		fi
+		;;
+		
+	-Kmau)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Kmau_opt" ]]
+		then
+			options="$options $Kmau_opt"
+		fi
+		;;
+		
+	-Ksd)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Ksd_opt" ]]
+		then
+			options="$options $Ksd_opt"
+		fi
+		;;
+		
+	-Ksz)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Ksz_opt" ]]
+		then
+			options="$options $Ksz_opt"
+		fi
+		;;
+		
+	-KPIC)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$KPIC_opt" ]]
+		then
+			options="$options $KPIC_opt"
+		fi
+		;;
+		
+	-Kminabi)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Kminabi_opt" ]]
+		then
+			options="$options $Kminabi_opt"
+		fi
+		;;
+
+	-Kxgot)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$Kxgot_opt" ]]
+		then
+			options="$options $Kxgot_opt"
+		fi
+		;;
+
+	-K)
+		abiccopts="$abiccopts $1$2"
+		case "$2" in
+		fpe)
+			if [[ -n "$Kfpe_opt" ]]
+			then
+				options="$options $Kfpe_opt"
+			fi
+			;;
+
+		mau)
+			if [[ -n "$Kmau_opt" ]]
+			then
+				options="$options $Kmau_opt"
+			fi
+			;;
+
+		sd)
+			if [[ -n "$Ksd_opt" ]]
+			then
+				options="$options $Ksd_opt"
+			fi
+			;;
+
+		sz)
+			if [[ -n "$Ksz_opt" ]]
+			then
+				options="$options $Ksz_opt"
+			fi
+			;;
+
+		PIC)
+			if [[ -n "$KPIC_opt" ]]
+			then
+				options="$options $KPIC_opt"
+			fi
+			;;
+
+		minabi)
+			if [[ -n "$Kminabi_opt" ]]
+			then
+				options="$options $Kminabi_opt"
+			fi
+			;;
+
+		xgot)
+			if [[ -n "$Kxgot_opt" ]]
+			then
+				options="$options $Kxgot_opt"
+			fi
+			;;
+
+		*)
+			badopt "-K $2"
+			;;
+		esac
+		shift
+		;;
+
+	-L)
+		abildopts="$abildopts $1$2"
+		if [[ -n "$L_opt" ]]
+		then
+			options="$options $L_opt$2"
+		fi
+		shift
+		;;
+
+	-L*)
+		abildopts="$abildopts $1"
+		if [[ -n "$L_opt" ]]
+		then
+			options="$options $L_opt${1#-L}"
+		fi
+		;;
+
+	-l)
+		abildopts="$abildopts $1$2"
+		if [[ -n "$l_opt" ]]
+		then
+			options="$options $l_opt$2"
+		fi
+		shift
+		;;
+
+	-l*)
+		abildopts="$abildopts $1"
+		if [[ -n "$l_opt" ]]
+		then
+			options="$options $l_opt${1#-l}"
+		fi
+		;;
+
+	-m)
+		abildopts="$abildopts $1"
+		if [[ -n "$m_opt" ]]
+		then
+			options="$options $m_opt"
+		fi
+		;;
+
+	-O)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$O_opt" ]]
+		then
+			options="$options $O_opt"
+		fi
+		;;
+
+	-o)
+		abildopts="$abildopts $1$2"
+		if [[ -n "$o_opt" ]]
+		then
+			options="$options $o_opt$2"
+		fi
+		shift
+		;;
+
+	-o*)
+		abildopts="$abildopts $1"
+		if [[ -n "$o_opt" ]]
+		then
+			options="$options $o_opt${1#-o}"
+		fi
+		;;
+
+	-P)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$P_opt" ]]
+		then
+			options="$options $P_opt"
+		fi
+		;;
+
+	-p)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$p_opt" ]]
+		then
+			options="$options $p_opt"
+		fi
+		;;
+
+	-Q)
+		abiccopts="$abiccopts $1$2"
+		case "$2" in
+		n)
+			if [[ -n "$Qn_opt" ]]
+			then
+				options="$options $Qn_opt"
+			fi
+			;;
+
+		y)
+			if [[ -n "$Qy_opt" ]]
+			then
+				options="$options $Qy_opt"
+			fi
+			;;
+
+		*)
+			badopt "-Q $2"
+			;;
+		esac
+		shift
+		;;
+
+	-Qn|-Qy)
+		abiccopts="$abiccopts $1"
+		case "${1#-Q}" in
+		n)
+			if [[ -n "$Qn_opt" ]]
+			then
+				options="$options $Qn_opt"
+			fi
+			;;
+
+		y)
+			if [[ -n "$Qy_opt" ]]
+			then
+				options="$options $Qy_opt"
+			fi
+			;;
+		esac
+		;;
+
+	-q)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$q_opt" ]]
+		then
+			options="$options $q_opt"
+		fi
+		;;
+
+	-r)
+		abildopts="$abildopts $1"
+		if [[ -n "$r_opt" ]]
+		then
+			options="$options $r_opt"
+		fi
+		;;
+
+	-S)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$S_opt" ]]
+		then
+			options="$options $S_opt"
+		fi
+		;;
+
+	-s)
+		abildopts="$abildopts $1"
+		if [[ -n "$s_opt" ]]
+		then
+			options="$options $s_opt"
+		fi
+		;;
+
+	-U)
+		abiccopts="$abiccopts $1$2"
+		if [[ -n "$U_opt" ]]
+		then
+			options="$options $U_opt$2"
+		fi
+		shift
+		;;
+
+	-U*)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$U_opt" ]]
+		then
+			options="$options $U_opt${1#-U}"
+		fi
+		;;
+
+	-u)
+		abildopts="$abildopts $1$2"
+		if [[ -n "$u_opt" ]]
+		then
+			options="$options $u_opt$2"
+		fi
+		shift
+		;;
+
+	-u*)
+		abildopts="$abildopts $1"
+		if [[ -n "$u_opt" ]]
+		then
+			options="$options $u_opt${1#-u}"
+		fi
+		;;
+
+	-V)
+		abiccopts="$abiccopts $1"
+		abildopts="$abildopts $1"
+		if [[ -n "$V_opt" ]]
+		then
+			options="$options $V_opt"
+		fi
+		;;
+
+	-v)
+		abiccopts="$abiccopts $1"
+		if [[ -n "$v_opt" ]]
+		then
+			options="$options $v_opt"
+		fi
+		;;
+
+	-W)
+		case "$2" in
+		l*)
+			procWl $1$2
+			;;
+		*)
+			echo "Warning: This option not supported for abi cc command ($1 $2)" 1>&2
+			;;
+		esac
+		shift
+		;;
+
+	-Wl,*)
+		procWl $1
+		;;
+
+	-W*)
+		echo "Warning: This option not supported for abi cc command ($1)" 1>&2
+		;;
+
+	-X)
+		case "$2" in
+		a)
+			abiccopts="$abiccopts $1$2"
+			if [[ -n "$Xa_opt" ]]
+			then
+				options="$options $Xa_opt"
+			fi
+			;;
+
+		c)
+			abiccopts="$abiccopts $1$2"
+			if [[ -n "$Xc_opt" ]]
+			then
+				options="$options $Xc_opt"
+			fi
+			;;
+
+		t)
+			abiccopts="$abiccopts $1$2"
+			if [[ -n "$Xt_opt" ]]
+			then
+				options="$options $Xt_opt"
+			fi
+			;;
+
+		readonly_const)
+			abildopts="$abildopts $1$2"
+			if [[ -n "$Xreadonly_const_opt" ]]
+			then
+				options="$options $Xreadonly_const_opt"
+			fi
+			;;
+
+		readwrite_const)
+			abildopts="$abildopts $1$2"
+			if [[ -n "$Xreadwrite_const_opt" ]]
+			then
+				options="$options $Xreadwrite_const_opt"
+			fi
+			;;
+		*)
+			badopt "-X $2"
+			;;
+		esac
+		shift
+		;;
+
+	-X[act])
+		abiccopts="$abiccopts $1"
+		case "${1#-X}" in
+		a)
+			if [[ -n "$Xa_opt" ]]
+			then
+				options="$options $Xa_opt"
+			fi
+			;;
+
+		c)
+			if [[ -n "$Xc_opt" ]]
+			then
+				options="$options $Xc_opt"
+			fi
+			;;
+
+		t)
+			if [[ -n "$Xt_opt" ]]
+			then
+				options="$options $Xt_opt"
+			fi
+			;;
+		esac
+		;;
+
+	-Xreadonly_const)
+		abildopts="$abildopts $1"
+		if [[ -n "$Xreadonly_const_opt" ]]
+		then
+			options="$options $Xreadonly_const_opt"
+		fi
+		;;
+
+	-Xreadwrite_const)
+		abildopts="$abildopts $1"
+		if [[ -n "$Xreadwrite_const_opt" ]]
+		then
+			options="$options $Xreadwrite_const_opt"
+		fi
+		;;
+
+	-Y)
+		echo "Warning: This option not supported for abi cc command ($1 $2)" 1>&2
+		shift
+		;;
+
+	-Y*)
+		echo "Warning: This option not supported for abi cc command ($1)" 1>&2
+		;;
+
+	-z)
+		abildopts="$abildopts $1$2"
+		case "$2" in
+		defs)
+			if [[ -n "$zdefs_opt" ]]
+			then
+				options="$options $zdefs_opt"
+			fi
+			;;
+
+		nodefs)
+			if [[ -n "$znodefs_opt" ]]
+			then
+				options="$options $znodefs_opt"
+			fi
+			;;
+
+		text)
+			if [[ -n "$ztext_opt" ]]
+			then
+				options="$options $ztext_opt"
+			fi
+			;;
+		*)
+			badopt "-z $2"
+			;;
+
+		esac
+		shift
+		;;
+
+	-zdefs)
+		abildopts="$abildopts $1"
+		if [[ -n "$zdefs_opt" ]]
+		then
+			options="$options $zdefs_opt"
+		fi
+		;;
+
+	-znodefs)
+		abildopts="$abildopts $1"
+		if [[ -n "$znodefs_opt" ]]
+		then
+			options="$options $znodefs_opt"
+		fi
+		;;
+
+	-ztext)
+		abildopts="$abildopts $1"
+		if [[ -n "$ztext_opt" ]]
+		then
+			options="$options $ztext_opt"
+		fi
+		;;
+
+
+	-*)
+		badopt $1
+		;;
+
+	*)
+		abiccopts="$abiccopts $1"
+		abildopts="$abildopts $1"
+		options="$options $1"
+		;;
+	esac
+	shift
+done
+
+
+#
+# Now, process -G if it was specified;
+# otherwise, call the proper CC with the machine dependent options.
+#
+
+case ${Gflag:?} in
+yes)
+	# see if there are any source files which must be compiled first
+	sourcefiles=no
+	newopts=-c
+	for opt in $abiccopts
+	do
+		case $opt in
+		-*)
+			newopts="$newopts $opt"
+			;;
+		*.[cis])
+			newopts="$newopts $opt"
+			sourcefiles=yes
+			;;
+		*)
+			;;
+		esac
+	done
+	# compile source files if any
+	case $sourcefiles in
+	yes)
+		$abicc $newopts || exit $?
+		;;
+	esac
+	# now construct an abild command, substituting each source file name
+	# with the .o file that we have just built
+	# (this assumes that abicc -c foo/bar.c leaves its output in ./bar.o)
+	newopts=-G
+	for opt in $abildopts
+	do
+		case $opt in
+		-*)
+			newopts="$newopts $opt"
+			;;
+		*.[cis])
+			opt=${opt##*/}
+			newopts="$newopts ${opt%.[cis]}.o"
+			;;
+		*)
+			newopts="$newopts $opt"
+			;;
+		esac
+	done
+	# finally, perform the link-edit
+	$abild $newopts
+	;;
+no)
+	# pass LD_RUN_PATH if required
+	if [[ -n "$LD_RUN_PATH" && -n "$RP_opt" ]]
+	then
+		options="$options $RP_opt$LD_RUN_PATH"
+	fi
+	${CC} $options $post
+	;;
+*)
+	echo $0: something wrong!! 1>&2
+	exit 1
+	;;
+esac
+

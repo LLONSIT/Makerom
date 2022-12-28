@@ -6,7 +6,7 @@
 
 
 
-void printError(unsigned char* fmt, void* ...) {
+void printError(unsigned char* fmt, void* rest) {
     unsigned char* ap;
 
     fprintf(stderr, "makerom: error at line %d: ", lineNumber);

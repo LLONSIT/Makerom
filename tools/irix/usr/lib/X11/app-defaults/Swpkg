@@ -1,0 +1,55 @@
+
+*silenceWarnings: True
+
+Swpkg*sgiMode: True
+
+Swpkg*useSchemes: all
+Swpkg*schemeFileList: Swpkg
+Swpkg*baseScheme: Base
+Swpkg*defaultScheme: Lascaux
+
+Swpkg.geometry: -80+50
+
+Swpkg*File*mnemonic: F
+Swpkg*File*New*mnemonic: N
+Swpkg*New*Spec*mnemonic: S
+Swpkg*New*Idb*mnemonic: I
+Swpkg*New*Both*mnemonic: B
+Swpkg*File*Open*mnemonic: O
+Swpkg*Open*Spec*mnemonic: S
+Swpkg*Open*Idb*mnemonic: I
+Swpkg*Open*Both*mnemonic: B
+Swpkg*File*Append*mnemonic: d
+Swpkg*Append*Spec*mnemonic: S
+Swpkg*Append*Idb*mnemonic: I
+Swpkg*Append*Both*mnemonic: B
+Swpkg*File*Save*mnemonic: S
+Swpkg*Save*Spec*mnemonic: S
+Swpkg*Save*Idb*mnemonic: I
+Swpkg*Save*Both*mnemonic: B
+Swpkg*File*SaveAs*mnemonic: A
+Swpkg*SaveAs*Spec*mnemonic: S
+Swpkg*SaveAs*Idb*mnemonic: I
+Swpkg*SaveAs*Both*mnemonic: B
+Swpkg*File*Quit*mnemonic: Q
+Swpkg*View*mnemonic: V
+Swpkg*Tutorial*mnemonic: T
+
+Swpkg*New*Idb*accelerator: Ctrl<Key>N
+Swpkg*Open*Idb*accelerator: Ctrl<Key>O
+Swpkg*Append*Idb*accelerator: Ctrl<Key>D
+Swpkg*Save*Idb*accelerator: Ctrl<Key>S
+Swpkg*SaveAs*Idb*accelerator: Ctrl<Key>A
+Swpkg*Quit*accelerator: Ctrl<Key>Q
+
+Swpkg*New*Idb*acceleratorText: Ctrl+N
+Swpkg*Open*Idb*acceleratorText: Ctrl+O
+Swpkg*Append*Idb*acceleratorText: Ctrl+D
+Swpkg*Save*Idb*acceleratorText: Ctrl+S
+Swpkg*SaveAs*Idb*acceleratorText: Ctrl+A
+Swpkg*Quit*acceleratorText: Ctrl+Q
+
+Swpkg*dragInitiatorProtocolStyle: DRAG_NONE
+Swpkg*dragReceiverProtocolStyle: DRAG_NONE
+
+Swpkg*showRequiredToggleButton: FALSE

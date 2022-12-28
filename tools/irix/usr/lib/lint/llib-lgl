@@ -1,0 +1,1723 @@
+/*
+ * llib-lgl.c - lint library source for the GL
+ */
+
+#include <gl/gl.h>
+
+/*LINTLIBRARY*/
+long gversion(char v[12])
+{
+    return (long)0;
+}
+
+void pagecolor(Colorindex c)
+{}
+
+void textcolor(Colorindex c)
+{}
+
+void textport(Screencoord left, Screencoord right, Screencoord bottom, Screencoord top)
+{}
+
+void arc(Coord x, Coord y, Coord radius, Angle startang, Angle endang)
+{}
+
+void arcf(Coord x, Coord y, Coord radius, Angle startang, Angle endang)
+{}
+
+void arcfi(Icoord x, Icoord y, Icoord radius, Angle startang, Angle endang)
+{}
+
+void arci(Icoord x, Icoord y, Icoord radius, Angle startang, Angle endang)
+{}
+
+void attachcursor(Device vx, Device vy)
+{}
+
+void backbuffer(Boolean b)
+{}
+
+void bbox2(Screencoord xmin, Screencoord ymin, Coord x1, Coord y1, Coord x2, Coord y2)
+{}
+
+void bbox2i(Screencoord xmin, Screencoord ymin, Icoord x1, Icoord y1, Icoord x2, Icoord y2)
+{}
+
+void blink(short rate, Colorindex c, short red, short green, short blue)
+{}
+
+void callobj(Object obj)
+{}
+
+void charstr(String str)
+{}
+
+void circ(Coord x, Coord y, Coord radius)
+{}
+
+void circf(Coord x, Coord y, Coord radius)
+{}
+
+void circfi(Icoord x, Icoord y, Icoord radius)
+{}
+
+void circi(Icoord x, Icoord y, Icoord radius)
+{}
+
+void clear(void)
+{}
+
+void clearhitcode(void)
+{}
+
+void closeobj(void)
+{}
+
+void cmov(Coord x, Coord y, Coord z)
+{}
+
+void cmov2(Coord x, Coord y)
+{}
+
+void cmov2i(Icoord x, Icoord y)
+{}
+
+void cmovi(Icoord x, Icoord y, Icoord z)
+{}
+
+void color(Colorindex c)
+{}
+
+void cursoff(void)
+{}
+
+void curson(void)
+{}
+
+void curveit(short iterationcount)
+{}
+
+void defcursor(short n, const unsigned short curs[128])
+{}
+
+void deflinestyle(short n, Linestyle ls)
+{}
+
+void defrasterfont(short n, short ht, short nc, const Fontchar chars[], short nr, const unsigned short raster[])
+{}
+
+void delobj(Object obj)
+{}
+
+void doublebuffer(void)
+{}
+
+void draw(Coord x, Coord y, Coord z)
+{}
+
+void draw2(Coord x, Coord y)
+{}
+
+void draw2i(Icoord x, Icoord y)
+{}
+
+void drawi(Icoord x, Icoord y, Icoord z)
+{}
+
+void editobj(Object obj)
+{}
+
+long endpick(short buffer[])
+{
+    return (long)0;
+}
+
+long endselect(short buffer[])
+{
+    return (long)0;
+}
+
+void finish(void)
+{}
+
+void font(short fntnum)
+{}
+
+void frontbuffer(Boolean b)
+{}
+
+void gconfig(void)
+{}
+
+Object genobj(void)
+{
+    return (Object)0;
+}
+
+Tag gentag(void)
+{
+    return (Tag)0;
+}
+
+long getbuffer(void)
+{
+    return (long)0;
+}
+
+Boolean getbutton(Device num)
+{
+    return (Boolean)0;
+}
+
+Boolean getcmmode(void)
+{
+    return (Boolean)0;
+}
+
+long getcolor(void)
+{
+    return (long)0;
+}
+
+void getcursor(short *index, Colorindex *c, Colorindex *wtm, Boolean *b)
+{}
+
+void getdepth(Screencoord *znear, Screencoord *zfar)
+{}
+
+long getdisplaymode(void)
+{
+    return (long)0;
+}
+
+long getfont(void)
+{
+    return (long)0;
+}
+
+long getheight(void)
+{
+    return (long)0;
+}
+
+long gethitcode(void)
+{
+    return (long)0;
+}
+
+Boolean getlsbackup(void)
+{
+    return (Boolean)0;
+}
+
+long getlstyle(void)
+{
+    return (long)0;
+}
+
+long getlwidth(void)
+{
+    return (long)0;
+}
+
+long getmap(void)
+{
+    return (long)0;
+}
+
+void getmatrix(Matrix m)
+{}
+
+long getplanes(void)
+{
+    return (long)0;
+}
+
+Boolean getresetls(void)
+{
+    return (Boolean)0;
+}
+
+void getscrmask(Screencoord *left, Screencoord *right, Screencoord *bottom, Screencoord *top)
+{}
+
+long getvaluator(Device val)
+{
+    return (long)0;
+}
+
+void getviewport(Screencoord *left, Screencoord *right, Screencoord *bottom, Screencoord *top)
+{}
+
+long getwritemask(void)
+{
+    return (long)0;
+}
+
+void gflush(void)
+{}
+
+void ginit(void)
+{}
+
+void greset(void)
+{}
+
+void gRGBcolor(short *red, short *green, short *blue)
+{}
+
+void gRGBcursor(short *index, short *red, short *green, short *blue, short *redm, short *greenm, short *bluem, Boolean *b)
+{}
+
+void gRGBmask(short *redm, short *greenm, short *bluem)
+{}
+
+Boolean isobj(Object obj)
+{
+    return (Boolean)0;
+}
+
+Boolean istag(Tag t)
+{
+    return (Boolean)0;
+}
+
+void linewidth(short n)
+{}
+
+void loadmatrix(const Matrix m)
+{}
+
+void lookat(Coord vx, Coord vy, Coord vz, Coord px, Coord py, Coord pz, Angle twist)
+{}
+
+void lsbackup(Boolean b)
+{}
+
+void makeobj(Object obj)
+{}
+
+void maketag(Tag t)
+{}
+
+void mapcolor(Colorindex c, short red, short green, short blue)
+{}
+
+void mapw(Object vobj, Screencoord sx, Screencoord sy, Coord *wx1, Coord *wy1, Coord *wz1, Coord *wx2, Coord *wy2, Coord *wz2)
+{}
+
+void mapw2(Object vobj, Screencoord sx, Screencoord sy, Coord *wx, Coord *wy)
+{}
+
+void move(Coord x, Coord y, Coord z)
+{}
+
+void move2(Coord x, Coord y)
+{}
+
+void move2i(Icoord x, Icoord y)
+{}
+
+void movei(Icoord x, Icoord y, Icoord z)
+{}
+
+void multimap(void)
+{}
+
+void multmatrix(const Matrix m)
+{}
+
+void noise(Device v, short delta)
+{}
+
+void onemap(void)
+{}
+
+void ortho(Coord left, Coord right, Coord bottom, Coord top, Coord znear, Coord zfar)
+{}
+
+void ortho2(Coord left, Coord right, Coord bottom, Coord top)
+{}
+
+void perspective(Angle fovy, float aspect, Coord znear, Coord zfar)
+{}
+
+void pick(short buffer[], long numnames)
+{}
+
+void picksize(short deltax, short deltay)
+{}
+
+void pnt(Coord x, Coord y, Coord z)
+{}
+
+void pnt2(Coord x, Coord y)
+{}
+
+void pnt2i(Icoord x, Icoord y)
+{}
+
+void pnti(Icoord x, Icoord y, Icoord z)
+{}
+
+void polarview(Coord dist, Angle azim, Angle inc, Angle twist)
+{}
+
+void polf(long n, const Coord parray[][3])
+{}
+
+void polf2(long n, const Coord parray[][2])
+{}
+
+void polf2i(long n, const Icoord parray[][2])
+{}
+
+void polfi(long n, const Icoord parray[][3])
+{}
+
+void poly(long n, const Coord parray[][3])
+{}
+
+void poly2(long n, const Coord parray[][2])
+{}
+
+void poly2i(long n, const Icoord parray[][2])
+{}
+
+void polyi(long n, const Icoord parray[][3])
+{}
+
+void popattributes(void)
+{}
+
+void popmatrix(void)
+{}
+
+void popviewport(void)
+{}
+
+void pushattributes(void)
+{}
+
+void pushmatrix(void)
+{}
+
+void pushviewport(void)
+{}
+
+void qenter(Device qtype, short val)
+{}
+
+long qread(short *data)
+{
+    return (long)0;
+}
+
+void qreset(void)
+{}
+
+long qtest(void)
+{
+    return (long)0;
+}
+
+long readpixels(short n, Colorindex colors[])
+{
+    return (long)0;
+}
+
+long readRGB(short n, RGBvalue red[], RGBvalue green[], RGBvalue blue[])
+{
+    return (long)0;
+}
+
+void rect(Coord x1, Coord y1, Coord x2, Coord y2)
+{}
+
+void rectf(Coord x1, Coord y1, Coord x2, Coord y2)
+{}
+
+void rectfi(Icoord x1, Icoord y1, Icoord x2, Icoord y2)
+{}
+
+void recti(Icoord x1, Icoord y1, Icoord x2, Icoord y2)
+{}
+
+void resetls(Boolean b)
+{}
+
+void RGBcolor(short red, short green, short blue)
+{}
+
+void RGBcursor(short index, short red, short green, short blue, short redm, short greenm, short bluem)
+{}
+
+void RGBmode(void)
+{}
+
+void RGBwritemask(short red, short green, short blue)
+{}
+
+void rotate(Angle a, char axis)
+{}
+
+void scale(float x, float y, float z)
+{}
+
+void scrmask(Screencoord left, Screencoord right, Screencoord bottom, Screencoord top)
+{}
+
+void gselect(short buffer[], long numnames)
+{}
+
+void setcursor(short index, Colorindex c, Colorindex wtm)
+{}
+
+void setdepth(Screencoord znear, Screencoord zfar)
+{}
+
+void setlinestyle(short index)
+{}
+
+void setmap(short mapnum)
+{}
+
+void setvaluator(Device v, short init, short vmin, short vmax)
+{}
+
+void singlebuffer(void)
+{}
+
+long strwidth(String str)
+{
+    return (long)0;
+}
+
+void swapbuffers(void)
+{}
+
+void swapinterval(short i)
+{}
+
+void gsync(void)
+{}
+
+void tie(Device b, Device v1, Device v2)
+{}
+
+void translate(Coord x, Coord y, Coord z)
+{}
+
+void viewport(Screencoord left, Screencoord right, Screencoord bottom, Screencoord top)
+{}
+
+void window(Coord left, Coord right, Coord bottom, Coord top, Coord znear, Coord zfar)
+{}
+
+void writemask(Colorindex wtm)
+{}
+
+void writepixels(short n, const Colorindex colors[])
+{}
+
+void writeRGB(short n, const RGBvalue red[], const RGBvalue green[], const RGBvalue blue[])
+{}
+
+void tpon(void)
+{}
+
+void tpoff(void)
+{}
+
+void gexit(void)
+{}
+
+void clkon(void)
+{}
+
+void clkoff(void)
+{}
+
+void lampon(Byte lamps)
+{}
+
+void lampoff(Byte lamps)
+{}
+
+void setbell(Byte mode)
+{}
+
+void ringbell(void)
+{}
+
+void arcfs(Scoord x, Scoord y, Scoord radius, Angle startang, Angle endang)
+{}
+
+void arcs(Scoord x, Scoord y, Scoord radius, Angle startang, Angle endang)
+{}
+
+void bbox2s(Screencoord xmin, Screencoord ymin, Scoord x1, Scoord y1, Scoord x2, Scoord y2)
+{}
+
+void blankscreen(Boolean bool)
+{}
+
+long blkqread(short data[], short n)
+{
+    return (long)0;
+}
+
+void getmcolor(Colorindex c, short *r, short *g, short *b)
+{}
+
+void chunksize(long chunk)
+{}
+
+void circfs(Scoord x, Scoord y, Scoord radius)
+{}
+
+void circs(Scoord x, Scoord y, Scoord radius)
+{}
+
+void cmov2s(Scoord x, Scoord y)
+{}
+
+void cmovs(Scoord x, Scoord y, Scoord z)
+{}
+
+void compactify(Object obj)
+{}
+
+void qdevice(Device v)
+{}
+
+void unqdevice(Device v)
+{}
+
+void curvebasis(short basisid)
+{}
+
+void curveprecision(short nsegments)
+{}
+
+void crv(const Coord geom[4][3])
+{}
+
+void gbegin(void)
+{}
+
+void textinit(void)
+{}
+
+void crvn(long n, const Coord geom[][3])
+{}
+
+void defbasis(short id, const Matrix mat)
+{}
+
+void deltag(Tag t)
+{}
+
+void depthcue(Boolean mode)
+{}
+
+void draw2s(Scoord x, Scoord y)
+{}
+
+void draws(Scoord x, Scoord y, Scoord z)
+{}
+
+long endfeedback(void *buffer)
+{
+    return (long)0;
+}
+
+void feedback(void *buffer, long size)
+{}
+
+void getcpos(short *ix, short *iy)
+{}
+
+Boolean getdcm(void)
+{
+    return (Boolean)0;
+}
+
+void getgpos(Coord *fx, Coord *fy, Coord *fz, Coord *fw)
+{}
+
+long getlsrepeat(void)
+{
+    return (long)0;
+}
+
+long getmonitor(void)
+{
+    return (long)0;
+}
+
+Object getopenobj(void)
+{
+    return (Object)0;
+}
+
+Boolean getzbuffer(void)
+{
+    return (Boolean)0;
+}
+
+void initnames(void)
+{}
+
+void loadname(short name)
+{}
+
+void lsrepeat(long factor)
+{}
+
+void move2s(Scoord x, Scoord y)
+{}
+
+void moves(Scoord x, Scoord y, Scoord z)
+{}
+
+void newtag(Tag newtg, Tag oldtg, Offset offst)
+{}
+
+void passthrough(short token)
+{}
+
+void patchbasis(long uid, long vid)
+{}
+
+void patchprecision(long usegments, long vsegments)
+{}
+
+void patch(const Matrix geomx, const Matrix geomy, const Matrix geomz)
+{}
+
+void pclos(void)
+{}
+
+void pdr(Coord x, Coord y, Coord z)
+{}
+
+void pdr2(Coord x, Coord y)
+{}
+
+void pdri(Icoord x, Icoord y, Icoord z)
+{}
+
+void pdr2i(Icoord x, Icoord y)
+{}
+
+void pdrs(Scoord x, Scoord y, Scoord z)
+{}
+
+void pdr2s(Scoord x, Scoord y)
+{}
+
+void polf2s(long n, const Scoord parray[][2])
+{}
+
+void polfs(long n, const Scoord parray[][3])
+{}
+
+void poly2s(long n, const Scoord parray[][2])
+{}
+
+void polys(long n, const Scoord parray[][3])
+{}
+
+void pmv(Coord x, Coord y, Coord z)
+{}
+
+void pmv2(Coord x, Coord y)
+{}
+
+void pmvi(Icoord x, Icoord y, Icoord z)
+{}
+
+void pmv2i(Icoord x, Icoord y)
+{}
+
+void pmvs(Scoord x, Scoord y, Scoord z)
+{}
+
+void pmv2s(Scoord x, Scoord y)
+{}
+
+void pnt2s(Scoord x, Scoord y)
+{}
+
+void pnts(Scoord x, Scoord y, Scoord z)
+{}
+
+void popname(void)
+{}
+
+void pushname(short name)
+{}
+
+void rdr(Coord dx, Coord dy, Coord dz)
+{}
+
+void rdr2(Coord dx, Coord dy)
+{}
+
+void rdri(Icoord dx, Icoord dy, Icoord dz)
+{}
+
+void rdr2i(Icoord dx, Icoord dy)
+{}
+
+void rdrs(Scoord dx, Scoord dy, Scoord dz)
+{}
+
+void rdr2s(Scoord dx, Scoord dy)
+{}
+
+void rectcopy(Screencoord x1, Screencoord y1, Screencoord x2, Screencoord y2, Screencoord newx, Screencoord newy)
+{}
+
+void rmv(Coord dx, Coord dy, Coord dz)
+{}
+
+void rmv2(Coord dx, Coord dy)
+{}
+
+void rmvi(Icoord dx, Icoord dy, Icoord dz)
+{}
+
+void rmv2i(Icoord dx, Icoord dy)
+{}
+
+void rmvs(Scoord dx, Scoord dy, Scoord dz)
+{}
+
+void rmv2s(Scoord dx, Scoord dy)
+{}
+
+void rpdr(Coord dx, Coord dy, Coord dz)
+{}
+
+void rpdr2(Coord dx, Coord dy)
+{}
+
+void rpdri(Icoord dx, Icoord dy, Icoord dz)
+{}
+
+void rpdr2i(Icoord dx, Icoord dy)
+{}
+
+void rpdrs(Scoord dx, Scoord dy, Scoord dz)
+{}
+
+void rpdr2s(Scoord dx, Scoord dy)
+{}
+
+void rpmv(Coord dx, Coord dy, Coord dz)
+{}
+
+void rpmv2(Coord dx, Coord dy)
+{}
+
+void rpmvi(Icoord dx, Icoord dy, Icoord dz)
+{}
+
+void rpmv2i(Icoord dx, Icoord dy)
+{}
+
+void rpmvs(Scoord dx, Scoord dy, Scoord dz)
+{}
+
+void rpmv2s(Scoord dx, Scoord dy)
+{}
+
+void setdblights(unsigned long mask)
+{}
+
+void setmonitor(short montype)
+{}
+
+void setshade(Colorindex shade)
+{}
+
+void shaderange(Colorindex lowindex, Colorindex highindex, Screencoord z1, Screencoord z2)
+{}
+
+void spclos(void)
+{}
+
+void splf(long n, const Coord parray[][3], const Colorindex iarray[])
+{}
+
+void splf2(long n, const Coord parray[][2], const Colorindex iarray[])
+{}
+
+void splfi(long n, const Icoord parray[][3], const Colorindex iarray[])
+{}
+
+void splf2i(long n, const Icoord parray[][2], const Colorindex iarray[])
+{}
+
+void splfs(long n, const Scoord parray[][3], const Colorindex iarray[])
+{}
+
+void splf2s(long n, const Scoord parray[][2], const Colorindex iarray[])
+{}
+
+void xfpt(Coord x, Coord y, Coord z)
+{}
+
+void xfpti(Icoord x, Icoord y, Icoord z)
+{}
+
+void xfpts(Scoord x, Scoord y, Scoord z)
+{}
+
+void xfpt2(Coord x, Coord y)
+{}
+
+void xfpt2i(Icoord x, Icoord y)
+{}
+
+void xfpt2s(Scoord x, Scoord y)
+{}
+
+void xfpt4(Coord x, Coord y, Coord z, Coord w)
+{}
+
+void xfpt4i(Icoord x, Icoord y, Icoord z, Icoord w)
+{}
+
+void xfpt4s(Scoord x, Scoord y, Scoord z, Scoord w)
+{}
+
+void zbuffer(Boolean bool)
+{}
+
+void defpattern(short n, short size, const unsigned short mask[])
+{}
+
+long getpattern(void)
+{
+    return (long)0;
+}
+
+void setpattern(short index)
+{}
+
+void objinsert(Tag t)
+{}
+
+void objdelete(Tag tag1, Tag tag2)
+{}
+
+void objreplace(Tag t)
+{}
+
+void zclear(void)
+{}
+
+void curorigin(short n, short xorigin, short yorigin)
+{}
+
+void patchcurves(long ucurves, long vcurves)
+{}
+
+void dbtext(char str[8])
+{}
+
+void backface(Boolean b)
+{}
+
+void cyclemap(short duration, short map, short nextmap)
+{}
+
+void minsize(long x, long y)
+{}
+
+void maxsize(long x, long y)
+{}
+
+void keepaspect(long x, long y)
+{}
+
+void prefsize(long x, long y)
+{}
+
+void stepunit(long xunit, long yunit)
+{}
+
+void fudge(long xfudge, long yfudge)
+{}
+
+void prefposition(long x1, long x2, long y1, long y2)
+{}
+
+void getport(String arg)
+{}
+
+void callfunc(__PFV_ fp, long nargs, ...)
+{}
+
+void getsize(long *x, long *y)
+{}
+
+void getorigin(long *x, long *y)
+{}
+
+void screenspace(void)
+{}
+
+void reshapeviewport(void)
+{}
+
+long winopen(String name)
+{
+    return (long)0;
+}
+
+void winclose(long wid)
+{}
+
+void winset(long wid)
+{}
+
+long winget(void)
+{
+    return (long)0;
+}
+
+void winpush(void)
+{}
+
+void winpop(void)
+{}
+
+long winattach(void)
+{
+    return (long)0;
+}
+
+void winmove(long orgx, long orgy)
+{}
+
+void winposition(long x1, long x2, long y1, long y2)
+{}
+
+void wintitle(String name)
+{}
+
+void rects(Scoord x1, Scoord y1, Scoord x2, Scoord y2)
+{}
+
+void rectfs(Scoord x1, Scoord y1, Scoord x2, Scoord y2)
+{}
+
+void foreground(void)
+{}
+
+void getdev(long n, const Device devs[], short vals[])
+{}
+
+Boolean ismex(void)
+{
+    return (Boolean)0;
+}
+
+void rcrv(const Coord geom[4][4])
+{}
+
+void rcrvn(long n, const Coord geom[][4])
+{}
+
+void rpatch(const Matrix geomx, const Matrix geomy, const Matrix geomz, const Matrix geomw)
+{}
+
+long getothermonitor(void)
+{
+    return (long)0;
+}
+
+void blanktime(long n)
+{}
+
+Boolean isqueued(Device arg)
+{
+    return (Boolean)0;
+}
+
+void rot(float angle, char axis)
+{}
+
+void addtopup(long pup, String str, ...)
+{}
+
+long dopup(long pup)
+{
+    return (long)0;
+}
+
+void freepup(long pup)
+{}
+
+long newpup(void)
+{
+    return (long)0;
+}
+
+void fullscrn(void)
+{}
+
+void endfullscrn(void)
+{}
+
+long getshade(void)
+{
+    return (long)0;
+}
+
+void winconstraints(void)
+{}
+
+void noport(void)
+{}
+
+void noborder(void)
+{}
+
+void imakebackground(void)
+{}
+
+void RGBrange(short rmin, short gmin, short bmin, short rmax, short gmax, short bmax, Screencoord zmin, Screencoord zmax)
+{}
+
+void cmode(void)
+{}
+
+void concave(Boolean b)
+{}
+
+void curstype(long typ)
+{}
+
+void drawmode(long mode)
+{}
+
+long getdrawmode(void)
+{
+    return (long)0;
+}
+
+void gammaramp(const short r[256], const short g[256], const short b[256])
+{}
+
+void shademodel(long mode)
+{}
+
+void overlay(long planes)
+{}
+
+void underlay(long planes)
+{}
+
+long getvideo(long reg)
+{
+    return (long)0;
+}
+
+void setvideo(long reg, long value)
+{}
+
+long defpup(String str, ...)
+{
+    return (long)0;
+}
+
+long getsm(void)
+{
+    return (long)0;
+}
+
+long getbackface(void)
+{
+    return (long)0;
+}
+
+long getdescender(void)
+{
+    return (long)0;
+}
+
+long getmmode(void)
+{
+    return (long)0;
+}
+
+void lmbind(short target, short indx)
+{}
+
+void lmdef(short deftype, short indx, short np, const float proparray[])
+{}
+
+void mmode(short m)
+{}
+
+void normal(const Coord fa[3])
+{}
+
+void bgnclosedline(void)
+{}
+
+void bgnline(void)
+{}
+
+void bgnpoint(void)
+{}
+
+void bgnpolygon(void)
+{}
+
+void bgntmesh(void)
+{}
+
+void blendfunction(long sfactor, long dfactor)
+{}
+
+void c3f(const float vp[3])
+{}
+
+void c3i(const long vp[3])
+{}
+
+void c3s(const short vp[3])
+{}
+
+void c4f(const float vp[4])
+{}
+
+void c4i(const long vp[4])
+{}
+
+void c4s(const short vp[4])
+{}
+
+void cpack(unsigned long abgr)
+{}
+
+void czclear(unsigned long cval, long zval)
+{}
+
+void endclosedline(void)
+{}
+
+void endline(void)
+{}
+
+void endpoint(void)
+{}
+
+void endpolygon(void)
+{}
+
+void endtmesh(void)
+{}
+
+void glcompat(long mode, long value)
+{}
+
+void lRGBrange(short rmin, short gmin, short bmin, short rmax, short gmax, short bmax, long zmin, long zmax)
+{}
+
+void lsetdepth(long zmin, long zmax)
+{}
+
+void lshaderange(Colorindex imin, Colorindex imax, long zmin, long zmax)
+{}
+
+long lrectread(Screencoord x1, Screencoord y1, Screencoord x2, Screencoord y2, unsigned long pixels[])
+{
+    return (long)0;
+}
+
+void lrectwrite(Screencoord x1, Screencoord y1, Screencoord x2, Screencoord y2, const unsigned long parray[])
+{}
+
+void n3f(const float v[3])
+{}
+
+void readsource(long mode)
+{}
+
+long rectread(Screencoord x1, Screencoord y1, Screencoord x2, Screencoord y2, Colorindex pixels[])
+{
+    return (long)0;
+}
+
+void rectwrite(Screencoord x1, Screencoord y1, Screencoord x2, Screencoord y2, const Colorindex parray[])
+{}
+
+void rectzoom(float xfactor, float yfactor)
+{}
+
+void smoothline(long mode)
+{}
+
+void swaptmesh(void)
+{}
+
+void v2d(const double v[2])
+{}
+
+void v2f(const float v[2])
+{}
+
+void v2i(const long v[2])
+{}
+
+void v2s(const short v[2])
+{}
+
+void v3d(const double v[3])
+{}
+
+void v3f(const float v[3])
+{}
+
+void v3i(const long v[3])
+{}
+
+void v3s(const short v[3])
+{}
+
+void v4d(const double v[4])
+{}
+
+void v4f(const float v[4])
+{}
+
+void v4i(const long v[4])
+{}
+
+void v4s(const short v[4])
+{}
+
+void wmpack(unsigned long abgr)
+{}
+
+void zdraw(Boolean flag)
+{}
+
+void zfunction(long func)
+{}
+
+void zsource(long zsrc)
+{}
+
+void zwritemask(unsigned long mask)
+{}
+
+long windepth(long wid)
+{
+    return (long)0;
+}
+
+void iconsize(long x, long y)
+{}
+
+void icontitle(String name)
+{}
+
+long swinopen(long wid)
+{
+    return (long)0;
+}
+
+long dglopen(String svname, long gctype)
+{
+    return (long)0;
+}
+
+void dglclose(long sid)
+{}
+
+void pntsmooth(unsigned long mode)
+{}
+
+void linesmooth(unsigned long mode)
+{}
+
+void subpixel(Boolean flag)
+{}
+
+void sbox(Coord x1, Coord y1, Coord x2, Coord y2)
+{}
+
+void sboxf(Coord x1, Coord y1, Coord x2, Coord y2)
+{}
+
+void sboxfi(Icoord x1, Icoord y1, Icoord x2, Icoord y2)
+{}
+
+void sboxi(Icoord x1, Icoord y1, Icoord x2, Icoord y2)
+{}
+
+void sboxs(Scoord x1, Scoord y1, Scoord x2, Scoord y2)
+{}
+
+void sboxfs(Scoord x1, Scoord y1, Scoord x2, Scoord y2)
+{}
+
+void bgnsurface(void)
+{}
+
+void endsurface(void)
+{}
+
+void bgntrim(void)
+{}
+
+void endtrim(void)
+{}
+
+void nurbssurface(long sknot_count, const double s_knot[], long tknot_count, const double t_knot[], long s_byte_size, long t_byte_size, const double ctlarray[], long s_order, long t_order, long typ)
+{}
+
+void nurbscurve(long knot_count, const double knot_list[], long byte_size, const double ctlarray[], long order, long typ)
+{}
+
+void pwlcurve(long cont, const double data_array[], long byte_size, long typ)
+{}
+
+void setnurbsproperty(long property, float value)
+{}
+
+void getnurbsproperty(long property, float *value)
+{}
+
+void lmcolor(long mode)
+{}
+
+void videocmd(long cmd)
+{}
+
+void logicop(long opcode)
+{}
+
+void colorf(float c)
+{}
+
+void setpup(long pup, long menuindex, unsigned long mode)
+{}
+
+long getgdesc(long inquiry)
+{
+    return (long)0;
+}
+
+void frontface(Boolean b)
+{}
+
+long scrnselect(long gsnr)
+{
+    return (long)0;
+}
+
+long getwscrn(void)
+{
+    return (long)0;
+}
+
+long scrnattach(long gsnr)
+{
+    return (long)0;
+}
+
+void pupmode(void)
+{}
+
+void endpupmode(void)
+{}
+
+long qcontrol(long cmd, long icnt, const short idata[], long ocnt, short odata[])
+{
+    return (long)0;
+}
+
+long qgetfd(void)
+{
+    return (long)0;
+}
+
+void bgnqstrip(void)
+{}
+
+void endqstrip(void)
+{}
+
+void nmode(long mode)
+{}
+
+void t2f(const float v[2])
+{}
+
+void t2d(const double v[2])
+{}
+
+void t2i(const long v[2])
+{}
+
+void t2s(const short v[2])
+{}
+
+void sclear(unsigned long sval)
+{}
+
+void acbuf(long op, float value)
+{}
+
+void acsize(long planes)
+{}
+
+void clipplane(long index, long mode, const float params[])
+{}
+
+void fogvertex(long mode, const float params[32])
+{}
+
+void getscrbox(long *left, long *right, long *bottom, long *top)
+{}
+
+void scrbox(long arg)
+{}
+
+void stensize(long planes)
+{}
+
+void stencil(long enable, unsigned long ref, long func, unsigned long mask, long fail, long pass, long zpass)
+{}
+
+void swritemask(unsigned long mask)
+{}
+
+void pixmode(long mode, long value)
+{}
+
+void polymode(long mode)
+{}
+
+void afunction(long ref, long func)
+{}
+
+void tevbind(long target, long index)
+{}
+
+void texbind(long target, long index)
+{}
+
+void mswapbuffers(long fbuf)
+{}
+
+void polysmooth(long mode)
+{}
+
+void scrsubdivide(long mode, const float params[])
+{}
+
+void tevdef(long index, long np, const float props[])
+{}
+
+void texdef2d(long n, long nc, long width, long height, const unsigned long image[], long np, const float param[])
+{}
+
+void texgen(long coord, long mode, const float params[])
+{}
+
+void linewidthf(float n)
+{}
+
+void pntsize(short n)
+{}
+
+void pntsizef(float n)
+{}
+
+long readdisplay(Screencoord x1, Screencoord y1, Screencoord x2, Screencoord y2, unsigned long pixels[], unsigned long hints)
+{
+    return (long)0;
+}
+
+void bgncurve(void)
+{}
+
+void endcurve(void)
+{}
+
+void pixmodef(long mode, float value)
+{}
+
+long GLXwinset(void *xDisplay, unsigned long xWindow)
+{
+    return (long)0;
+}
+
+GLXconfig * GLXgetconfig(void *xDisplay, long xScreen, GLXconfig * template)
+{
+    return (GLXconfig *)0;
+}
+
+long GLXlink(void *xDisplay, GLXconfig * config)
+{
+    return (long)0;
+}
+
+long GLXunlink(void *xDisplay, unsigned long xWindow)
+{
+    return (long)0;
+}
+
+void dither(long ditmode)
+{}
+
+void deflfont(short n, short nc, const Lfontchar chars[], long nr, const unsigned short raster[])
+{}
+
+void lcharstr(long typ, Lstring str)
+{}
+
+long lstrwidth(long typ, Lstring str)
+{
+    return (long)0;
+}
+
+void t3f(const float v[3])
+{}
+
+void t3d(const double v[3])
+{}
+
+void t3i(const long v[3])
+{}
+
+void t3s(const short v[3])
+{}
+
+void t4f(const float v[4])
+{}
+
+void t4d(const double v[4])
+{}
+
+void t4i(const long v[4])
+{}
+
+void t4s(const short v[4])
+{}
+
+void mssize(long samples, long zsize, long ssize)
+{}
+
+void mssample(long mode)
+{}
+
+void texdef3d(long n, long nc, long width, long height, long depth, const unsigned long image[], long np, const float param[])
+{}
+
+void monobuffer(void)
+{}
+
+void stereobuffer(void)
+{}
+
+void leftbuffer(Boolean enable)
+{}
+
+void rightbuffer(Boolean enable)
+{}
+
+void zbsize(long planes)
+{}
+
+void blendcolor(float r, float g, float b, float a)
+{}
+
+void msalpha(long mode)
+{}
+
+void msmask(float mask, Boolean flag)
+{}
+
+void mspattern(long pattern)
+{}
+
+void multisample(Boolean enable)
+{}
+
+long getgconfig(long buffer)
+{
+    return (long)0;
+}
+
+void hgram(unsigned long a, unsigned long b)
+{}
+
+void minmax(unsigned long a, unsigned long b)
+{}
+
+void pixeltransfer(long a, float b)
+{}
+
+Boolean getmultisample(void)
+{
+    return (Boolean)0;
+}
+
+void tlutdef(long index, long nc, long len, const unsigned long table[], long np, const float props[])
+{}
+
+void tlutbind(long target, long index)
+{}
+
+void subtexload(long target, long index, float l, float r, float b, float t, long nt, const unsigned long texels[], unsigned long flags)
+{}
+
+void convolve(long convop, long border, long xksize, long yksize, const float kernel[], float bias)
+{}
+
+void ildraw(unsigned long buffer)
+{}
+
+long ilbuffer(unsigned long buffers)
+{
+    return (long)0;
+}
+
+void displacepolygon(float scalefactor)
+{}
+
+void RGBsize(unsigned long mode)
+{}
+
+void fbsubtexload(long src_x, long src_y, long target, long index, float l, float r, float b, float t, unsigned long flags)
+{}
+
+void readcomponent(long mode)
+{}
+
+void gethgram(unsigned long parray[16384])
+{}
+
+void getminmax(float parray[8])
+{}
+
+long istexloaded(long target, long id)
+{
+    return (long)0;
+}
+
+void pixelmap(long map, long size, unsigned short parray[16384])
+{}
+
+

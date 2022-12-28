@@ -1,0 +1,84 @@
+#if sgiDSOlib
+
+XCOMM Supporting dynamic shared object libraries for IRIX 5.0
+
+XCOMM These defines mimic what is in /usr/include/make/commondefs
+XCOMM (Should be in sync with Revision 1.99)
+
+       DSOREGFILE = $$ROOT$(SHLIBDIR)/so_locations
+      DSOSTARTOPT = -update_registry $(DSOREGFILE)
+       DSONAMEOPT = -soname $@
+       DSOVERSION = sgi1.0
+    DSOVERSIONOPT = -set_version $(DSOVERSION)
+        LDDSOOPTS = sgiABIopts -no_unresolved -shared $(VLDDSOOPTS) \
+  $(LLDDSOOPTS) $(GLDDSOOPTS)
+       GLDDSOOPTS = -all $(DSOSTARTOPT) $(DSONAMEOPT) $(DSOVERSIONOPT)
+
+#ifndef SharedX11Rev
+#define SharedX11Rev .1
+#endif
+#ifndef SharedOldXRev
+#define SharedOldXRev
+#endif
+#ifndef SharedXtRev
+#define SharedXtRev
+#endif
+#ifndef SharedXawRev
+#define SharedXawRev .2
+#endif
+#ifndef SharedICERev
+#define SharedICERev
+#endif
+#ifndef SharedSMRev
+#define SharedSMRev
+#endif
+#ifndef SharedXmuRev
+#define SharedXmuRev
+#endif
+#ifndef SharedXextRev
+#define SharedXextRev
+#endif
+#ifndef SharedXiRev
+#define SharedXiRev
+#endif
+#ifndef SharedXtstRev
+#define SharedXtstRev
+#endif
+#ifndef SharedXTrapRev
+#define SharedXTrapRev
+#endif
+#ifndef SharedXnmbxRev
+#define SharedXnmbxRev
+#endif
+
+/*
+ * XXX We rely on the fact that the Reqs can be used as both
+ * dependencies and link-line options.  This is true with SGI's
+ * DSO technology.
+ */
+#define SharedX11Reqs	$(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedICEReqs	$(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedSMReqs	$(DEPICELIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXtReqs	$(DEPXONLYLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXmuReqs	$(DEPXTOOLONLYLIB) $(DEPXLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXextReqs	$(DEPXONLYLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXawReqs $(DEPXMULIB) $(DEPXTOOLONLYLIB) $(DEPXLIB) \
+	$(ROOT)$(SHLIBDIR)/libw.so $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXawI18nReqs SharedXawReqs $(ROOT)$(SHLIBDIR)/libw.so
+#define SharedXiReqs	$(DEPXLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXtstReqs	$(DEPXLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedPexReqs	$(DEPXONLYLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+#define SharedXnmbxReqs	$(DEPXNMBXLIB) $(ROOT)$(SHLIBDIR)/libc.so.1
+
+#ifdef NOTYET
+#if SharedLibXnmbx
+      DEPXNMBXLIB = _UseCat($(USRLIBDIR),$(XNMBXLIBSRC),/libXnmbx.so$(SOXNMBXREV))
+         XNMBXLIB = _Use(-lXnmbx,$(XNMBXLIBSRC)/libXnmbx.so$(SOXNMBXREV))
+#endif
+#endif /* NOTYET */
+
+#endif /* sgiDSOlib */
+
+#if Build64bit
+           LIBSRC = $(TOP)/lib64
+#endif

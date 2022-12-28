@@ -1,0 +1,453 @@
+#! /bin/ksh
+
+# $Header: /proj/irix5.3/isms/cmplrs/abi/RCS/ld,v 1.6 1994/10/30 19:33:52 nlouie Exp $
+# $Locker:  $
+
+#
+# SVID compliant ld command parse.
+#
+
+ABIDIR=${ABIDIR-$ROOT/usr/lib/abi}
+ABILIB=${ABIDIR}
+CMD=ld
+
+# abicc -Wl depends on this line - DON'T CHANGE
+. $ABILIB/setup
+
+
+#
+# Parse the command line. The options supported by the script are taken
+# from the Unix System V Release 4 Programmer's Reference Manual.
+#
+
+while [[ -n "$1" ]]
+do
+	case "$1" in
+	-a)
+		if [[ -n "$a_opt" ]]
+		then
+			options="$options $a_opt"
+		fi
+		;;
+
+	-b)
+		if [[ -n "$b_opt" ]]
+		then
+			options="$options $b_opt"
+		fi
+		;;
+
+	-d)
+		case "$2" in
+		y)
+			if [[ -n "$dy_opt" ]]
+			then
+				options="$options $dy_opt"
+			fi
+			;;
+
+		n)
+			if [[ -n "$dn_opt" ]]
+			then
+				options="$options $dn_opt"
+			fi
+			;;
+
+		*)
+			badopt "-d $2"
+			;;
+		esac
+		shift
+		;;
+
+	-d[yn])
+		case "${1#-d}" in
+		y)
+			if [[ -n "$dy_opt" ]]
+			then
+				options="$options $dy_opt"
+			fi
+			;;
+
+		n)
+			if [[ -n "$dn_opt" ]]
+			then
+				options="$options $dn_opt"
+			fi
+			;;
+		esac
+		;;
+
+	-e)
+		if [[ -n "$e_opt" ]]
+		then
+			options="$options $e_opt$2"
+		fi
+		shift
+		;;
+
+	-e*)
+		if [[ -n "$e_opt" ]]
+		then
+			options="$options $e_opt${1#-e}"
+		fi
+		;;
+
+	-h)
+		if [[ -n "$h_opt" ]]
+		then
+			options="$options $h_opt$2"
+		fi
+		shift
+		;;
+
+	-h*)
+		if [[ -n "$h_opt" ]]
+		then
+			options="$options $h_opt${1#-h}"
+		fi
+		;;
+
+	-l)
+		if [[ -n "$l_opt" ]]
+		then
+			options="$options $l_opt$2"
+		fi
+		shift
+		;;
+
+	-l*)
+		if [[ -n "$l_opt" ]]
+		then
+			options="$options $l_opt${1#-l}"
+		fi
+		;;
+
+	-m)
+		if [[ -n "$m_opt" ]]
+		then
+			options="$options $m_opt"
+		fi
+		;;
+
+	-o)
+		if [[ -n "$o_opt" ]]
+		then
+			options="$options $o_opt$2"
+		fi
+		shift
+		;;
+
+	-o*)
+		if [[ -n "$o_opt" ]]
+		then
+			options="$options $o_opt${1#-o}"
+		fi
+		;;
+
+	-r)
+		if [[ -n "$r_opt" ]]
+		then
+			options="$options $r_opt"
+		fi
+		;;
+
+	-s)
+		if [[ -n "$s_opt" ]]
+		then
+			options="$options $s_opt"
+		fi
+		;;
+
+	-t)
+		if [[ -n "$t_opt" ]]
+		then
+			options="$options $t_opt"
+		fi
+		;;
+
+	-u)
+		if [[ -n "$u_opt" ]]
+		then
+			options="$options $u_opt$2"
+		fi
+		shift
+		;;
+
+	-u*)
+		if [[ -n "$u_opt" ]]
+		then
+			options="$options $u_opt${1#-u}"
+		fi
+		;;
+
+	-z)
+		case "$2" in
+		defs)
+			if [[ -n "$zdefs_opt" ]]
+			then
+				options="$options $zdefs_opt"
+			fi
+			;;
+
+		nodefs)
+			if [[ -n "$znodefs_opt" ]]
+			then
+				options="$options $znodefs_opt"
+			fi
+			;;
+
+		text)
+			if [[ -n "$ztext_opt" ]]
+			then
+				options="$options $ztext_opt"
+			fi
+			;;
+
+		*)
+			badopt "-z $2"
+			;;
+		esac
+		shift
+		;;
+
+	-zdefs)
+		if [[ -n "$zdefs_opt" ]]
+		then
+			options="$options $zdefs_opt"
+		fi
+		;;
+
+	-znodefs)
+		if [[ -n "$znodefs_opt" ]]
+		then
+			options="$options $znodefs_opt"
+		fi
+		;;
+
+	-ztext)
+		if [[ -n "$ztext_opt" ]]
+		then
+			options="$options $ztext_opt"
+		fi
+		;;
+
+	-B)
+		case "$2" in
+		symbolic)
+			if [[ -n "$Bsymbolic_opt" ]]
+			then
+				options="$options $Bsymbolic_opt"
+			fi
+			;;
+
+		dynamic)
+			if [[ -n "$Bdynamic_opt" ]]
+			then
+				options="$options $Bdynamic_opt"
+			fi
+			;;
+
+		static)
+			if [[ -n "$Bstatic_opt" ]]
+			then
+				options="$options $Bstatic_opt"
+			fi
+			;;
+
+		esac
+		shift
+		;;
+
+	-Bsymbolic)
+		if [[ -n "$Bsymbolic_opt" ]]
+		then
+			options="$options $Bsymbolic_opt"
+		fi
+		;;
+
+	-Bdynamic)
+		if [[ -n "$Bdynamic_opt" ]]
+		then
+			options="$options $Bdynamic_opt"
+		fi
+		;;
+
+	-Bstatic)
+		if [[ -n "$Bstatic_opt" ]]
+		then
+			options="$options $Bstatic_opt"
+		fi
+		;;
+
+	-G)
+		if [[ -n "$G_opt" ]]
+		then
+			options="$options $G_opt"
+		fi
+		;;
+
+	-I)
+		if [[ -n "$I_opt" ]]
+		then
+			options="$options $I_opt$2"
+		fi
+		shift
+		;;
+
+	-I*)
+		if [[ -n "$I_opt" ]]
+		then
+			options="$options $I_opt${1#-I}"
+		fi
+		;;
+
+	-L)
+		if [[ -n "$L_opt" ]]
+		then
+			options="$options $L_opt$2"
+		fi
+		shift
+		;;
+
+	-L*)
+		if [[ -n "$L_opt" ]]
+		then
+			options="$options $L_opt${1#-L}"
+		fi
+		;;
+	-M)
+		if [[ -n "$M_opt" ]]
+		then
+			options="$options $M_opt$2"
+		fi
+		shift
+		;;
+
+	-M*)
+		if [[ -n "$M_opt" ]]
+		then
+			options="$options $M_opt${1#-M}"
+		fi
+		;;
+
+	-Q)
+		case "$2" in
+		n)
+			if [[ -n "$Qn_opt" ]]
+			then
+				options="$options $Qn_opt"
+			fi
+			;;
+
+		y)
+			if [[ -n "$Qy_opt" ]]
+			then
+				options="$options $Qy_opt"
+			fi
+			;;
+
+		*)
+			badopt "-Q $2"
+			;;
+		esac
+		shift
+		;;
+
+	-Qn|-Qy)
+		case "${1#-Q}" in
+		n)
+			if [[ -n "$Qn_opt" ]]
+			then
+				options="$options $Qn_opt"
+			fi
+			;;
+
+		y)
+			if [[ -n "$Qy_opt" ]]
+			then
+				options="$options $Qy_opt"
+			fi
+			;;
+		esac
+		;;
+
+	-V)
+		if [[ -n "$V_opt" ]]
+		then
+			options="$options $V_opt"
+		fi
+		;;
+
+	-Xreadonly)
+		if [[ -n "$Xreadonly_const_opt" ]]
+		then
+			options="$options $Xreadonly_const_opt"
+		fi
+		;;
+
+	-Xreadwrite_const)
+		if [[ -n "$Xreadwrite_const_opt" ]]
+		then
+			options="$options $Xreadwrite_const_opt"
+		fi
+		;;
+
+	-X)
+		case "$2" in
+		readonly_const)
+			if [[ -n "$Xreadonly_const_opt" ]]
+			then
+				options="$options $Xreadonly_const_opt"
+			fi
+			;;
+
+		readwrite_const)
+			if [[ -n "$Xreadwrite_const_opt" ]]
+			then
+				options="$options $Xreadwrite_const_opt"
+			fi
+			;;
+
+		*)
+			badopt "-X $2"
+			;;
+		esac
+		shift
+		;;
+
+	-Y)
+		echo "Warning: This option not supported for abi ld command ($1 $2)" 1>&2
+		shift
+		;;
+
+	-Y*)
+		echo "Warning: This option not supported for abi ld command ($1)" 1>&2
+		;;
+
+	-*)
+		badopt $1
+		;;
+
+	*)
+		options="$options $1"
+		;;
+	esac
+	shift
+done
+
+
+# interpret LD_RUN_PATH if one is set
+if [[ -n "$LD_RUN_PATH" && -n "$RP_opt" ]]
+then
+	options="$options $RP_opt$LD_RUN_PATH"
+fi
+
+
+#
+# Now call the proper LD with the machine dependent options.
+#
+
+# abicc -Wl depends on this line - DON'T CHANGE
+${LD} $options $post
+

@@ -1,0 +1,41 @@
+Contents of this directory:
+
+README		This file
+GlxDrawA.c	The Widget
+GlxDrawA.h	The public include file
+GlxDrawAP.h	The private include file
+GlxMDrawA.c	Motif wrapper around GlxDrawA.c
+GlxMDrawA.h	Motif wrapper around GlxDrawA.h
+GlxMDrawAP.h	Motif wrapper around GlxDrawAP.h
+GlxMDUtil.c	Some wrapper functions
+Imakefile	A rough starting point (but it works)
+simple.c	a simple test program with one widget
+man		the manual pages
+everything else	garbage
+
+Notes:
+
+This needs to be built in a Motif 1.2 environment or later.
+
+The include file directory and the library name need to be determined.
+Both the code and the manual pages will need updating.
+
+The manual Page for GlxDrawingArea should be symlinked to
+GlxMDrawingArea when installed.
+
+All glXChooseVisual attributes (except GLX_USE_GL) have been
+incorporated into the widget.  If there are any changes or new
+attributes, they must be added to the widget.  Unfortunately, there
+are several places that need modifying:
+
+GlxDrawA.h:
+	Update the comment near the top.
+	Add Appropriate GlxN and GlxC declarations.
+GlxDrawAP.h:
+	Declare variables in the GlxDrawingAreaPart structure.
+GlxDrawA.c
+	Add them to the resources array.
+	Update either the intAttribs or the booleanAttribs array.
+Manual
+	Update the table in the GlxCreateMDrawingArea.3X manual page.
+	
