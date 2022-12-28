@@ -16,7 +16,7 @@
 
 
 # Makerom
-The goal of this is to decompile makerom using the irix binary.
+This project aims to decompile the debug and non-debug version of makerom and makedisk (soon)
 
 ```diff
 - WARNING! -
@@ -35,16 +35,14 @@ Because the irix binary provides a mips assembler and being of this architecture
 
 Yes and no, on the one hand it could be that there are certain reimplementations in functions that only the IDO compiler can accept, and that therefore are ported to the gcc syntax, that is why there is a `NON_MATCHING` conditional
 
-- With this I can build the makerom binary?
-
-Not for now, but I will soon devise a build system in which you can create a makerom binary, which will not be identical to the original. Because I don't know what irix libc port Nintendo used to link the Makerom binary. You won't be able to run it to Qemu Irix either unless you decompile the main function which has a weird conditional that detects the SGI version
-
-
-
 
 # Info 
 
 - Makefile only to check the gcc syntax
+
+- There will be support for SGI! 
+
+- Recompilation soon!
 
 # Contributors
 
@@ -60,7 +58,7 @@ Not for now, but I will soon devise a build system in which you can create a mak
 
 # Special thanks
 
-- Someon2639 (Without that magic script, the project would not have taken a 360° turn)
+- Someone2639 (Without that magic script, the project would not have taken a 360° turn)
 
 - Fluffy Kouprey (He was at the beginning of the project, he helped with all kinds of functions, without a doubt, without his help, the progress would not have been made.)
 
