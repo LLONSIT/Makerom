@@ -1,7 +1,7 @@
 
 <p align="center">
     <a href="" alt="yacc">
-        <img src="https://img.shields.io/badge/Yacc%20Functions-6%2F10-green" /></a>
+        <img src="https://img.shields.io/badge/Yacc-8%2F10%20Reimplementing!-green" /></a>
     <a href="" alt="coff">
         <img src="https://img.shields.io/badge/Coff.c%20Functions-2%2F2-green" /></a>
     <a href="" alt="elspec">
