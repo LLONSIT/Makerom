@@ -3,6 +3,8 @@
 #include "sgi_structs.h"
 #include "types.h"
 
+//Libmld
+
 
 #ifdef __sgi
 s32 ldfseek(struct ldfile* f, s32 offset, s32 whence) {

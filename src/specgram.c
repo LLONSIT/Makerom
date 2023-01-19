@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include "types.h"
+#include "makerom_common.h"
 
 
 

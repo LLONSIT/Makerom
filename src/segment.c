@@ -8,9 +8,13 @@
 #include <fcntl.h>
 #include "types.h"
 #include "makerom.h"
+#include "makerom_common.h"
 
+//Static
 const char *sys_errlist[];
-extern Segment* SegmentList;
+extern Segment* segmentList;
+extern unsigned int ALIGNn(unsigned int romalign, int n);
+static void* B_10016A60;
 
 #define SECTION_TEXT (1 << 0)
 #define SECTION_DATA_RODATA (1 << 1)
@@ -18,54 +22,46 @@ extern Segment* SegmentList;
 #define SECTION_BSS (1 << 3)
 #define SECTION_SBSS (1 << 4)
 
-                                         /* offset*/
-unsigned int ALIGNn(unsigned int romalign, int n) { 
-    if (romalign == 0) {
-        romalign = 0x10; //0x10 Alignment
+
+int scanSegments() {
+    Segment* seg;
+    u32 offset;
+    s32 rom_size; 
+
+    offset = 0x50;
+    if (elf_version(1) == 0) {  //Libelf stuff, Checks a version standart?
+        fprintf(stderr, "makerom: out of date\n");
+        return -1;
     }
-    return ((n + romalign - 1) / romalign) * romalign;
-}
-
-
-s32 readRaw(Segment* seg) {
-    Path* p; // linked list (files?)
-    int fd;
-    int offset;
-    off_t fileSize;
-    off_t totalSize;
-    struct stat statBuffer;
-
-    totalSize = 0;
-    offset = seg->romOffset;
-
-    for (p = seg->pathList; p != NULL; p = p->next) {
-        if ((fd = open(p->name, 0)) == -1) {
-            fprintf(stderr, "makerom: %s: %s\n", p->name, sys_errlist[errno]);
+    // s = segmentList;
+    for (seg = segmentList; seg != NULL; seg = seg->next) {
+        if (seg->w == 0) { //???
+            fprintf(stderr, "makerom: segment \"%s\": not found in any wave\n", seg->name);
             return -1;
         }
-        if (fstat(fd, &statBuffer) == -1) {
-            fprintf(stderr, "makerom: lstat failed: %s\n", sys_errlist[errno]);
-            return -1;
+        seg->romOffset = offset;
+        if (seg->flags & 2) {
+            if (sizeObject(seg) == -1) {
+                return -1;
+            }
+        } else if (seg->flags & 4) {
+            if (sizeRaw(seg) == -1) {
+                return -1;
+            }
         }
 
-        fileSize = statBuffer.st_size;
-        totalSize += fileSize;
-        if (totalSize > seg->dataSize) {
-            fprintf(stderr, "makerom: %s: segment size changed\n", seg->name);
-            return -1;
-        }
-        if (read(fd, B_10016A60 + offset, fileSize) != fileSize) {
-            fprintf(stderr, "makerom: %s: read failed (%s)\n", p->name, sys_errlist[errno]);
-            return -1;
-        }
-
-        close(fd);
-        offset += fileSize;
+        offset = seg->romOffset;
+        offset += seg->textSize + seg->dataSize + seg->sdataSize;
+        offset = ALIGNn(seg->align, offset);
     }
-
+    rom_size = (offset > 0x50) ? offset : 0x50;
+    Allocate = calloc(rom_size, 1);
+    if (Allocate == NULL) {
+        fprintf(stderr, "makerom: malloc failed [RomSize= %d kB]\n", (rom_size + 0x3FF) / 0x400);
+        return -1;
+    }
     return 0;
 }
-
 
 int sizeObject(Segment* segment) {
     u32 address1;
@@ -329,157 +325,114 @@ int sizeObject(Segment* segment) {
     return 0;
 }
 
+int sizeRaw(Segment* seg) {
+    u32 address1;
+    u32 address2;
+    u32 currAddress;
+    s32 fd;
+    Path* p;
+    struct stat statBuffer;
 
-
-int scanSegments() {
-    Segment* seg;
-    u32 offset;
-    s32 rom_size; 
-
-    offset = 0x50;
-    if (elf_version(1) == 0) {  //Libelf stuff, Checks a version standart?
-        fprintf(stderr, "makerom: out of date\n");
-        return -1;
-    }
-    // s = segmentList;
-    for (seg = SegmentList; seg != NULL; seg = seg->next) {
-        if (seg->w == 0) { //???
-            fprintf(stderr, "makerom: segment \"%s\": not found in any wave\n", seg->name);
+    seg->dataAlign = 0x10;
+    seg->sectionsExisting = 2;
+    for (p = seg->pathList; p != NULL; p = p->next) {
+        p->textSize = 0;
+        p->dataSize = 0;
+        p->sdataSize = 0;
+        p->sbssSize = 0;
+        p->bssSize = 0;
+        p->textAlign = 0;
+        p->dataAlign = 0x10;
+        p->sdataAlign = 0;
+        p->sbssAlign = 0;
+        p->bssAlign = 0;
+        p->sectionsExisting = 2;
+        
+        if ((fd = open(p->name, 0)) == -1) {
+            fprintf(stderr, "makerom: %s: %s\n", p->name, sys_errlist[errno]);
             return -1;
         }
-        seg->romOffset = offset;
-        if (seg->flags & 2) {
-            if (sizeObject(seg) == -1) {
-                return -1;
-            }
-        } else if (seg->flags & 4) {
-            if (sizeObject(seg) == -1) {
-                return -1;
-            }
+        if (fstat(fd, &statBuffer) == -1) {
+            fprintf(stderr, "makerom: lstat failed: %s\n", sys_errlist[errno]);
+            return -1;
         }
-
-        offset = seg->romOffset;
-        offset += seg->textSize + seg->dataSize + seg->sdataSize;
-        offset = ALIGNn(seg->align, offset);
-    }
-    rom_size = (offset > 0x50) ? offset : 0x50;
-    Allocate = calloc(rom_size, 1);
-    if (Allocate == NULL) {
-        fprintf(stderr, "makerom: malloc failed [RomSize= %d kB]\n", (rom_size + 0x3FF) / 0x400);
-        return -1;
-    }
-    return 0;
-}
-
-Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
-    Elf_Scn* scn;
-    Elf32_Shdr* shdr;
-    size_t index;
-    unsigned char* sectName;
-
-  for(index = 1 ; index < wave->ehdr->e_shnum; index++) {
-        if (((scn = elf_getscn(wave->elf, index)) == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
-            fprintf(stderr, "makerom: %s: can't get section index %d\n", wave->name, index);
-            return NULL;
-        }
-        sectName = elf_strptr(wave->elf, wave->ehdr->e_shstrndx, shdr->sh_name);
-        if (strcmp(sectName, segSectName) == 0) {
-            break;
-        }
+        seg->dataSize = (s32) (seg->dataSize + statBuffer.st_size);
+        close(fd);
+   
 
     }
-      if (index >= wave->ehdr->e_shnum) {
-        fprintf(stderr, "makerom: %s: cannot find %s section\n", wave->name, segSectName);
-        return NULL;
-    }
-    return shdr;
-}
-
-s32 func_0040F3DC(Wave* wave, s8* name) {
-    s32 scn;
-    Elf32_Shdr* shdr;
-    Elf_Data* data;
-    Elf32_Sym* sym;
-    u32 index;
-    s32 i;
-    s32 count;
-
-
-
-    for (index = 1; index < wave->ehdr->e_shnum; index++) {
-
-        
-        if (((scn = _elf_getscn(wave->elf, index)) == 0) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
-            return 0;
-        }
-        if (shdr->sh_type != 2) {
-              continue;
-        }
-
-    
-        data = NULL;
-       
-        if ((data = elf_getdata(scn, data))== NULL) {
-            return 0;
-        }
-        
-        
-        count =  data->d_size >> 4;
-        sym = data->d_buf;
-        sym ++;
-        
-        
-        for (i = 1; i < count; i++) {
-            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
-                return sym->st_value;
-            }
-            sym++;
-        }
 
  
-       
+    seg->totalSize = seg->dataSize = ((u32) (seg->dataSize + 0xF) >> 4) * 0x10;
 
-    }
-
-    return 0;
-}
-
-#ifdef NON_MATCHING
-int openAuots() {
-    Wave* wave;
-    unsigned char gcordFileBuf[252];
-   
-    //s32 ret; //TEMP
-
-
-   
-   for (wave = waveList ; wave != NULL; wave = wave->next) {
-//loop_1:
-        if (gcord != 0) {
-            strcat(strcpy(&gcordFileBuf, wave->name), ".cord");
-        } else {
-            strcpy(&gcordFileBuf, wave->name);
-        }
-        
-        if ((wave->fd =  open(wave->name, 0)) == -1) {
-            fprintf(stderr, "makerom: %s: %s\n", wave->name, sys_errlist[errno]);
-            return -1;
-        }
-        wave->elf = elf_begin(wave->fd, 1, 0);
-        if ((elf_kind(wave->elf) != 3) || (elf32_getehdr(wave->elf), wave->ehdr) == 0) {
-            fprintf(stderr, "makerom: %s: not a valid ELF object file\n", wave->name);
-            
-            return -1;
-        
-        }
+    switch (seg->addrFunc) {
+    case 2:
      
-
-          ;
+        address1 = seg->afterSeg1->address + seg->afterSeg1->totalSize;
+        address2 = seg->afterSeg2->address + seg->afterSeg2->totalSize;
+        currAddress = (address1 > address2) ? address1 : address2;
+        break;
+    case 3:
+        address1 = seg->afterSeg1->address + seg->afterSeg1->totalSize;
+        address2 = seg->afterSeg2->address + seg->afterSeg2->totalSize;
+        currAddress = (address1 < address2) ? address1 : address2;
+        break;
+    case 1:
+        address1 = seg->afterSeg1->address + seg->afterSeg1->totalSize;
+        currAddress = address1;
+        break;
+    case 4:
+        currAddress = seg->address;
+        break;
+    case 5:
+        currAddress = seg->address;
+        break;
+    default:
+        break;
     }
-//block_10:
+    currAddress = ALIGNn(seg->align, currAddress);
+    currAddress = ALIGNn(seg->dataAlign, currAddress);
+    seg->address = currAddress;
     return 0;
 }
-#endif
+
+s32 checkSizes(void) {
+    Segment* seg; //was s, but changed for seg 
+    s32 sizeViolation;
+
+    sizeViolation = 0;
+    for (seg = segmentList; seg != NULL; seg = seg->next) {
+            if ((seg->flags & 1) && ((seg->textSize + seg->dataSize + seg->sdataSize) > 0x100000)) {
+                fprintf(stderr, "makerom: segment \"%s\" (text+data) size ", seg->name);
+                fprintf(stderr, "(%d+%d) = %d (0x%x)\n         ", 
+                    seg->textSize, 
+                    seg->dataSize + seg->sdataSize, 
+                    seg->textSize + seg->dataSize + seg->sdataSize, 
+                    seg->textSize + seg->dataSize + seg->sdataSize
+                    );
+                fprintf(stderr, "exceeds maximum BOOT segment size %d (0x%x)\n", 0x100000, 0x100000);
+                sizeViolation = 1;
+            }
+            if (seg->totalSize > seg->maxSize) {
+                fprintf(stderr, "makerom: segment \"%s\" (text+data+bss) size ", seg->name);
+                fprintf(stderr, "(%d+%d+%d) = %d (0x%x)\n         ", 
+                    seg->textSize, 
+                    seg->dataSize + seg->sdataSize, 
+                    seg->bssSize + seg->sbssSize, 
+                    seg->totalSize, seg->totalSize
+                    );
+                fprintf(stderr, "exceeds given maximum segment size %d (0x%x)\n", seg->maxSize, seg->maxSize);
+                sizeViolation = 1;
+            }
+        
+    }
+
+    if (sizeViolation != 0) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
 
 #define TO_PHYSICAL(addr) ((u32)(addr) & 0x1FFFFFFF)
 
@@ -513,102 +466,24 @@ int checkOverlaps(void) {
     return isOverlap;
 }
 
-
-int readObject(Segment* seg) {
-    unsigned char* segSectName;
-    Elf32_Shdr* shdr;
-
-  
-    if ((segSectName = malloc(strlen((s8* ) seg->name) + 9)) == NULL) {
-        fprintf(stderr, "malloc failed\n");
-        return -1;
-    }
-    sprintf(segSectName, ".%s.text", seg->name);
-    
-    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
-        return -1;
-    }
-    if (shdr->sh_size != seg->textSize) {
-        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
-        fprintf(stderr, "makerom:   shdr = %d, textSize = %d\n", shdr->sh_size, seg->textSize);
-        free(segSectName);
-        return -1;
-    }
-    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
-        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
-        free(segSectName);
-        return -1;
-    }
-    if (read(seg->w->fd, seg->romOffset + B_10016A60, shdr->sh_size) != shdr->sh_size) {
-        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
-        free(segSectName);
-        return -1;
-    }
-    sprintf(segSectName, ".%s.data", seg->name);
-    
-    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
-        return -1;
-    }
-    if (shdr->sh_size != seg->dataSize) {
-        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
-        fprintf(stderr, "large data failed\n");
-        fprintf(stderr, "%s, file large=%x, our dataSize=%x\n", seg->name, shdr->sh_size, seg->dataSize);
-        free(segSectName);
-        return -1;
-    }
-    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
-        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
-        free(segSectName);
-        return -1;
-    }
-    if (read(seg->w->fd, seg->romOffset + B_10016A60 + seg->textSize, shdr->sh_size) != shdr->sh_size) {
-        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
-        free(segSectName);
-        return -1;
-    }
-    sprintf(segSectName, ".%s.sdata", seg->name);
-    
-    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
-        return -1;
-    }
-    if (shdr->sh_size != seg->sdataSize) {
-        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
-        fprintf(stderr, "small data failed\n");
-        free(segSectName);
-        return -1;
-    }
-    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
-        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
-        free(segSectName);
-        return -1;
-    }
-    if (read(seg->w->fd, seg->romOffset + B_10016A60 + seg->textSize + seg->dataSize, shdr->sh_size) != shdr->sh_size) {
-        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
-        free(segSectName);
-        return -1;
-    }
-    free(segSectName);
-    return 0;
-}
-
 s32 createSegmentSymbols(u8* source, u8* object) {
     FILE* f;
     Segment* seg;
     s8* cmd;
 
-
+  
     if ((f = fopen(source, "w")) == NULL) {
         fprintf(stderr, "makerom: %s: cannot create\n", source);
         return -1;
     }
-
-    for(seg = SegmentList ; seg != NULL ; seg = seg->next) {
-
+   
+    for(seg = segmentList ; seg != NULL ; seg = seg->next) {
+    
             fprintf(f, ".globl _%sSegmentRomStart; ", seg->name);
             fprintf(f, "_%sSegmentRomStart = 0x%08x\n", seg->name, seg->romOffset + offset + 0x1000);
             fprintf(f, ".globl _%sSegmentRomEnd; ", seg->name);
             fprintf(f, "_%sSegmentRomEnd = 0x%08x\n", seg->name, seg->romOffset + offset + seg->textSize + seg->dataSize + seg->sdataSize + 0x1000);
-            if (seg->flags & 2) {
+            if (seg->flags & COMMON_UNKNOWN_FLAG) {
                 fprintf(f, ".globl _%sSegmentStart; ", seg->name);
                 fprintf(f, "_%sSegmentStart = 0x%08x\n", seg->name, seg->address);
                 if (seg->textSize != 0) {
@@ -632,16 +507,16 @@ s32 createSegmentSymbols(u8* source, u8* object) {
                 fprintf(f, ".globl _%sSegmentEnd; ", seg->name);
                 fprintf(f, "_%sSegmentEnd = 0x%08x\n", seg->name, seg->bssStart + seg->bssSize);
             }
-
-        }
-
+      
+        } 
+    
     fclose(f);
-
+    
     if ((cmd = malloc(sysconf(1))) == NULL) {
         fprintf(stderr, "malloc failed\n");
         return -1;
     }
-
+    
     strcpy(cmd, "$TOOLROOT/usr/bin/cc -c -non_shared -o ");
     strcat(cmd, object);
     strcat(cmd, " ");
@@ -650,149 +525,6 @@ s32 createSegmentSymbols(u8* source, u8* object) {
         printf("  %s\n", cmd);
     }
     return execCommand(cmd);
-}
-
-
-int createEntryFile(char* entryFilename, char* outFile) {
-    Segment* curSeg;
-    FILE* entryFile; // 50
-    char* compile_cmd; // 4C
-    char* segSectName;
-    unsigned int BssStart;
-    Wave* wave;
-    unsigned int entryAddr = 0; // bootEntry
-    unsigned int stackAddr = 0; // bootStack
-    char romsymbol[14] = "__osFinalrom"; // string is only 13 chars
-
-    if ((entryFile = fopen(entryFilename, "w")) == NULL) {
-        fprintf(stderr, "makerom: %s: cannot create\n", entryFilename);
-        return -1;
-    }
-
-    for (curSeg = SegmentList; curSeg != NULL; curSeg = curSeg->next) {
-        if (curSeg->flags & 1) { // BOOT flag?
-            wave = curSeg->w;
-            if ((wave->fd = open(wave->name, 0)) == -1) {
-                fprintf(stderr, "makerom: %s: %s\n", wave->name, sys_errlist[errno]);
-                return -1;
-            }
-            wave->elf = elf_begin(wave->fd, ELF_C_READ, NULL);
-            if ((elf_kind(wave->elf) != 3) || ((wave->ehdr = elf32_getehdr(wave->elf)) == 0)) {
-                fprintf(stderr, "makerom: %s: not a valid ELF object file\n", wave->name);
-                return -1;
-            }
-            if ((finalromSize != 0) && (lookupSymbol(curSeg->w, romsymbol) == 0)) {
-                fprintf(stderr, "makerom: use libultra_rom.a to build real game cassette\n");
-                return -1;
-            }
-            if (bootEntryName != NULL) {
-                entryAddr = lookupSymbol(curSeg->w, bootEntryName);
-                if (entryAddr == 0) {
-                    fprintf(stderr, "makerom: %s: cannot find entry symbol %s\n", curSeg->w->name, bootEntryName);
-                    return -1;
-                }
-            }
-            if (bootStackName != NULL) {
-                if ((stackAddr = lookupSymbol(curSeg->w, bootStackName)) == 0) {
-                    fprintf(stderr, "makerom: %s: cannot find stack symbol %s\n", curSeg->w->name, bootStackName);
-                    return -1;
-                }
-            } else {
-                stackAddr = 0;
-            }
-
-            stackAddr += bootStackOffset;
-            if ((curSeg->bssSize != 0) && (cosim == 0)) {
-                if ((segSectName = malloc(strlen(curSeg->name) + 0x10)) == NULL) {
-                    fprintf(stderr, "malloc failed\n");
-                    return -1;
-                }
-                sprintf(segSectName, "_%sSegmentBssStart", curSeg->name);
-                BssStart = lookupSymbol(curSeg->w, segSectName);
-                fprintf(entryFile, " la\t$8 0x%x\n", BssStart);
-                fprintf(entryFile, " li\t$9 0x%x\n", curSeg->bssSize);
-                fprintf(entryFile, ".ent entryPoint\n");
-                fprintf(entryFile, "entryPoint:\n");
-                fprintf(entryFile, " sw $0, 0($8)\n");
-                fprintf(entryFile, " sw $0, 4($8)\n");
-                fprintf(entryFile, " addi $8, 8\n");
-                fprintf(entryFile, " addi $9, 0xfff8\n");
-                fprintf(entryFile, " bne  $9, $0, entryPoint\n");
-            }
-            if (stackAddr != 0) {
-                fprintf(entryFile, " la\t$29 0x%x\n", stackAddr);
-            }
-            if (entryAddr != 0) {
-                fprintf(entryFile, " la $10  0x%x\n", entryAddr);
-                fprintf(entryFile, " j $10\n");
-            }
-            fprintf(entryFile, ".end\n");
-        }
-    }
-
-    free(segSectName);
-    fclose(entryFile);
-    if ((compile_cmd = malloc(sysconf(1))) == NULL) {
-        fprintf(stderr, "malloc failed\n");
-        return -1;
-    }
-
-    strcpy(compile_cmd, "$TOOLROOT/usr/bin/cc -c -non_shared -o ");
-    strcat(compile_cmd, outFile);
-    strcat(compile_cmd, " ");
-    strcat(compile_cmd, entryFilename);
-
-    if (debug) {
-        printf("Compiling entry source file\n");
-        printf("  %s\n", compile_cmd);
-    }
-    return execCommand(compile_cmd);
-}
-
-
-
-s32 lookupSymbol(Wave* wave, s8* name) {
-    s32 scn;
-    Elf32_Shdr* shdr;
-    Elf_Data* data;
-    Elf32_Sym* sym;
-    u32 index;
-    s32 i;
-    s32 count;
-
-    for (index = 1; index < wave->ehdr->e_shnum; index++) {
-
-        
-        if (((scn = _elf_getscn(wave->elf, index)) == 0) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
-            return 0;
-        }
-        if (shdr->sh_type != 2) {
-              continue;
-        }
-
-    
-        data = NULL;
-       
-        if ((data = elf_getdata(scn, data))== NULL) {
-            return 0;
-        }
-        
-        
-        count =  data->d_size >> 4;
-        sym = data->d_buf;
-        sym ++;
-        
-        
-        for (i = 1; i < count; i++) {
-            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
-                return sym->st_value;
-            }
-            sym++;
-        }
-
-           }
-
-    return 0;
 }
 
 
@@ -958,3 +690,330 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
     return 0;
 }
 #endif
+
+int openAuots() {
+    
+    Wave* wave;
+    s32 stackPad;
+    unsigned char gcordFileBuf[252];
+   
+
+   for (wave = waveList ; wave != NULL; wave = wave->next) {
+        if (gcord != 0) {
+            strcat(strcpy(gcordFileBuf, wave->name), ".cord");
+        } else {
+            strcpy(gcordFileBuf, wave->name);
+        }
+        
+        if ((wave->fd =  open(wave->name, 0)) == -1) {
+            fprintf(stderr, "makerom: %s: %s\n", wave->name, sys_errlist[errno]);
+            return -1;
+        }
+
+            wave->elf = elf_begin(wave->fd, 1, 0);
+        if ((elf_kind(wave->elf) != ELF_T_EHDR) || ((wave->ehdr = elf32_getehdr(wave->elf)) == NULL)) {
+            fprintf(stderr, "makerom: %s: not a valid ELF object file\n", wave->name);
+            
+            return -1;
+        
+        }
+          
+    }
+
+    return 0;
+}
+
+s32 lookupSymbol(Wave* wave, s8* name) {
+    s32 scn;
+    Elf32_Shdr* shdr;
+    Elf_Data* data;
+    Elf32_Sym* sym;
+    u32 index;
+    s32 i;
+    s32 count;
+
+
+
+    for (index = 1; index < wave->ehdr->e_shnum; index++) {
+
+        
+        if (((scn = _elf_getscn(wave->elf, index)) == 0) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+            return 0;
+        }
+        if (shdr->sh_type != 2) {
+              continue;
+        }
+
+    
+        data = NULL;
+       
+        if ((data = elf_getdata(scn, data))== NULL) {
+            return 0;
+        }
+        
+        
+        count =  data->d_size >> 4;
+        sym = data->d_buf;
+        sym ++;
+        
+        
+        for (i = 1; i < count; i++) {
+            if (strcmp(name, elf_strptr(wave->elf, shdr->sh_link, sym->st_name)) == 0) {
+                return sym->st_value;
+            }
+            sym++;
+        }
+
+ 
+       
+
+    }
+
+    return 0;
+}
+
+Elf32_Shdr* lookupShdr(Wave* wave, unsigned char* segSectName) {
+    Elf_Scn* scn;
+    Elf32_Shdr* shdr;
+    size_t index;
+    unsigned char* sectName;
+
+  for(index = 1 ; index < wave->ehdr->e_shnum; index++) {
+        if (((scn = elf_getscn(wave->elf, index)) == NULL) || (shdr = elf32_getshdr(scn), (shdr == NULL))) {
+            fprintf(stderr, "makerom: %s: can't get section index %d\n", wave->name, index);
+            return NULL;
+        }
+        sectName = elf_strptr(wave->elf, wave->ehdr->e_shstrndx, shdr->sh_name);
+        if (strcmp(sectName, segSectName) == 0) {
+            break;
+        }
+
+    }
+      if (index >= wave->ehdr->e_shnum) {
+        fprintf(stderr, "makerom: %s: cannot find %s section\n", wave->name, segSectName);
+        return NULL;
+    }
+    return shdr;
+}
+ 
+
+int readObject(Segment* seg) {
+    unsigned char* segSectName;
+    Elf32_Shdr* shdr;
+
+  
+    if ((segSectName = malloc(strlen((s8* ) seg->name) + 9)) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+    sprintf(segSectName, ".%s.text", seg->name);
+    
+    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
+        return -1;
+    }
+    if (shdr->sh_size != seg->textSize) {
+        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
+        fprintf(stderr, "makerom:   shdr = %d, textSize = %d\n", shdr->sh_size, seg->textSize);
+        free(segSectName);
+        return -1;
+    }
+    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
+        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    if (read(seg->w->fd, seg->romOffset + B_10016A60, shdr->sh_size) != shdr->sh_size) {
+        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    sprintf(segSectName, ".%s.data", seg->name);
+    
+    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
+        return -1;
+    }
+    if (shdr->sh_size != seg->dataSize) {
+        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
+        fprintf(stderr, "large data failed\n");
+        fprintf(stderr, "%s, file large=%x, our dataSize=%x\n", seg->name, shdr->sh_size, seg->dataSize);
+        free(segSectName);
+        return -1;
+    }
+    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
+        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    if (read(seg->w->fd, seg->romOffset + B_10016A60 + seg->textSize, shdr->sh_size) != shdr->sh_size) {
+        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    sprintf(segSectName, ".%s.sdata", seg->name);
+    
+    if ((shdr = lookupShdr(seg->w, segSectName)) == NULL) {
+        return -1;
+    }
+    if (shdr->sh_size != seg->sdataSize) {
+        fprintf(stderr, "makerom: %s: section size for %s does not match input section sizes\n", seg->w->name, segSectName);
+        fprintf(stderr, "small data failed\n");
+        free(segSectName);
+        return -1;
+    }
+    if (lseek(seg->w->fd, shdr->sh_offset, 0) == -1) {
+        fprintf(stderr, "makerom: %s: seek to section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    if (read(seg->w->fd, seg->romOffset + B_10016A60 + seg->textSize + seg->dataSize, shdr->sh_size) != shdr->sh_size) {
+        fprintf(stderr, "makerom: %s: read of section %s failed\n", seg->w->name, segSectName);
+        free(segSectName);
+        return -1;
+    }
+    free(segSectName);
+    return 0;
+}
+
+
+s32 readRaw(Segment* seg) {
+    Path* p; // linked list (files?)
+    int fd;
+    int offset;
+    off_t fileSize;
+    off_t totalSize;
+    struct stat statBuffer;
+
+    totalSize = 0;
+    offset = seg->romOffset;
+
+    for (p = seg->pathList; p != NULL; p = p->next) {
+        if ((fd = open(p->name, 0)) == -1) {
+            fprintf(stderr, "makerom: %s: %s\n", p->name, sys_errlist[errno]);
+            return -1;
+        }
+        if (fstat(fd, &statBuffer) == -1) {
+            fprintf(stderr, "makerom: lstat failed: %s\n", sys_errlist[errno]);
+            return -1;
+        }
+
+        fileSize = statBuffer.st_size;
+        totalSize += fileSize;
+        if (totalSize > seg->dataSize) {
+            fprintf(stderr, "makerom: %s: segment size changed\n", seg->name);
+            return -1;
+        }
+        if (read(fd, B_10016A60 + offset, fileSize) != fileSize) {
+            fprintf(stderr, "makerom: %s: read failed (%s)\n", p->name, sys_errlist[errno]);
+            return -1;
+        }
+
+        close(fd);
+        offset += fileSize;
+    }
+
+    return 0;
+}
+
+int createEntryFile(char* entryFilename, char* outFile) {
+    Segment* curSeg;
+    FILE* entryFile; // 50
+    char* compile_cmd; // 4C
+    char* segSectName;
+    unsigned int BssStart;
+    Wave* wave;
+    unsigned int entryAddr = 0; // bootEntry
+    unsigned int stackAddr = 0; // bootStack
+    char romsymbol[14] = "__osFinalrom"; // string is only 13 chars
+
+    if ((entryFile = fopen(entryFilename, "w")) == NULL) {
+        fprintf(stderr, "makerom: %s: cannot create\n", entryFilename);
+        return -1;
+    }
+
+    for (curSeg = segmentList; curSeg != NULL; curSeg = curSeg->next) {
+        if (curSeg->flags & 1) { // BOOT flag?
+            wave = curSeg->w;
+            if ((wave->fd = open(wave->name, 0)) == -1) {
+                fprintf(stderr, "makerom: %s: %s\n", wave->name, sys_errlist[errno]);
+                return -1;
+            }
+            wave->elf = elf_begin(wave->fd, ELF_C_READ, NULL);
+            if ((elf_kind(wave->elf) != 3) || ((wave->ehdr = elf32_getehdr(wave->elf)) == 0)) {
+                fprintf(stderr, "makerom: %s: not a valid ELF object file\n", wave->name);
+                return -1;
+            }
+            if ((finalromSize != 0) && (lookupSymbol(curSeg->w, romsymbol) == 0)) {
+                fprintf(stderr, "makerom: use libultra_rom.a to build real game cassette\n");
+                return -1;
+            }
+            if (bootEntryName != NULL) {
+                entryAddr = lookupSymbol(curSeg->w, bootEntryName);
+                if (entryAddr == 0) {
+                    fprintf(stderr, "makerom: %s: cannot find entry symbol %s\n", curSeg->w->name, bootEntryName);
+                    return -1;
+                }
+            }
+            if (bootStackName != NULL) {
+                if ((stackAddr = lookupSymbol(curSeg->w, bootStackName)) == 0) {
+                    fprintf(stderr, "makerom: %s: cannot find stack symbol %s\n", curSeg->w->name, bootStackName);
+                    return -1;
+                }
+            } else {
+                stackAddr = 0;
+            }
+
+            stackAddr += bootStackOffset;
+            if ((curSeg->bssSize != 0) && (cosim == 0)) {
+                if ((segSectName = malloc(strlen(curSeg->name) + 0x10)) == NULL) {
+                    fprintf(stderr, "malloc failed\n");
+                    return -1;
+                }
+                sprintf(segSectName, "_%sSegmentBssStart", curSeg->name);
+                BssStart = lookupSymbol(curSeg->w, segSectName);
+                fprintf(entryFile, " la\t$8 0x%x\n", BssStart);
+                fprintf(entryFile, " li\t$9 0x%x\n", curSeg->bssSize);
+                fprintf(entryFile, ".ent entryPoint\n");
+                fprintf(entryFile, "entryPoint:\n");
+                fprintf(entryFile, " sw $0, 0($8)\n");
+                fprintf(entryFile, " sw $0, 4($8)\n");
+                fprintf(entryFile, " addi $8, 8\n");
+                fprintf(entryFile, " addi $9, 0xfff8\n");
+                fprintf(entryFile, " bne  $9, $0, entryPoint\n");
+            }
+            if (stackAddr != 0) {
+                fprintf(entryFile, " la\t$29 0x%x\n", stackAddr);
+            }
+            if (entryAddr != 0) {
+                fprintf(entryFile, " la $10  0x%x\n", entryAddr);
+                fprintf(entryFile, " j $10\n");
+            }
+            fprintf(entryFile, ".end\n");
+        }
+    }
+
+    free(segSectName);
+    fclose(entryFile);
+    if ((compile_cmd = malloc(sysconf(1))) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+
+    strcpy(compile_cmd, "$TOOLROOT/usr/bin/cc -c -non_shared -o ");
+    strcat(compile_cmd, outFile);
+    strcat(compile_cmd, " ");
+    strcat(compile_cmd, entryFilename);
+
+    if (debug) {
+        printf("Compiling entry source file\n");
+        printf("  %s\n", compile_cmd);
+    }
+    return execCommand(compile_cmd);
+}
+                                        /* offset*/
+unsigned int ALIGNn(unsigned int romalign, int n) { 
+    if (romalign == 0) {
+        romalign = 0x10; //0x10 Alignment
+    }
+    return ((n + romalign - 1) / romalign) * romalign;
+}
+

@@ -6,53 +6,8 @@
 #include <unistd.h>
 #include <libelf.h>
 #include <fcntl.h>
-#include "types.h"
 #include "makerom.h"
-
-s32 runLinker(Wave* wave, unsigned char* symbolFile, unsigned char* objListFile) {
-    char* cmd;
-    SegmentChain* sc;
-    Segment* seg;
-    Path* p;
-    FILE* objfd;
-
-    if ((cmd = malloc(sysconf(1))) == NULL) {
-        fprintf(stderr, "malloc failed\n");
-        return -1;
-    }
-    strcpy(cmd, "$ROOT/usr/lib/PR/nld -32 -g -non_shared -G 0 -elspec ");
-    
-    strcat(cmd, wave->elspecFile);
-    strcat(cmd, " -rom ");
-    if (loadMap) {
-        strcat(cmd, " -m ");
-    }
-    strcat(cmd, " -o ");
-    strcat(cmd, wave->name);
-    strcat(cmd, " ");
-    strcat(cmd, symbolFile);
-    strcat(cmd, " -objectlist ");
-    strcat(cmd, objListFile);
-    objfd = fopen(objListFile, "w");
-
-    for (sc = wave->segmentChain; sc != NULL; sc = sc->next) {
-        seg = sc->segment;
-        if (!(seg->flags & 2)) {
-            continue;
-        }
-        for (p = seg->pathList; p != NULL; p = p->next) {
-            fprintf(objfd, "%s\n", p->name);
-        }
-    }
-    fclose(objfd);
-    if (debug) {
-        printf("Linking to ELF wave file\n");
-        printf("  %s\n", cmd);
-    }
-    return execCommand(cmd);
-}
-
-
+#include "makerom_common.h"
 
 int createElspec(Wave* wave) {
     FILE* f;
@@ -68,7 +23,7 @@ int createElspec(Wave* wave) {
     for (sc = wave->segmentChain; sc != NULL; sc = sc->next) {
         seg = sc->segment;
 
-        if (!(seg->flags & 2)) { //MACRO
+        if (!(seg->flags & COMMON_UNKNOWN_FLAG)) { //2
             continue;
         }
 
@@ -158,3 +113,47 @@ int createElspec(Wave* wave) {
 
     return 0;
 }
+
+s32 runLinker(Wave* wave, unsigned char* symbolFile, unsigned char* objListFile) {
+    char* cmd;
+    SegmentChain* sc;
+    Segment* seg;
+    Path* p;
+    FILE* objfd;
+
+    if ((cmd = malloc(sysconf(1))) == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        return -1;
+    }
+    strcpy(cmd, "$ROOT/usr/lib/PR/nld -32 -g -non_shared -G 0 -elspec ");
+    
+    strcat(cmd, wave->elspecFile);
+    strcat(cmd, " -rom ");
+    if (loadMap) {
+        strcat(cmd, " -m ");
+    }
+    strcat(cmd, " -o ");
+    strcat(cmd, wave->name);
+    strcat(cmd, " ");
+    strcat(cmd, symbolFile);
+    strcat(cmd, " -objectlist ");
+    strcat(cmd, objListFile);
+    objfd = fopen(objListFile, "w");
+
+    for (sc = wave->segmentChain; sc != NULL; sc = sc->next) {
+        seg = sc->segment;
+        if (!(seg->flags & 2)) {
+            continue;
+        }
+        for (p = seg->pathList; p != NULL; p = p->next) {
+            fprintf(objfd, "%s\n", p->name);
+        }
+    }
+    fclose(objfd);
+    if (debug) {
+        printf("Linking to ELF wave file\n");
+        printf("  %s\n", cmd);
+    }
+    return execCommand(cmd);
+}
+

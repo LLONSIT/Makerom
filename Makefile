@@ -1,36 +1,55 @@
+#n64decomp/ido
 default: all
 
-SRC_DIRS := . src src/libmld src/libp src/libu src/libxmalloc src/uopt src/uopt/debug
 
-AVOID_UB ?= 1
+#Nice Colors
+GREEN   := \033[0;32m
+NO_COL  := \033[0m
 
+
+#AVOID_UB ?= 1
+
+#WARNING: x86 target is very buggy consider it!
+
+#IRIX
 ARCH ?= x86
 
+
+#We don't have to rebuild libmld
+ifeq ($(ARCH),mips)
+SRC_DIRS := . src src/usplit
+else
+SRC_DIRS := . src src/usplit src/libmld
+endif
+
 # Build uopt with ncurses debugging
-DEBUG ?= 1
+#DEBUG ?= 1
 
 ifeq ($(ARCH),x86)
 CC := gcc
-ENDIANNESS := -DUOPT_LITTLE_ENDIAN
-ARCH_FLAGS := -m32 -mfpmath=sse -msse2 -ffp-contract=off $(ENDIANNESS)
+
+#ENDIANNESS := -DUOPT_LITTLE_ENDIAN
+
+ARCH_FLAGS := -m32 -mfpmath=sse -msse2 -g0 -fPIC -DNONE_COMPLETELY_MATCH
     ifeq ($(DEBUG),1)
-        ARCH_FLAGS += -lncurses -DUOPT_DEBUG
+        ARCH_FLAGS += -lelf -DUOPT_DEBUG -lm
         OPTIMIZATION := -Og -flto=auto -ggdb3
         #OPTIMIZATION := -O0 -ggdb3
     else
-        OPTIMIZATION := -O2 -march=native -mtune=native -flto=auto
+        OPTIMIZATION := -fPIC -O2 -march=native -mtune=native -flto=auto
     endif
 else ifeq ($(ARCH),mips)
-CC := mips-linux-gnu-gcc
-ARCH_FLAGS := -fPIC -mips2 -mfp32
-DEFS = -DNON_MATCHING -DREIMP
-OPTIMIZATION := -ggdb3
+
+CC := /usr/bin/qemu-irix -silent -L tools/irix/ tools/irix/usr/bin/cc #Recompiling with ido7.1, anyway it still being a match
+ARCH_FLAGS := -KPIC -mips1 -Xcpluscomm -signed -I tools/irix/usr/include -lmld
+OPTIMIZATION := -O2 -g0
+
 else
 $(error unsupported arch "$(ARCH)")
 endif
 
-CFLAGS := -I src -I include -Wall $(ARCH_FLAGS) $(OPTIMIZATION)
-LDFLAGS := $(ARCH_FLAGS) $(OPTIMIZATION) -L /usr/mips-linux-gnu/ -lm -lelf
+CFLAGS := -I include -I src $(ARCH_FLAGS) $(OPTIMIZATION)
+LDFLAGS := $(ARCH_FLAGS) $(OPTIMIZATION) 
 
 ifeq ($(AVOID_UB),1)
     CFLAGS += -DAVOID_UB
@@ -51,15 +70,17 @@ DEP_FILES := $(O_FILES:.o=.d)
 # Ensure build directories exist before compiling anything
 DUMMY != mkdir -p $(ALL_DIRS)
 
-TARGET := $(BUILD_DIR)/irix_version
+TARGET := $(BUILD_DIR)/makerom
 
 all: $(TARGET)
 
+#Figure out this
 $(TARGET): $(O_FILES)
-	$(CC) -o $@ $^ $(LDFLAGS)
-
+	@$(CC)  $^  $(LDFLAGS) -o $@
+	@printf "[$(GREEN) INFO: Linking Objects -> $@ $< $(NO_COL)]\n"
 $(BUILD_DIR)/%.o: %.c
-	$(CC) -MMD -c $(CFLAGS) -o $@ $<
+	@$(CC) -c  $(CFLAGS) -o $@ $<
+	@printf "[$(GREEN) INFO: Compiling Objects -> $@ $< $(NO_COL)]\n"
 
 clean:
 	$(RM) -r $(BUILD_DIR)
