@@ -1,0 +1,21 @@
+[split]
+#.text            .data             .rodata           .bss              COMMON variables
+
+/makerom.c
+00409820-0040BF0C  -                  -                 -                 -
+
+/elspec.c
+0040BF10-0040C95C  -                  -                 -                 -
+
+/segment.c
+0040C960-0041077C  -                  -                 -                   -
+
+/coff.c
+00410780-00410B4C  -                  -                 -                   -
+
+/speclex.l
+00410B50-0041274C  -                  -                 -                   -
+
+/specgram.y
+00412750-0041436C  -                  -                 -                   -
+
