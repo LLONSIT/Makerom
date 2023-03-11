@@ -3,7 +3,7 @@
 #include "sgi_structs.h"
 #include "types.h"
 
-//Libmld 1
+//Libmld 2
 
 
 #ifdef __sgi
