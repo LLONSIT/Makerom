@@ -527,8 +527,6 @@ s32 createSegmentSymbols(u8* source, u8* object) {
     return execCommand(cmd);
 }
 
-
-#ifdef NON_MATCHING
 int createRomImage(unsigned char* romFile, unsigned char* object) {
     FILE* f;
     Segment* seg;
@@ -557,7 +555,7 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
     for (index = 1; index < ehdr->e_shnum; index++) {
                 scn = _elf_getscn(elf, index);
         shdr = elf32_getshdr(scn);
-        sectName = elf_strptr(elf, (u32) ehdr->e_shstrndx, shdr->sh_name);
+        sectName = elf_strptr(elf, (size_t) ehdr->e_shstrndx, shdr->sh_name);
         if (strcmp(sectName, ".text") == 0) {
             break;
         }
@@ -575,19 +573,17 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
         fprintf(stderr, "makerom: read of entry section failed\n");
         return -1;
     }
-    if (openAuots() != 0) {
+    if (func_0040F214() != 0) { //openAuots
         return -1;
     }
-    
-    for (seg = SegmentList; seg != NULL; seg = seg->next) {
+    for (seg = segmentList; seg != NULL; seg = seg->next) {
         if (seg->flags & 2) {
-            readObject(seg);
+            func_0040F758(seg);
         } else if (seg->flags & 4) {
-            readRaw(seg);
+            func_0040FDE0(seg);
         }
         romSize = seg->romOffset + seg->textSize + seg->dataSize + seg->sdataSize;
     }
-    
     if ((f = fopen(romFile, "w+")) == NULL) {
         fprintf(stderr, "makerom: %s: %s\n", romFile, sys_errlist[errno]);
         return -1;
@@ -598,7 +594,6 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
             return -1;
         }
     }
-    
     if (fwrite(headerBuf, 1, headerWordAlignedByteSize, f) != headerWordAlignedByteSize) {
         fprintf(stderr, "makerom: %s: write error\n", romFile);
         return -1;
@@ -658,9 +653,9 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
         return -1;
     }
 
-    end = romSize + offset + 0x1000;
+    end = offset + (0, romSize) + 0x1000; //end = offset + romSize + 0x1000;
     finalromSize <<= 0x11;
-    if ((finalromSize != 0) && (end < finalromSize)) {
+    if ((finalromSize != 0) && (finalromSize > end)) {
         if ((fillbuffer = malloc(0x2000)) == NULL) {
             fprintf(stderr, "malloc failed\n");
             return -1;
@@ -669,8 +664,7 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
         for (i = 0; i < 0x2000; i++) {
             fillbuffer[i] = fillData;
         }
- 
-       while (end < finalromSize) {
+        while ((end < finalromSize )) {
             if ((finalromSize - end) > 0x2000) {
                 if (fwrite(fillbuffer, 1, 0x2000, f) != 0x2000) {
                     fprintf(stderr, "makerom: %s: write error %x\n", romFile, end);
@@ -689,7 +683,6 @@ int createRomImage(unsigned char* romFile, unsigned char* object) {
 
     return 0;
 }
-#endif
 
 int openAuots() {
     
